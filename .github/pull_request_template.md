@@ -19,5 +19,5 @@
 - [ ] **State Management**: Proper state management patterns used Zustand
 
 #### ✅ **Final Checks**
-- [ ] **Gemini Review**: Resolve Gemini reviewed critical and High Priprity issue
-- [ ] **Peer Review**: At least one team member has reviewed the code
+- [ ] **L1 Review (Peer Review)**: At least one team member has reviewed the code
+- [ ] **L2 Review (Senior Review)**: At least one Senior member has reviewed the code.
