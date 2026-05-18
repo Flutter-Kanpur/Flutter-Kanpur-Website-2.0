@@ -5,7 +5,6 @@
 - [ ] **Commit Messages**: Follows format (`FKP-123 #comment Description`)
 - [ ] **Auto-Sync**: Branch is up to date with base branch
 - [ ] **Clean History**: No unnecessary merge commits or rebase conflicts
-- [ ] **File Changes**: Only necessary files modified like pubspec.lock, ios/stylinotificationservice/Info.plist, environment_variable.dart
 - [ ] **Title of PR**: should also follow the commit messgae format. 
 
 #### 🔍 **Code Quality & Standards**
