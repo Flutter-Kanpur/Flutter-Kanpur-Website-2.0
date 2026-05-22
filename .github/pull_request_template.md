@@ -8,9 +8,9 @@
 - [ ] **Title of PR**: should also follow the commit messgae format. 
 
 #### 🔍 **Code Quality & Standards**
-- [ ] **Dart Analysis**: All linting rules pass (`flutter analyze`)
-- [ ] **Code Formatting**: Code is properly formatted (`dart format`)
-- [ ] **Dart Code Metrics**: No anti-patterns detected (long-method, long-parameter-list)
+- [ ] **Analysis**: All linting rules pass.
+- [ ] **Code Formatting**: Code is properly formatted.
+- [ ] **Code Metrics**: No anti-patterns detected (long-method, long-parameter-list)
 - [ ] **No Hard-coded Values**: All constants properly parameterized
 - [ ] **Type Safety**: All variables properly typed, no implicit dynamic types
 
