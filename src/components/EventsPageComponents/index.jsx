@@ -14,15 +14,12 @@ const EventPageComponent = () => {
                 Search for events
             </Typography>
             <Grid container spacing={2} rowSpacing={8} sx={{ display: "flex", }}>
-                {eventsData.map((item) => (
+                {eventsData.map((item, index) => (
                     <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        md={4}
-                        key={item.id} // always prefer a stable unique id
+                        size={{ xs: 12, sm: 6, md: 4 }}
+                        key={item.id ?? index}
                     >
-                        <EventsCard onClick={() => router.push(`/eventsDetail/${item.id}`)} event={item} />
+                        <EventsCard onClick={() => router.push(`/eventsDetail/${item.id ?? index}`)} event={item} />
                     </Grid>
                 ))}
             </Grid>

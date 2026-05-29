@@ -59,13 +59,10 @@ const PastSpeakerSection = () => {
             <Grid container spacing={3} rowSpacing={3} sx={{ display: "flex" }}>
                 {speakerData.map((item, index) => (
                     <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        md={4}
-                        key={item.id} // always prefer a stable unique id
+                        size={{ xs: 12, sm: 6, md: 4 }}
+                        key={item.id ?? index}
                     >
-                        <SpeakerCard key={index} speakerData={item} />
+                        <SpeakerCard speakerData={item} />
                     </Grid>
                 ))}
             </Grid>

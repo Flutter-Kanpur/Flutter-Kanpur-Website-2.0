@@ -42,13 +42,10 @@ const EventCard = () => {
         </Typography>
       </Box>
       <Grid container spacing={2} rowSpacing={8} sx={{ display: "flex" }}>
-        {eventsData.slice(0, 4).map((item) => (
+        {eventsData.slice(0, 4).map((item, index) => (
           <Grid
-            item
-            xs={12}
-            sm={6}
-            md={3}
-            key={item.id} // always prefer a stable unique id
+            size={{ xs: 12, sm: 6, md: 3 }}
+            key={item.id ?? index}
           >
             <EventsCard event={item} />
           </Grid>

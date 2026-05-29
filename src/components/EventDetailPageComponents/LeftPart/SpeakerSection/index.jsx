@@ -52,7 +52,7 @@ const SpeakerSection = ({ speakers = defaultSpeakers }) => {
       {/* GRID */}
       <Grid container spacing={4}>
         {speakers.map((speaker) => (
-          <Grid item xs={6} sm={4} md={3} key={speaker.id}>
+          <Grid size={{ xs: 6, sm: 4, md: 3 }} key={speaker.id}>
             <Box
               sx={{
                 display: "flex",
