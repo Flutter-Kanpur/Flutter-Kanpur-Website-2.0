@@ -1,7 +1,7 @@
 import { Box, useMediaQuery } from '@mui/material'
 import React from 'react'
 import Image from "next/image";
-import LoginBg from "@/../public/assets/login-page-assets/loginBg.png";
+import LoginBg from "@/../public/assets/login-page-assets/loginBg.svg";
 
 
 const WrapperComponent = ({ children, style }) => {

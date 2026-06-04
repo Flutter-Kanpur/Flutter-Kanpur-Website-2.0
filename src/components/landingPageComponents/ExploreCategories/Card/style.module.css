@@ -1,0 +1,112 @@
+.cardContainer {
+  /* background: #ffffff; */
+  border: 1px solid #E5E7EB;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* width: 100%; */
+  min-width: 280px;
+  max-width: 380px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .cardContainer {
+    min-width: 300px;
+  }
+}
+
+.cardContainer:hover {
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.08);
+  border-color: transparent;
+}
+
+.group {
+  display: flex;
+  padding-right: 34px;
+  gap: 12px;
+}
+
+.carousal {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  width: 100%;
+  overflow: hidden; /* clip carousel so it doesn't break layout / cause horizontal scroll */
+  animation: scrolling 10s linear infinite;
+}
+
+.carousal:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrolling {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* only shift by half since we duplicated */
+  }
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  font-family: "Product Sans", sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #000000;
+  margin: 0;
+}
+
+.linkWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4285F4;
+  text-decoration: none;
+  font-family: "Product Sans", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.linkWrapper:hover {
+  text-decoration: underline;
+}
+
+.iconWrapper {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.figmaIcon {
+    width: 40px;
+    height: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 40px;
+}
+
+.figmaPart {
+    width: 20px;
+    height: 20px;
+}
+
+.red { background: #F24E1E; border-radius: 10px 0 0 10px; }
+.orange { background: #FF7262; border-radius: 0 10px 10px 0; }
+.purple { background: #A259FF; border-radius: 10px 0 0 10px; }
+.blue { background: #1ABCFE; border-radius: 10px; }
+.green { background: #0ACF83; border-radius: 10px 0 10px 10px; }
