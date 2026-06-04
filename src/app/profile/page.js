@@ -5,7 +5,9 @@ import { Box, List, Divider } from "@mui/material";
 import { useRouter } from "next/navigation";
 // import { onAuthStateChanged, signOut } from "firebase/auth";
 // import { auth } from "@/firebase/config";
-
+import ProfileSidebar from "@/components/profile/ProfileSidebar";
+import DesktopProfilePage from "@/components/profile/DesktopProfilePage";
+import MobileLayout from "@/components/layouts/MobileLayout";
 import GradientHeader from "@/components/header/GradientHeader";
 import ProfileInfo from "@/components/profile/ProfileInfo";
 import ProfileSection from "@/components/profile/ProfileSection";
@@ -53,20 +55,32 @@ export default function ProfilePage() {
   };
 
   return (
-    <Box
-      sx={{
-        maxWidth: 425,
-        mx: "auto",
-        minHeight: "100vh",
-        backgroundColor: "#fff",
-        pb: 12,
-      }}
-    >
-      <GradientHeader
+    // <Box
+    //   sx={{
+    //     maxWidth: 425,
+    //     mx: "auto",
+    //     minHeight: "100vh",
+    //     backgroundColor: "#fff",
+    //     pb: 12,
+    //   }}
+    // >
+<>
+    <Box sx={{ display: { xs: "none", md: "flex" } }}>
+      <ProfileSidebar />
+      <DesktopProfilePage/>
+    </Box>
+
+      <MobileLayout>
+    <GradientHeader
+      title="My Profile"
+      onBack={() => router.back()}
+      sx={{ mb: "-100px" }}
+    />
+      {/* <GradientHeader
         title="My Profile"
         onBack={() => router.back()}
         sx={{ mb: '-100px' }}
-      />
+      /> */}
 
       <Box sx={{ px: 2.5 }}>
         {user && (
@@ -325,8 +339,8 @@ export default function ProfilePage() {
         onClose={() => setOpenLogout(false)}
         onConfirm={handleLogout}
       />
-
-      {/* Delete Dialog could be modularized too if needed, but keeping it simple for now */}
-    </Box>
+ </MobileLayout>
+</>
+    // </Box>
   );
 }
