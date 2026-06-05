@@ -1,106 +1,103 @@
-import React, { useState } from 'react';
-import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import React, { useState } from "react";
+import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
-/**
- * UpdateCard - A reusable mobile card component with background image
- *
- * @param {string} title - The main heading of the card
- * @param {string} description - The description text
- * @param {string} buttonText - The text displayed on the button
- * @param {function} onButtonClick - Callback function when button is clicked
- * @param {string} backgroundImage - Optional custom background image path (defaults to /updateCard.png)
- */
 const UpdateCard = ({
-    title = 'Design Challenge 2026',
-    description = 'Join us for an exciting design challenge! Create Stunning UI/UX design and win amazing prize!',
-    buttonText = 'View Details',
-    onButtonClick = () => { },
-    backgroundImage = '/updateCard.png',
+  title = "Design Challenge 2026",
+  description = "Join us for an exciting design challenge!",
+  buttonText = "View Details",
+  onButtonClick = () => {},
+  backgroundImage = "/assets/landing-page-assets/updateCard.png",
 }) => {
-    const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-    return (
-        <Card
-            elevation={0}
-            sx={{
-                width: '100%',
-                maxWidth: '100%',
-                borderRadius: '32px',
-                p: '24px 20px',
-                backgroundImage: `url(${backgroundImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '12px',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.12)',
-                minHeight: '200px',
-                height: '22vh',
-                maxHeight: '240px',
-                position: 'relative',
-                overflow: 'hidden',
-                boxSizing: 'border-box',
-            }}
+  return (
+    <Card
+      elevation={0}
+      sx={{
+        width: "100%",
+        maxWidth: "100%",
+        borderRadius: "32px",
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.12)",
+        minHeight: "200px",
+        height: "187px",
+        minHeight: "187px",
+        position: "relative",
+        overflow: "hidden",
+        boxSizing: "border-box",
+      }}
+    >
+      <Box
+        sx={{
+          width: "calc(100% - 62px)",
+          position: "absolute",
+          top: "22px",
+          left: "31px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{
+            color: "#FFFFFF",
+            fontSize: "24px",
+            fontWeight: 700,
+            lineHeight: "32px",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
         >
-            <Typography
-                variant="h5"
-                sx={{
-                    color: '#FFFFFF',
-                    m: 0,
-                    textShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
-                }}
-            >
-                {title}
-            </Typography>
+          {title}
+        </Typography>
 
-            <Typography
-                variant="body2"
-                sx={{
-                    color: '#FFFFFF',
-                    m: 0,
-                    opacity: 0.95,
-                    textShadow: '0 1px 4px rgba(0, 0, 0, 0.15)',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                }}
-            >
-                {description}
-            </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            color: "#FFFFFF",
+            whiteSpace: "pre-line",
+            fontSize: "14px",
+            fontWeight: 400,
+            lineHeight: "20px",
+            opacity: 0.95,
+            textShadow: "0 1px 4px rgba(0, 0, 0, 0.15)",
+          }}
+        >
+          {description}
+        </Typography>
 
-            <Button
-                variant="contained"
-                disableElevation
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                onClick={onButtonClick}
-                sx={{
-                    bgcolor: '#FFFFFF',
-                    color: 'primary.main',
-                    borderRadius: '50px',
-                    px: '28px',
-                    py: '12px',
-                    fontSize: '15px',
-                    fontWeight: 600,
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                    alignSelf: 'flex-start',
-                    mt: 'auto',
-                    transition: 'all 0.3s ease',
-                    transform: isHovered ? 'translateY(-2px)' : 'none',
-                    '&:hover': {
-                        bgcolor: '#FFFFFF',
-                        boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)',
-                    },
-                }}
-            >
-                {buttonText}
-            </Button>
-        </Card>
-    );
+        <Button
+          variant="contained"
+          disableElevation
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={onButtonClick}
+          sx={{
+            bgcolor: "#FFFFFF",
+            color: "#000000",
+            borderRadius: "100px",
+            px: "28px",
+            py: "10px",
+            fontSize: "14px",
+            fontWeight: 400,
+            textTransform: "none",
+            alignSelf: "flex-start",
+            transform: isHovered ? "translateY(-2px)" : "none",
+          }}
+        >
+          {buttonText}
+        </Button>
+      </Box>
+    </Card>
+  );
 };
 
 export default UpdateCard;

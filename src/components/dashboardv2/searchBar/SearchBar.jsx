@@ -1,9 +1,8 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
-import { IoSearchOutline, IoMicOutline } from 'react-icons/io5';
+import React from "react";
+import Box from "@mui/material/Box";
+import Image from "next/image";
+import Typography from "@mui/material/Typography";
+import { IoSearchOutline, IoMicOutline } from "react-icons/io5";
 
 /**
  * SearchBar — Presentational "fake" search bar on the Dashboard.
@@ -11,69 +10,74 @@ import { IoSearchOutline, IoMicOutline } from 'react-icons/io5';
  *
  * @param {function} onSearchClick – Callback when user taps the bar
  */
-const SearchBar = ({ onSearchClick = () => { } }) => {
-    return (
-        <Box
-            onClick={onSearchClick}
-            sx={{
-                display: 'flex',
-                alignItems: 'center',
-                bgcolor: '#FAFBFF',
-                borderRadius: '50px',
-                px: '20px',
-                py: '6px',
-                boxShadow:
-                    '0 4px 18px rgba(79, 70, 229, 0.08), inset 0 1px 2px rgba(255,255,255,0.9)',
-                cursor: 'pointer',
-                border: '1px solid rgba(79, 70, 229, 0.10)',
-                transition: 'box-shadow 0.2s ease',
-                '&:hover': {
-                    boxShadow:
-                        '0 6px 24px rgba(79, 70, 229, 0.12), inset 0 1px 2px rgba(255,255,255,0.9)',
-                },
-            }}
-        >
-            <IoSearchOutline
-                style={{
-                    fontSize: '20px',
-                    color: '#9CA3AF',
-                    flexShrink: 0,
-                    marginRight: '12px',
-                }}
-            />
+const SearchBar = ({ onSearchClick = () => {} }) => {
+  return (
+    <Box
+      onClick={onSearchClick}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+        height: "68px",
+        bgcolor: "#FFFFFF",
+        borderRadius: "40px",
+        px: "18px",
+        border: "2px solid #E3E3E3",
+        boxShadow: "0px 4px 12px rgba(0,0,0,0.08)",
+        cursor: "pointer",
+        boxSizing: "border-box",
+      }}
+    >
+      {/* Search Icon */}
+      <Image
+        src="/assets/landing-page-assets/search.png"
+        alt="Search"
+        width={18}
+        height={18}
+        style={{
+          flexShrink: 0,
+          objectFit: "contain",
+        }}
+      />
 
-            <Typography
-                sx={{
-                    flex: 1,
-                    fontSize: '15px',
-                    color: '#9CA3AF',
-                    fontWeight: 400,
-                    py: '10px',
-                    userSelect: 'none',
-                }}
-            >
-                Search for events...
-            </Typography>
+      {/* Placeholder */}
+      <Typography
+        sx={{
+          flex: 1,
+          fontSize: "16px",
+          fontWeight: 400,
+          color: "#929292",
+          userSelect: "none",
+          lineHeight: 1,
+        }}
+      >
+        Search for events...
+      </Typography>
 
-            <Box
-                sx={{
-                    height: '24px',
-                    width: '1px',
-                    bgcolor: '#E5E7EB',
-                    mx: '12px',
-                    flexShrink: 0,
-                }}
-            />
+      {/* Divider */}
+      <Box
+        sx={{
+          width: "1px",
+          height: "32px",
+          bgcolor: "#454545",
+          mx: "10px",
+          flexShrink: 0,
+        }}
+      />
 
-            <IoMicOutline
-                style={{
-                    fontSize: '20px',
-                    color: '#9CA3AF',
-                    flexShrink: 0,
-                }}
-            />
-        </Box>
-    );
+      {/* Mic Icon */}
+      <Image
+        src="/assets/landing-page-assets/mic.png"
+        alt="Mic"
+        width={18}
+        height={18}
+        style={{
+          flexShrink: 0,
+          objectFit: "contain",
+        }}
+      />
+    </Box>
+  );
 };
 
 export default SearchBar;
