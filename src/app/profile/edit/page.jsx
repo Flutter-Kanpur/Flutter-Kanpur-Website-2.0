@@ -33,6 +33,8 @@ import SuccessOverlay from "@/components/profile/edit/SuccessOverlay";
 import ActionButtons from "@/components/profile/edit/ActionButtons";
 import { Box } from "@mui/material";
 import GradientHeader from "@/components/header/GradientHeader";
+import ProfileSidebar from "@/components/profile/ProfileSidebar";
+import DesktopEditProfile from "@/components/profile/edit/DesktopEditProfilePage";
 import MobileLayout from "@/components/layouts/MobileLayout";
 
 export default function EditProfilePage() {
@@ -384,14 +386,26 @@ const handleUpdate = async () => {
 //     const [showSuccess, setShowSuccess] = useState(false);
 
   return (
-//     <Box
+<>
+<Box
+      sx={{
+        display: { xs: "none", md: "flex" },
+        minHeight: "100vh",
+      }}
+    >
+      <ProfileSidebar />
+
+      <DesktopEditProfile/>
+    </Box>
+
+{/* //     <Box
 //    sx={{
 //   maxWidth: 425,
 //   mx: "auto",
 //   minHeight: "100vh",
 //   display: { xs: "block", md: "none" }
 // }}
-//     >
+//     > */}
 <MobileLayout>
     <GradientHeader
     title="Edit profile"
@@ -440,7 +454,8 @@ const handleUpdate = async () => {
           </Box>
         )}
       </Box>
-    {/* </Box> */}
+  
     </MobileLayout>
+    </>
   );
 }
