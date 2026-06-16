@@ -23,8 +23,10 @@ const DashboardClient = ({ events = [], announcements = [] }) => {
              </>
         );
     }
+    console.log("events", events);
 
     return (
+      
   <Box
     sx={{
       position: "relative",

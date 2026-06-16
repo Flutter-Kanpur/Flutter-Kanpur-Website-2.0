@@ -69,7 +69,7 @@ const FilterBar = ({
             icon={
               icon ? (
                 <Image
-                  src="/assets/landing-page-assets/filter-icon.png"
+                  src="/assets/landing-page-assets/filter-icon.svg"
                   alt="Filter"
                   width={16}
                   height={16}
@@ -79,10 +79,15 @@ const FilterBar = ({
             deleteIcon={
               key === "filters" ? (
                 <Image
-                  src="/assets/landing-page-assets/down-arrow.png"
+                  src="/assets/landing-page-assets/down-arrow.svg"
                   alt="Arrow"
                   width={12}
                   height={12}
+                  style={{
+                    position: "relative",
+                    top: "1px",
+                    left:"4px",
+                  }}
                 />
               ) : undefined
             }

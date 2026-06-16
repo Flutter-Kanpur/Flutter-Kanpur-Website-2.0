@@ -175,12 +175,14 @@ const CardContainer = ({
   return (
     <Box sx={{ width: "100%" }}>
       {/* ── Filter bar ── */}
-      <FilterBar
-        activeFilter={quickFilter}
-        hasModalFilters={hasActiveModalFilters(modalFilters)}
-        onQuickFilter={setQuickFilter}
-        onOpenModal={() => setIsModalOpen(true)}
-      />
+      <Box sx={{ mb: "16px" }}>
+        <FilterBar
+          activeFilter={quickFilter}
+          hasModalFilters={hasActiveModalFilters(modalFilters)}
+          onQuickFilter={setQuickFilter}
+          onOpenModal={() => setIsModalOpen(true)}
+        />
+      </Box>
       {/* ── Header row ── */}
       <Box
         sx={{
@@ -237,7 +239,7 @@ const CardContainer = ({
         >
           See all
           <Image
-            src="/assets/landing-page-assets/right-arrow.png"
+            src="/assets/landing-page-assets/right-arrow.svg"
             alt="Right Arrow"
             width={19}
             height={20}

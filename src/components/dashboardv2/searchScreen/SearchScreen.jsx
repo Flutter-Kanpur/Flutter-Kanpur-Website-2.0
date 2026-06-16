@@ -253,12 +253,12 @@ const SearchScreen = ({ events = [], onBack = () => {} }) => {
             borderRadius: "24px",
             px: "16px",
             height: "52px",
-            border: "1px solid rgba(79, 70, 229, 0.10)",
-            boxShadow: "0px 4px 12px rgba(0,0,0,0.08)",
+            border: "1px solid #DCE8F8",
+            boxShadow: "inset 0px 0px 15px #2373E23D, 0px 0px 10px #2373E236",
           }}
         >
           <Image
-            src="/assets/landing-page-assets/search.png"
+            src="/assets/landing-page-assets/search.svg"
             alt="Search"
             width={18}
             height={18}
@@ -294,13 +294,13 @@ const SearchScreen = ({ events = [], onBack = () => {} }) => {
                 sx={{
                   height: "24px",
                   width: "1px",
-                  bgcolor: "#E5E7EB",
+                  bgcolor: "#000000",
                   mx: "10px",
                   flexShrink: 0,
                 }}
               />
               <Image
-                src="/assets/landing-page-assets/mic.png"
+                src="/assets/landing-page-assets/mic.svg"
                 alt="Mic"
                 width={18}
                 height={18}
@@ -347,7 +347,7 @@ const SearchScreen = ({ events = [], onBack = () => {} }) => {
                   }}
                 >
                   <Image
-                    src="/assets/landing-page-assets/search.png"
+                    src="/assets/landing-page-assets/search.svg"
                     alt="Search"
                     width={20}
                     height={20}
@@ -406,7 +406,7 @@ const SearchScreen = ({ events = [], onBack = () => {} }) => {
                   icon={
                     <Box
                       component="img"
-                      src="/assets/landing-page-assets/clock.png"
+                      src="/assets/landing-page-assets/clock.svg"
                       alt="Trending"
                       sx={{
                         width: "14px",
@@ -513,7 +513,7 @@ const SearchScreen = ({ events = [], onBack = () => {} }) => {
                       icon={
                         <Box
                           component="img"
-                          src="/assets/landing-page-assets/clock.png"
+                          src="/assets/landing-page-assets/clock.svg"
                           alt="Trending"
                           sx={{
                             width: "14px",

@@ -24,7 +24,7 @@ const UpdateCard = ({
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.12)",
+        boxShadow: "none",
         minHeight: "200px",
         height: "187px",
         minHeight: "187px",
@@ -47,8 +47,9 @@ const UpdateCard = ({
         <Typography
           variant="h5"
           sx={{
+            fontFamily: '"Product Sans" !important',
             color: "#FFFFFF",
-            fontSize: "24px",
+            fontSize: "18px",
             fontWeight: 700,
             lineHeight: "32px",
             whiteSpace: "nowrap",
@@ -62,9 +63,9 @@ const UpdateCard = ({
         <Typography
           variant="body2"
           sx={{
-            color: "#FFFFFF",
+            color: "#EDEDED",
             whiteSpace: "pre-line",
-            fontSize: "14px",
+            fontSize: "15px",
             fontWeight: 400,
             lineHeight: "20px",
             opacity: 0.95,

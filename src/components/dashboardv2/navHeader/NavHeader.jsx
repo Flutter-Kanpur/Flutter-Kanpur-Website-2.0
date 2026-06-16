@@ -57,8 +57,8 @@ const NavHeader = () => {
           variant="body2"
           sx={{
             color: "#444444",
-            fontSize: "13px",
-            fontWeight: 500,
+            fontSize: "14px",
+            fontWeight: 400,
             letterSpacing: "0.2px",
             lineHeight: 1.4,
           }}
@@ -70,8 +70,8 @@ const NavHeader = () => {
           variant="h5"
           sx={{
             color: "#000000",
-            fontWeight: 700,
-            fontSize: "22px",
+            fontWeight: 400,
+            fontSize: "20px",
             lineHeight: 1.3,
             mt: "2px",
           }}
@@ -89,14 +89,14 @@ const NavHeader = () => {
         }}
       >
         <Image
-          src="/assets/landing-page-assets/bell-icon.png"
+          src="/assets/landing-page-assets/bell-icon.svg"
           alt="Notifications"
           width={26}
           height={24}
         />
 
         <Image
-          src="/assets/landing-page-assets/menu.png"
+          src="/assets/landing-page-assets/menu.svg"
           alt="Menu"
           width={22}
           height={22}

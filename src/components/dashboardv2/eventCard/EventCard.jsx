@@ -16,7 +16,7 @@ import { IoArrowForward } from "react-icons/io5";
  */
 const EventCard = ({
   status = "upcoming",
-  posterImage = "assets/landing-page-assets/Launch-event.png",
+  posterImage = "assets/landing-page-assets/Launch.png",
   title = "From Figma to Flutter: Practical Workflow",
   dateTime = "Sun, 7 Apr • 4:00 PM",
   location = "Kanpur",
@@ -128,11 +128,11 @@ const EventCard = ({
         <Typography
           sx={{
             fontSize: {
-              xs: "22px",
+              xs: "18px",
               sm: "24px",
             },
-            fontWeight: 500,
-            color: "#111827",
+            fontWeight: 400,
+            color: "#000000",
             lineHeight: 1.45,
             letterSpacing: "-0.4px",
           }}
@@ -143,9 +143,9 @@ const EventCard = ({
         {/* Date + Location */}
         <Typography
           sx={{
-            fontSize: "15px",
-            fontWeight: 600,
-            color: "#4285F4",
+            fontSize: "14px",
+            fontWeight: 500,
+            color: "#276FD4",
             lineHeight: 1.5,
           }}
         >
@@ -157,7 +157,7 @@ const EventCard = ({
           sx={{
             fontSize: "16px",
             fontWeight: 400,
-            color: "#8A8A8A",
+            color: "#8F8F8F",
             lineHeight: 1.8,
           }}
         >
@@ -171,7 +171,7 @@ const EventCard = ({
                 p: 0,
                 minWidth: "auto",
                 ml: 0.5,
-                color: "#4285F4",
+                color: "#276FD4",
                 fontSize: "16px",
                 fontWeight: 600,
                 textTransform: "none",
@@ -194,6 +194,7 @@ const EventCard = ({
             <IoArrowForward
               style={{
                 fontSize: 18,
+                color: "##F4F4F4",
               }}
             />
           }
@@ -204,8 +205,8 @@ const EventCard = ({
             borderRadius: "999px",
             background: "linear-gradient(180deg, #111111 0%, #000000 100%)",
             color: "#FFFFFF",
-            fontSize: "18px",
-            fontWeight: 500,
+            fontSize: "16px",
+            fontWeight: 400,
             textTransform: "none",
             boxShadow:
               "inset 0 2px 8px rgba(255,255,255,0.12), 0 8px 18px rgba(0,0,0,0.18)",
