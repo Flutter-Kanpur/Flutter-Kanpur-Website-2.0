@@ -135,9 +135,6 @@ const FilterModal = ({ isOpen, filters, onApply, onClose }) => {
           },
         },
       }}
-      ModalProps={{
-        keepMounted: true,
-      }}
     >
       {/* Drag Handle */}
       <Box
