@@ -115,6 +115,7 @@
               width: "100%",
               display: "flex",
               flexDirection: "row",
+              flexWrap: "wrap",
               alignItems: "flex-start",
               justifyContent: "space-between",
               gap: 6,

@@ -1,0 +1,166 @@
+.discussionsSection {
+  padding: 72px 96px;
+  background: #fafafa;
+}
+
+.heading {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000000;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.actions button {
+  border-radius: 999px !important;
+  padding: 14px 28px !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+}
+
+.askButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 213px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50px;
+  background: #ffffff;
+  border: 1px solid #D8D8D8;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 400;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+
+
+.ghost {
+  background: #111827;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+}
+
+.primary {
+  background: #fff;
+  color: #111827;
+  border: 1px solid #e6e9ef;
+  padding: 10px 18px;
+  border-radius: 999px;
+}
+
+.gridWrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: #FFFFFF;
+  border: 1px solid #EEEEEE;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(31, 33, 48, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  background: #4167F2;
+  border-color: #4167F2;
+}
+
+.card:hover .text {
+  color: #ffffff;
+}
+
+.card:hover .author {
+  color: #ffffff;
+}
+
+.card:hover .time {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.card .text {
+  font-size: 20px;
+  color: #000000;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 45px;
+}
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.author {
+  font-size: 20px;
+  color: #000000;
+  font-weight: 400;
+}
+.time {
+  font-size: 18px;
+  color: #A2A2A2;
+  
+}
+.avatar {
+  width: 46px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.active {
+  background: #3b5bff;
+  color: #fff;
+}
+.active .text {
+  color: #ffffff;
+}
+.active .author {
+  color: #fff;
+}
+.active .time {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 1024px) {
+  .gridWrap {
+    grid-template-columns: 1fr;
+  }
+}
