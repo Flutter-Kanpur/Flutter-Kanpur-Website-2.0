@@ -1,0 +1,191 @@
+.featuresSection {
+  background: #fafafa;
+  padding: 72px 96px;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin: 0 auto 48px auto;
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4167f2;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #000000;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  gap: 64px;
+  align-items: flex-start;
+}
+
+.leftCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 380px;
+}
+
+.logo {
+  margin-left: -75px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3px;
+}
+
+.lead {
+  margin-left: -75px;
+  font-weight: 600;
+  line-height: auto;
+  color: #000000;
+  font-size: 24px;
+  height: 124px;
+  width: 486px;
+}
+
+.leadMuted {
+  color: #6D6D6D;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.rightGrid {
+  flex: 1;
+
+  display: grid;
+
+  grid-template-columns: max-content max-content;
+
+  grid-template-areas:
+    "editor editor"
+    "drafts author"
+    "publish publish"
+    "preview tags"
+    "visibility visibility";
+
+  gap: 10px 8px;
+
+  align-content: start;
+}
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: fit-content;
+
+  height: 49px;
+
+  padding: 12 18px;
+
+  border: 1px solid #E5E5E5;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #000000;
+
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+.editor {
+  grid-area: editor;
+}
+
+.drafts {
+  grid-area: drafts;
+}
+
+.author {
+  grid-area: author;
+}
+
+.author {
+  grid-area: author;
+  margin-left: -78px; /* adjust value */
+}
+
+.publish {
+  grid-area: publish;
+}
+
+.preview {
+  grid-area: preview;
+}
+
+.tags {
+  grid-area: tags;
+}
+
+.visibility {
+  grid-area: visibility;
+}
+
+.wide {
+  grid-column: 1 / span 1;
+  width: fit-content;
+}
+
+.normal {
+  width: fit-content;
+}
+
+.featureItem img {
+  flex-shrink: 0;
+}
+.large {
+  width: 296px;
+}
+
+.medium {
+  width: 264px;
+}
+
+.small {
+  width: 198px;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .rightGrid {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      "editor"
+      "drafts"
+      "author"
+      "publish"
+      "preview"
+      "tags"
+      "visibility";
+  }
+
+  .featureItem {
+    width: 100%;
+  }
+}

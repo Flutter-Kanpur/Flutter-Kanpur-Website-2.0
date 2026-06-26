@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
       <body
         style={{
           overflowX: "hidden",
-          background: "#fafafa",
+          background: "#ffffff",
         }}
       >
         <ThemeRegistry>
