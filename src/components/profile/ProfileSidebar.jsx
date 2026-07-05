@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 import {
   Box,
@@ -28,32 +29,32 @@ const sections = [
   {
     title: "ACCOUNT",
     items: [
-      { label: "Profile Overview", href: "/profile", icon: <AccountCircleOutlinedIcon />, badge: 3 },
-      { label: "Edit Profile", href: "/profile/edit", icon: <KeyIcon /> },
-      { label: "Account Settings", href: "/profile/settings", icon: <NotificationsNoneIcon /> },
-      { label: "Notification Preferences", href: "/profile/notifications", icon: <NotificationsNoneIcon /> },
-      { label: "Login & Security", href: "/profile/security", icon: <NotificationsNoneIcon /> },
+      { label: "Profile Overview", href: "/profile", icon: "/assets/profile-sidebar-assets/profile_overview_icon.svg", badge: 3 },
+      { label: "Edit Profile", href: "/profile/edit", icon: "/assets/profile-sidebar-assets/edit_profile_icon.svg" },
+      { label: "Account Settings", href: "/profile/settings", icon: "/assets/profile-sidebar-assets/account_setting_icon.svg" },
+      { label: "Notification Preferences", href: "/profile/notifications", icon: "/assets/profile-sidebar-assets/notification_icon.svg" },
+      { label: "Login & Security", href: "/profile/security", icon: "/assets/profile-sidebar-assets/login_security_icon.svg" },
     ],
   },
   {
     title: "MY ACTIVITY",
     items: [
-      { label: "Dashboard", href: "/profile/dashboard", icon: <AccountCircleOutlinedIcon /> },
-      { label: "My Events", href: "/profile/events", icon: <KeyIcon /> },
-      { label: "My Contests", href: "/profile/contests", icon: <NotificationsNoneIcon /> },
-      { label: "Problem of the Day", href: "/profile/problem-of-the-day", icon: <NotificationsNoneIcon /> },
-      { label: "Practice History", href: "/profile/history", icon: <NotificationsNoneIcon /> },
-      { label: "Saved Items", href: "/profile/saved", icon: <NotificationsNoneIcon /> },
+      { label: "Dashboard", href: "/profile/dashboard", icon:"/assets/profile-sidebar-assets/dashboard_icon.svg" },
+      { label: "My Events", href: "/profile/events", icon: "/assets/profile-sidebar-assets/event_icon.svg" },
+      { label: "My Contests", href: "/profile/contests", icon: "/assets/profile-sidebar-assets/contest_icon.svg" },
+      { label: "Problem of the Day", href: "/profile/problem-of-the-day", icon: "/assets/profile-sidebar-assets/problem_of_day_icon.svg" },
+      { label: "Practice History", href: "/profile/history", icon: "/assets/profile-sidebar-assets/practice_history_icon.svg" },
+      { label: "Saved Items", href: "/profile/saved", icon: "/assets/profile-sidebar-assets/saved_items_icon.svg" },
     ],
   },
   {
     title: "COMMUNITY",
     items: [
-      { label: "My Contributions", href: "/profile/contributions", icon: <AccountCircleOutlinedIcon /> },
-      { label: "Forum Discussions", href: "/profile/forum", icon: <KeyIcon /> },
-      { label: "Join as a Contributor", href: "/profile/join", icon: <NotificationsNoneIcon /> },
-      { label: "Community Guidelines", href: "/profile/guidelines", icon: <NotificationsNoneIcon /> },
-      { label: "Project Submissions", href: "/profile/submissions", icon: <NotificationsNoneIcon /> },
+      { label: "My Contributions", href: "/profile/contributions", icon: "/assets/profile-sidebar-assets/contribution_icon.svg" },
+      { label: "Forum Discussions", href: "/profile/forum", icon: "/assets/profile-sidebar-assets/forum_discussions_icon.svg" },
+      { label: "Join as a Contributor", href: "/profile/join", icon:  "/assets/profile-sidebar-assets/join_as_contributor_icon.svg" },
+      { label: "Community Guidelines", href: "/profile/guidelines", icon: "/assets/profile-sidebar-assets/community_guidlines_icon.svg" },
+      { label: "Project Submissions", href: "/profile/submissions", icon: "/assets/profile-sidebar-assets/project_submissios_icon.svg" },
     ],
   },
 ];
@@ -79,7 +80,7 @@ export default function ProfileSidebar() {
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         <Box
           component="img"
-          src="/flutter-logo.png"
+          src="/assets/landing-page-assets/flutter-navbar-icon.svg"
           alt="FlutterKanpur"
           sx={{
             width: 58,
@@ -136,14 +137,14 @@ export default function ProfileSidebar() {
                     },
                   }}
                 >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 42,
-                      color: "#111",
-                    }}
-                  >
-                    {item.icon}
-                  </ListItemIcon>
+            <ListItemIcon sx={{ minWidth: 42 }}>
+  <Image
+    src={item.icon}
+    alt={item.label}
+    width={22}
+    height={22}
+  />
+</ListItemIcon>
 
                   <ListItemText
                     primary={item.label}

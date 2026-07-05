@@ -12,7 +12,7 @@ import {
   Divider,
 } from "@mui/material";
 
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
 import EditIcon from "@mui/icons-material/Edit";
@@ -20,21 +20,57 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
 export default function DesktopProfilePage() {
   return (
-    <Box sx={{ flex: 1, px: 5, py: 4, display: { xs: "none", md: "block" } }}>
+    <Box
+  sx={{
+    flex: 1,
+    px: 5,
+    pt: 4,
+    pb: 6,
+    display: { xs: "none", md: "block" },
+    maxWidth: "calc(100vw - 340px)",
+    overflowX: "hidden",
+  }}
+>
       {/* Top Bar */}
-      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 4 }}>
-        <Button
-          variant="outlined"
-          startIcon={<ArrowBackIosNewIcon />}
-          sx={{
-            textTransform: "none",
-            borderColor: "#ddd",
-            color: "#333",
-            borderRadius: "10px",
-          }}
-        >
-          Back
-        </Button>
+      <Box
+  sx={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    mb: 4,
+    maxWidth: 1120,
+    mx: "auto",
+  }}
+>
+      <Button
+  variant="outlined"
+  startIcon={
+    <Image
+      src="/assets/profile-page-assets/back_arrow_icon.svg"
+      alt="Back"
+      width={22}
+      height={22}
+    />
+  }
+  sx={{
+    height: 56,
+    borderRadius: "16px",
+    px: 3,
+    borderColor: "#DADADA",
+    color: "#3A3A3A",
+    fontSize: "18px",
+    fontWeight: 500,
+    textTransform: "none",
+    boxShadow: "0px 2px 4px rgba(0,0,0,0.05)",
+
+    "&:hover": {
+      borderColor: "#DADADA",
+      background: "#fff",
+    },
+  }}
+>
+  Back
+</Button>
 
         <Box sx={{ display: "flex", gap: 1 }}>
           <TextField
@@ -64,7 +100,15 @@ export default function DesktopProfilePage() {
         </Box>
       </Box>
 
-      <Box sx={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: 3 }}>
+      <Box sx={{ maxWidth: 1120, mx: "auto" }}>
+  <Box
+    sx={{
+      display: "grid",
+      gridTemplateColumns: "minmax(620px, 760px) 360px",
+      gap: 3,
+      alignItems: "start",
+    }}
+  >
         {/* Left Content */}
         <Box>
           {/* Photo Row */}
@@ -210,6 +254,7 @@ export default function DesktopProfilePage() {
           <LeaderboardCard />
         </Box>
       </Box>
+    </Box>
     </Box>
   );
 }
