@@ -1,0 +1,81 @@
+.successSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+
+  padding: 72px 96px;
+  background: #ffffff;
+}
+
+.left {
+  flex-shrink: 0;
+}
+
+.heading {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #111827;
+}
+
+.accent {
+  color: #2f5bff;
+}
+
+.cardRow {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  min-width: 190px;
+  padding: 16px 20px;
+
+  background: #ffffff;
+  border: 1px solid #eef1f6;
+  border-radius: 14px;
+
+  box-shadow: 0 10px 30px rgba(31, 33, 48, 0.06);
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.cardAction {
+  font-size: 12px;
+  color: #2f5bff;
+}
+
+.cardIcon {
+  font-size: 22px;
+}
+
+@media (max-width: 1024px) {
+  .successSection {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 56px 32px;
+  }
+
+  .cardRow {
+    width: 100%;
+  }
+}

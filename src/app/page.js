@@ -1,14 +1,21 @@
-'use client'
+'use client';
 
-import Home from '@/components/Home'
-import Dashboard from '@/components/dashboardv2/dashboard'
-import { useMediaQuery } from '@mui/material'
+import Home from '@/components/Home';
+import DashboardClient from './dashboard/DashboardClient';
+import { useMediaQuery } from '@mui/material';
+import { events, announcements } from '@/data/dashboardData';
 
 const Page = () => {
+  const isMobile = useMediaQuery('(max-width:480px)');
 
-    const isMobile = useMediaQuery('(max-width:900px)')
+  return isMobile ? (
+    <DashboardClient
+      events={events}
+      announcements={announcements}
+    />
+  ) : (
+    <Home />
+  );
+};
 
-    return isMobile ? <Dashboard /> : <Home />
-}
-
-export default Page
+export default Page;
