@@ -1,13 +1,11 @@
 import './globals.css';
 import { Encode_Sans } from 'next/font/google';
 import localFont from "next/font/local";
-// import ThemeRegistry from '@/components/ThemeRegistry';
-// import { NavbarProvider } from '@/contexts/NavbarContext';
-// import NavbarComponent from '@/components/navbar/navbar';
+import ThemeRegistry from '@/components/ThemeRegistry';
 import AppShell from '@/components/layouts/AppShell';
 import LayoutBackground from '@/components/LayoutBackground';
-// import MobileBottomNav from '@/components/navbar/MobileNavBar';
-import TopNavbar from '@/components/TopNavbar';
+import MobileBottomNav from '@/components/navbar/MobileNavBar';
+import Box from "@mui/material/Box";
 
 const encodeSans = Encode_Sans({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -17,42 +15,42 @@ const encodeSans = Encode_Sans({
 const productSans = localFont({
   src: [
     {
-      path: "../../public/assets/fonts/ProductSans-Thin.ttf",
+      path: "../../public/fonts/ProductSans-Thin.ttf",
       weight: "100",
       style: "normal",
     },
     {
-      path: "../../public/assets/fonts/ProductSans-Light.ttf",
+      path: "../../public/fonts/ProductSans-Light.ttf",
       weight: "300",
       style: "normal",
     },
     {
-      path: "../../public/assets/fonts/ProductSans-Regular.ttf",
+      path: "../../public/fonts/ProductSans-Regular.ttf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../../public/assets/fonts/ProductSans-Medium.ttf",
+      path: "../../public/fonts/ProductSans-Medium.ttf",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../../public/assets/fonts/ProductSans-Bold.ttf",
+      path: "../../public/fonts/ProductSans-Bold.ttf",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../../public/assets/fonts/ProductSans-Black.ttf",
+      path: "../../public/fonts/ProductSans-Black.ttf",
       weight: "900",
       style: "normal",
     },
     {
-      path: "../../public/assets/fonts/ProductSans-Italic.ttf",
+      path: "../../public/fonts/ProductSans-Italic.ttf",
       weight: "400",
       style: "italic",
     },
     {
-      path: "../../public/assets/fonts/ProductSans-BoldItalic.ttf",
+      path: "../../public/fonts/ProductSans-BoldItalic.ttf",
       weight: "700",
       style: "italic",
     },
@@ -60,17 +58,9 @@ const productSans = localFont({
   variable: "--font-product-sans",
 });
 
-import "./globals.css";
-import ThemeRegistry from "@/components/ThemeRegistry";
-import LayoutBackground from "@/components/LayoutBackground";
-import MobileBottomNav from "@/components/navbar/MobileNavBar";
-import TopNavbar from "@/components/TopNavbar";
-import Box from "@mui/material/Box";
-
-
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={productSans.variable}>
       <body
         style={{
           overflowX: "hidden",
@@ -79,34 +69,9 @@ export default function RootLayout({ children }) {
       >
         <ThemeRegistry>
           <LayoutBackground>
-            {/* <NavbarComponent /> */}
             <AppShell>
               {children}
             </AppShell>
-          </LayoutBackground>
-          {/* <MobileBottomNav /> */}
-            {/* <TopNavbar />
-            {children}
-            
-          </LayoutBackground> */}
-          {/* </NavbarProvider> */}
-        
-
-            {/* Desktop Navbar */}
-            <Box
-              sx={{
-                display: {
-                  xs: "none",
-                  sm: "block",
-                },
-              }}
-            >
-              <TopNavbar />
-            </Box>
-
-            {children}
-
-            {/* Mobile Navbar */}
             <Box
               sx={{
                 display: {
@@ -119,7 +84,6 @@ export default function RootLayout({ children }) {
             </Box>
           </LayoutBackground>
         </ThemeRegistry>
-
       </body>
     </html>
   );
