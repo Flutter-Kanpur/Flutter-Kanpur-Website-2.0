@@ -6,11 +6,9 @@ export const projectsContent = {
   subheading:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum nulla sed consectetur.",
   ctaLabel: "View all projects",
-  ctaHref: "#",
+  ctaHref: "/projects",
 };
 
-// Per the Figma, all four cards share the same content. Edit any entry to
-// give a card its own title/description/tags/author.
 const sampleProject = {
   title: "HealthSync — Fitness Dashboard",
   description:
