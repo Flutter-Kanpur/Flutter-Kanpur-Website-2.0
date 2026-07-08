@@ -26,7 +26,7 @@ export default function ProjectList({
   });
 
   return (
-    <Box>
+    <Box sx={{ minWidth: 0 }}>
       {/* Title + search */}
       <Box
         sx={{

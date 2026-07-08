@@ -83,15 +83,17 @@ export default function UploadProject({ onSubmit }) {
     <Box
       sx={{
         width: "100%",
-        height: "906px",
+        maxWidth: { xs: "100%", lg: 411 },
         boxSizing: "border-box",
         bgcolor: "#ffffff",
         border: "1px solid #EAEAEA",
         borderRadius: "16px",
-        p: "24px",
+        p: { xs: "20px", md: "24px" },
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        gap: { xs: 2, md: 2.5 },
+        mx: "auto",
       }}
     >
       <Typography sx={{ fontSize: 20, fontWeight: 500, color: "#000000" }}>

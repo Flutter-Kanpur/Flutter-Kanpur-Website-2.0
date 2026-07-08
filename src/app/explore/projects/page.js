@@ -21,6 +21,7 @@ const ProjectSubmissionPage = () => {
         width: "100%",
         minHeight: "100vh",
         backgroundColor: "#FFFFFF",
+        overflowX: "hidden",
       }}
     >
       {/* Sidebar */}
@@ -30,8 +31,9 @@ const ProjectSubmissionPage = () => {
       <Box
         sx={{
           flex: 1,
-          px: { xs: 2, md: 5 },
-          py: 4,
+          minWidth: 0,
+          px: { xs: 2, md: 3, lg: 5 },
+          py: { xs: 3, md: 4 },
           overflowY: "auto",
         }}
       >
@@ -43,13 +45,12 @@ const ProjectSubmissionPage = () => {
           sx={{
             mt: 4,
             display: "grid",
-            gridTemplateColumns: "1fr 411px",
-            gap: 3,
-            alignItems: "flex-start",
-
-            "@media (max-width:1200px)": {
-              gridTemplateColumns: "1fr",
+            gridTemplateColumns: {
+              xs: "1fr",
+              lg: "minmax(0, 1fr) minmax(280px, 411px)",
             },
+            gap: { xs: 3, lg: 3 },
+            alignItems: "flex-start",
           }}
         >
           {/* Left Section */}
