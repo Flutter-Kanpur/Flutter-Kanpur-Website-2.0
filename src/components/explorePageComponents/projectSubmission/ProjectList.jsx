@@ -26,7 +26,14 @@ export default function ProjectList({
   });
 
   return (
-    <Box sx={{ minWidth: 0 }}>
+    <Box
+      sx={{
+        minWidth: 0,
+        flex: { lg: "1 1 0" },
+        width: { xs: "100%", lg: "auto" },
+        alignSelf: "stretch",
+      }}
+    >
       {/* Title + search */}
       <Box
         sx={{
@@ -86,8 +93,9 @@ export default function ProjectList({
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-            gap: "40px 24px",
+            gridTemplateColumns: { xs: "1fr", md: "repeat(2, minmax(0, 1fr))" },
+            gap: "24px",
+            alignItems: "start",
           }}
         >
           {visibleProjects.map((project) => (

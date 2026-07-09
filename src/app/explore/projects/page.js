@@ -44,13 +44,11 @@ const ProjectSubmissionPage = () => {
         <Box
           sx={{
             mt: 4,
-            display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              lg: "minmax(0, 1fr) minmax(280px, 411px)",
-            },
-            gap: { xs: 3, lg: 3 },
+            display: "flex",
+            flexDirection: { xs: "column", lg: "row" },
             alignItems: "flex-start",
+            gap: { xs: 3, lg: 3 },
+            width: "100%",
           }}
         >
           {/* Left Section */}
