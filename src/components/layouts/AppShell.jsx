@@ -6,10 +6,14 @@ import Navbar from "@/components/TopNavbar/index";
 export default function AppShell({ children }) {
   const pathname = usePathname();
 
-  const hideNavbarRoutes = ["/profile", "/profile/edit"];
+  const hideNavbarRoutes = [
+    "/profile",
+    "/profile/edit",
+    "/dashboard/communityGuidelines",
+  ];
 
   const hideNavbar = hideNavbarRoutes.some((route) =>
-    pathname.startsWith(route)
+    pathname.startsWith(route),
   );
 
   return (
