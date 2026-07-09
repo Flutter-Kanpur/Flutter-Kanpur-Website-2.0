@@ -1,5 +1,6 @@
 import './globals.css';
 import { Encode_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import AppShell from '@/components/layouts/AppShell';
 import LayoutBackground from '@/components/LayoutBackground';
 import ThemeRegistry from '@/components/ThemeRegistry';
@@ -11,37 +12,76 @@ const encodeSans = Encode_Sans({
   subsets: ['latin'],
 });
 
+const productSans = localFont({
+  src: [
+    {
+      path: '../../public/fonts/ProductSans-Thin.ttf',
+      weight: '100',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/ProductSans-Light.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/ProductSans-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/ProductSans-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/ProductSans-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/ProductSans-Black.ttf',
+      weight: '900',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/ProductSans-Italic.ttf',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: '../../public/fonts/ProductSans-BoldItalic.ttf',
+      weight: '700',
+      style: 'italic',
+    },
+  ],
+  variable: '--font-product-sans',
+});
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={productSans.variable}>
       <body
         style={{
-          overflowX: "hidden",
-          background: "#ffffff",
+          overflowX: 'hidden',
+          background: '#ffffff',
         }}
       >
         <ThemeRegistry>
           <LayoutBackground>
-            {/* <NavbarComponent /> */}
-            <AppShell>
-              {children}
-            </AppShell>
+            <AppShell>{children}</AppShell>
+            <Box
+              sx={{
+                display: {
+                  xs: 'block',
+                  sm: 'none',
+                },
+              }}
+            >
+              <MobileBottomNav />
+            </Box>
           </LayoutBackground>
-          {/* <MobileBottomNav /> */}
-          {/* </NavbarProvider> */}
-
-          <Box
-            sx={{
-              display: {
-                xs: "block",
-                sm: "none",
-              },
-            }}
-          >
-            <MobileBottomNav />
-          </Box>
         </ThemeRegistry>
-
       </body>
     </html>
   );
