@@ -6,7 +6,7 @@ export const projectsContent = {
   subheading:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum nulla sed consectetur.",
   ctaLabel: "View all projects",
-  ctaHref: "/projects",
+  ctaHref: "/explore/projects",
 };
 
 const sampleProject = {
@@ -16,7 +16,6 @@ const sampleProject = {
   tags: ["Chart.js", "Figma", "Aabcd"],
   date: "03 Apr 2025",
   author: "Arjun Rao",
-  href: "#",
 };
 
 export const projects = [
