@@ -7,9 +7,12 @@ import { supabase } from "@/lib/supabase/client";
 export default function TestPage() {
   useEffect(() => {
     const testConnection = async () => {
-      const { data, error } = await supabase
-        .from("events")
-        .select("*");
+      if (!supabase) {
+        console.log("Supabase is not configured");
+        return;
+      }
+
+      const { data, error } = await supabase.from("events").select("*");
 
       console.log(data);
       console.log(error);
