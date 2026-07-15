@@ -69,14 +69,10 @@ export default function RootLayout({ children }) {
       >
         <ThemeRegistry>
           <LayoutBackground>
-<<<<<<< feature/communityGuidelines
             <AppShell>
               {children}
             </AppShell>
             
-=======
-            <AppShell>{children}</AppShell>
->>>>>>> main
             <Box
               sx={{
                 display: {
