@@ -3,7 +3,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 
-const SearchBar = ({ onSearchClick = () => {} }) => {
+const SearchBar = ({
+  onSearchClick = () => {},
+  placeholder = "Search for events...",
+  sx = {},
+}) => {
   return (
     <Box
       onClick={onSearchClick}
@@ -14,9 +18,12 @@ const SearchBar = ({ onSearchClick = () => {} }) => {
         borderRadius: "24px",
         px: "16px",
         height: "52px",
+        width: "100%",
         border: "1px solid #DCE8F8",
         boxShadow: "inset 0px 0px 15px #2373E23D, 0px 0px 10px #2373E236",
         cursor: "pointer",
+        boxSizing: "border-box",
+        ...sx,
       }}
     >
       <Image
@@ -37,9 +44,12 @@ const SearchBar = ({ onSearchClick = () => {} }) => {
           color: "#929292",
           fontWeight: 400,
           userSelect: "none",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
         }}
       >
-        Search for events...
+        {placeholder}
       </Typography>
 
       <Box

@@ -24,9 +24,11 @@ const ProfileItem = ({ icon, text, onClick, isLast = false, color = "inherit" })
                 </ListItemIcon>
                 <ListItemText
                     primary={text}
-                    primaryTypographyProps={{
-                        fontSize: '0.95rem',
-                        fontWeight: 400
+                    slotProps={{
+                        primary: {
+                            fontSize: '0.95rem',
+                            fontWeight: 400
+                        }
                     }}
                 />
                 <ChevronRightIcon sx={{
