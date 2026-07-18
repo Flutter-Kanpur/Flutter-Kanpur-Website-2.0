@@ -59,21 +59,23 @@ const sections = [
   },
 ];
 
-export default function ProfileSidebar() {
+export default function ProfileSidebar({ inDrawer = false, onNavigate } = {}) {
   const pathname = usePathname();
 
   return (
     <Box
       component="aside"
       sx={{
-        width: 340,
-        minHeight: "100vh",
+        width: inDrawer ? "100%" : 340,
+        minHeight: inDrawer ? "100%" : "100vh",
         bgcolor: "#f7f7f8",
         px: 3,
         py: 4,
-        display: { xs: "none", md: "flex" },
+        // In the drawer the sidebar is always visible; as the page aside it
+        // only shows from md up (below md the MobileTopBar drawer takes over).
+        display: inDrawer ? "flex" : { xs: "none", md: "flex" },
         flexDirection: "column",
-        borderRight: "1px solid #eee",
+        borderRight: inDrawer ? "none" : "1px solid #eee",
       }}
     >
       {/* Logo */}
@@ -124,6 +126,7 @@ export default function ProfileSidebar() {
                   key={item.label}
                   component={Link}
                   href={item.href}
+                  onClick={onNavigate}
                   sx={{
                     height: 58,
                     borderRadius: "14px",
@@ -148,9 +151,11 @@ export default function ProfileSidebar() {
 
                   <ListItemText
                     primary={item.label}
-                    primaryTypographyProps={{
-                      fontSize: 21,
-                      fontWeight: 500,
+                    slotProps={{
+                      primary: {
+                        fontSize: 21,
+                        fontWeight: 500,
+                      },
                     }}
                   />
 
@@ -199,6 +204,7 @@ export default function ProfileSidebar() {
         <ListItemButton
           component={Link}
           href="/support"
+          onClick={onNavigate}
           sx={{
             height: 58,
             borderRadius: "14px",
@@ -211,9 +217,11 @@ export default function ProfileSidebar() {
           </ListItemIcon>
           <ListItemText
             primary="Contact support"
-            primaryTypographyProps={{
-              fontSize: 21,
-              fontWeight: 500,
+            slotProps={{
+              primary: {
+                fontSize: 21,
+                fontWeight: 500,
+              },
             }}
           />
         </ListItemButton>

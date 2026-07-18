@@ -150,13 +150,13 @@ export default function ProjectCard({ project }) {
           fullWidth={false}
           sx={{
             width: "179px",
-            minWidth: "175px",
+            minWidth: 0,
             maxWidth: "none",
             height: 26.85,
             fontSize: 12.5,
             fontWeight: 500,
             px: "20px",
-            flexShrink: 0,
+            flexShrink: 1,
           }}
         >
           View project details
