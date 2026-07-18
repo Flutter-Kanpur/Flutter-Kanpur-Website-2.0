@@ -29,32 +29,97 @@ const sections = [
   {
     title: "ACCOUNT",
     items: [
-      { label: "Profile Overview", href: "/profile", icon: "/assets/profile-sidebar-assets/profile_overview_icon.svg", badge: 3 },
-      { label: "Edit Profile", href: "/profile/edit", icon: "/assets/profile-sidebar-assets/edit_profile_icon.svg" },
-      { label: "Account Settings", href: "/profile/settings", icon: "/assets/profile-sidebar-assets/account_setting_icon.svg" },
-      { label: "Notification Preferences", href: "/profile/notifications", icon: "/assets/profile-sidebar-assets/notification_icon.svg" },
-      { label: "Login & Security", href: "/profile/security", icon: "/assets/profile-sidebar-assets/login_security_icon.svg" },
+      {
+        label: "Profile Overview",
+        href: "/profile",
+        icon: "/assets/profile-sidebar-assets/profile_overview_icon.svg",
+        badge: 3,
+      },
+      {
+        label: "Edit Profile",
+        href: "/profile/edit",
+        icon: "/assets/profile-sidebar-assets/edit_profile_icon.svg",
+      },
+      {
+        label: "Account Settings",
+        href: "/profile/settings",
+        icon: "/assets/profile-sidebar-assets/account_setting_icon.svg",
+      },
+      {
+        label: "Notification Preferences",
+        href: "/profile/notifications",
+        icon: "/assets/profile-sidebar-assets/notification_icon.svg",
+      },
+      {
+        label: "Login & Security",
+        href: "/profile/security",
+        icon: "/assets/profile-sidebar-assets/login_security_icon.svg",
+      },
     ],
   },
   {
     title: "MY ACTIVITY",
     items: [
-      { label: "Dashboard", href: "/profile/dashboard", icon:"/assets/profile-sidebar-assets/dashboard_icon.svg" },
-      { label: "My Events", href: "/profile/events", icon: "/assets/profile-sidebar-assets/event_icon.svg" },
-      { label: "My Contests", href: "/profile/contests", icon: "/assets/profile-sidebar-assets/contest_icon.svg" },
-      { label: "Problem of the Day", href: "/profile/problem-of-the-day", icon: "/assets/profile-sidebar-assets/problem_of_day_icon.svg" },
-      { label: "Practice History", href: "/profile/history", icon: "/assets/profile-sidebar-assets/practice_history_icon.svg" },
-      { label: "Saved Items", href: "/profile/saved", icon: "/assets/profile-sidebar-assets/saved_items_icon.svg" },
+      {
+        label: "Dashboard",
+        href: "/profile/dashboard",
+        icon: "/assets/profile-sidebar-assets/dashboard_icon.svg",
+      },
+      {
+        label: "My Events",
+        href: "/profile/events",
+        icon: "/assets/profile-sidebar-assets/event_icon.svg",
+      },
+      {
+        label: "My Contests",
+        href: "/profile/contests",
+        icon: "/assets/profile-sidebar-assets/contest_icon.svg",
+      },
+      {
+        label: "Problem of the Day",
+        href: "/profile/problem-of-the-day",
+        icon: "/assets/profile-sidebar-assets/problem_of_day_icon.svg",
+      },
+      {
+        label: "Practice History",
+        href: "/profile/history",
+        icon: "/assets/profile-sidebar-assets/practice_history_icon.svg",
+      },
+      {
+        label: "Saved Items",
+        href: "/profile/saved",
+        icon: "/assets/profile-sidebar-assets/saved_items_icon.svg",
+      },
     ],
   },
   {
     title: "COMMUNITY",
     items: [
-      { label: "My Contributions", href: "/profile/contributions", icon: "/assets/profile-sidebar-assets/contribution_icon.svg" },
-      { label: "Forum Discussions", href: "/profile/forum", icon: "/assets/profile-sidebar-assets/forum_discussions_icon.svg" },
-      { label: "Join as a Contributor", href: "/profile/join", icon:  "/assets/profile-sidebar-assets/join_as_contributor_icon.svg" },
-      { label: "Community Guidelines", href: "/profile/guidelines", icon: "/assets/profile-sidebar-assets/community_guidlines_icon.svg" },
-      { label: "Project Submissions", href: "/profile/submissions", icon: "/assets/profile-sidebar-assets/project_submissios_icon.svg" },
+      {
+        label: "My Contributions",
+        href: "/profile/contributions",
+        icon: "/assets/profile-sidebar-assets/contribution_icon.svg",
+      },
+      {
+        label: "Forum Discussions",
+        href: "/profile/forum",
+        icon: "/assets/profile-sidebar-assets/forum_discussions_icon.svg",
+      },
+      {
+        label: "Join as a Contributor",
+        href: "/profile/join",
+        icon: "/assets/profile-sidebar-assets/join_as_contributor_icon.svg",
+      },
+      {
+        label: "Community Guidelines",
+        href: "/profile/guidelines",
+        icon: "/assets/profile-sidebar-assets/community_guidlines_icon.svg",
+      },
+      {
+        label: "Project Submissions",
+        href: "/profile/submissions",
+        icon: "/assets/profile-sidebar-assets/project_submissios_icon.svg",
+      },
     ],
   },
 ];
@@ -140,14 +205,14 @@ export default function ProfileSidebar({ inDrawer = false, onNavigate } = {}) {
                     },
                   }}
                 >
-            <ListItemIcon sx={{ minWidth: 42 }}>
-  <Image
-    src={item.icon}
-    alt={item.label}
-    width={22}
-    height={22}
-  />
-</ListItemIcon>
+                  <ListItemIcon sx={{ minWidth: 42 }}>
+                    <Image
+                      src={item.icon}
+                      alt={item.label}
+                      width={22}
+                      height={22}
+                    />
+                  </ListItemIcon>
 
                   <ListItemText
                     primary={item.label}
