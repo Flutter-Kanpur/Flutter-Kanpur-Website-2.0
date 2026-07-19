@@ -84,14 +84,4 @@ export const eventsData = [
     location: "Bangalore",
     date: "06 Mar'26"
   },
-  {
-    image: ExploreEventImage,
-    time: "4:00 PM – 7:00 PM",
-    type: "Workshop",
-    title: "Flutter State Management Workshop",
-    description: "A hands-on workshop covering all Provider, Bloc, and Riverpod....",
-    registeredCount: "56+",
-    location: "Bangalore",
-    date: "06 Mar'26"
-  },
 ]

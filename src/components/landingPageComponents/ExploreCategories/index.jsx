@@ -36,7 +36,7 @@ const ExploreCategoriesSection = ({
         justifyContent: "space-between",
         alignItems: variant === "explore" ? "flex-start" : "center",
 
-        gap: { xs: 4, md: 2 },
+        gap: { xs: 4, md: 3 },
       }}
     >
       {/* LEFT TITLE */}
@@ -49,7 +49,7 @@ const ExploreCategoriesSection = ({
           sx={{
             fontSize: { xs: 28, sm: 36, md: 42, lg: 48 },
             fontWeight: 600,
-            color: "#000",
+            color: "#000000",
             lineHeight: 1.15,
             textAlign: { xs: "center", md: "left" },
           }}

@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./SuccessStories.module.css";
 
 const stories = [
-  { id: 1, label: "UI/UX Design", action: "Open Adobe", icon: "🅰️" },
-  { id: 2, label: "Frameworks", action: "Open Flutter", icon: "💙" },
-  { id: 3, label: "Prototyping", action: "Open Figma", icon: "🎨" },
+  { id: 1, label: "UI/UX Design", action: "Open Adobe", icon: "" },
+  { id: 2, label: "Frameworks", action: "Open Flutter", icon: "" },
+  { id: 3, label: "Prototyping", action: "Open Figma", icon: "" },
 ];
 
 export default function SuccessStories() {
