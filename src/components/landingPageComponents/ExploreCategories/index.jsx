@@ -49,7 +49,7 @@ const ExploreCategoriesSection = ({
           sx={{
             fontSize: { xs: 28, sm: 36, md: 42, lg: 48 },
             fontWeight: 600,
-            color: "#000000",
+            color: "#000",
             lineHeight: 1.15,
             textAlign: { xs: "center", md: "left" },
           }}
