@@ -22,7 +22,7 @@ const SpeakerCard = ({ speakerData }) => {
         flexDirection: "column",
         alignItems: "center",
         width: "100%",
-        maxWidth: 220,
+        minWidth: 220,
         mx: "auto",
         cursor: "pointer",
         transition: "transform 0.2s ease-in-out",
@@ -65,31 +65,27 @@ const SpeakerCard = ({ speakerData }) => {
       </Box>
 
       {/* Content Area */}
-      <Box sx={{ mt: 2, textAlign: "center" }}>
-        <Typography
-          sx={{
-            ...TYPOGRAPHY_BASE,
-            fontSize: "24px",
-            fontWeight: 700,
-            color: "#000000",
-            mb: 0.5,
-          }}
-        >
-          {name}
-        </Typography>
-        <Typography
-          sx={{
-            ...TYPOGRAPHY_BASE,
-            fontSize: "18px",
-            fontWeight: 500,
-            color: "#666666",
-          }}
-        >
-          {company}
-        </Typography>
-      </Box>
-    </Box>
-  );
+            <Box sx={{ mt: 2, textAlign: 'center' }}>
+                <Typography sx={{
+                    ...TYPOGRAPHY_BASE,
+                    fontSize: '24px',
+                    fontWeight: 700,
+                    color: '#000000',
+                    mb: 0.5
+                }}>
+                    {name}
+                </Typography>
+                <Typography sx={{
+                    ...TYPOGRAPHY_BASE,
+                    fontSize: '18px',
+                    fontWeight: 500,
+                    color: '#666666'
+                }}>
+                    {company}
+                </Typography>
+            </Box>
+        </Box>
+    );
 };
 
 export default SpeakerCard;

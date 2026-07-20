@@ -1,34 +1,34 @@
-import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
-import SpeakerCard from "./SpeakerCard";
+import { Box, Grid, Typography } from '@mui/material'
+import React from 'react'
+import SpeakerCard from './SpeakerCard'
 import DummySpeakerImage from "@/../public/assets/landing-page-assets/dummy-speaker-image.svg";
 
+
 const PastSpeakerSection = () => {
-  const speakerData = [
+  const speakerData = [{
+       name: "John Samuel",
+       company: "Microsoft",
+       image: DummySpeakerImage,
+    },
     {
-      name: "John Samuel",
-      company: "Microsoft",
+       name: "John Samuel",
+       company: "Microsoft",
+       image: DummySpeakerImage,
+    },
+    {
+       name: "John Samuel",
+       company: "Microsoft",
       image: DummySpeakerImage,
     },
     {
-      name: "John Samuel",
-      company: "Microsoft",
-      image: DummySpeakerImage,
+       name: "John Samuel",
+       company: "Microsoft",
+       image: DummySpeakerImage,
     },
     {
-      name: "John Samuel",
-      company: "Microsoft",
-      image: DummySpeakerImage,
-    },
-    {
-      name: "John Samuel",
-      company: "Microsoft",
-      image: DummySpeakerImage,
-    },
-    {
-      name: "John Samuel",
-      company: "Microsoft",
-      image: DummySpeakerImage,
+       name: "John Samuel",
+       company: "Microsoft",
+       image: DummySpeakerImage,
     },
   ];
   return (
