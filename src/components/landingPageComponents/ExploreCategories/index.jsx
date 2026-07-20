@@ -36,7 +36,7 @@ const ExploreCategoriesSection = ({
         justifyContent: "space-between",
         alignItems: variant === "explore" ? "flex-start" : "center",
 
-        gap: { xs: 4, md: 2 },
+        gap: { xs: 4, md: 3 },
       }}
     >
       {/* LEFT TITLE */}

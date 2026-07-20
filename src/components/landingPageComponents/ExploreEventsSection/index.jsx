@@ -20,10 +20,10 @@ const ExploreEventsSection = () => {
                     See all events
                 </Typography>
             </Box>
-            <Grid container spacing={2} rowSpacing={8} sx={{ display: "flex", }}>
+            <Grid container spacing={2} rowSpacing={3} sx={{ display: "flex", }}>
                 {eventsData.map((item, index) => (
                     <Grid
-                        size={{ xs: 12, sm: 6, md: 4 }}
+                        size={{ xs: 12, sm: 6, md: 3 }}
                         key={item.id ?? index}
                     >
                         <EventsCard event={item} />

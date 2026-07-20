@@ -5,6 +5,8 @@ import { Card, CardContent, Box, Typography, Button } from "@mui/material";
 import ExploreEventImage from "@/../public/assets/landing-page-assets/explore-event-card-image.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import PrimaryButton from "@/components/buttons/PrimaryButton/PrimaryButton";
+import rightArrow from "@/../public/assets/explore-page-assets/right-arrow.svg";
 
 const PRODUCT_SANS = "'Product Sans', system-ui, -apple-system, sans-serif";
 
@@ -142,13 +144,20 @@ const EventsCard = ({ onClick = () => {}, event }) => {
 
           {/* BUTTON */}
 
-          <Button
-            variant="contained"
-            fullWidth
+          <PrimaryButton
             onClick={(e) => {
               e.stopPropagation();
               router.push(`/eventsDetail/${event?.id}`);
             }}
+            fullWidth
+            endIcon={
+              <Image
+                src={rightArrow}
+                alt="Right arrow"
+                width={18}
+                height={18}
+              />
+            }
             sx={{
               bgcolor: "#0A0A0A",
               color: "#FFFFFF",
@@ -164,10 +173,13 @@ const EventsCard = ({ onClick = () => {}, event }) => {
                 bgcolor: "#333333",
               },
               boxShadow: "none",
+              width: "100%",
+              minWidth: 0,
+              maxWidth: "100%",
             }}
           >
-            View Details →
-          </Button>
+            View Details
+          </PrimaryButton>
         </CardContent>
       </Card>
     </Box>
