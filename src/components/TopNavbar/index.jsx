@@ -20,9 +20,6 @@ const TopNavbar = () => {
     const theme = useTheme();
 
     const excludeRoutes = [
-        '/eventsPage',
-        '/about',
-        '/contact',
         '/eventsDetail/', // treat this as a prefix
     ];
 
@@ -42,42 +39,41 @@ const TopNavbar = () => {
     if (!isTabletOrDesktop) return null;
 
     const links = [
-        { id: 1, name: 'About', route: '/about' },
+        { id: 1, name: 'Home', route: '/' },
         { id: 2, name: 'Explore', route: '/explore' },
-        { id: 3, name: 'Community', route: '/community' },
-        { id: 4, name: 'Practice', route: '/practice' },
-        { id: 5, name: 'Forum', route: '/forum' },
-        { id: 6, name: 'Jobs', route: '/jobs' },
+        { id: 3, name: 'Guidelines', route: '/dashboard/communityGuidelines' },
     ];
 
     const userSection = (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 1.5,
-                cursor: 'pointer',
-                '&:hover': { opacity: 0.8 },
-            }}
-        >
-            <Avatar
-                alt="User Avatar"
-                src="/static/images/avatar/1.jpg"
-                sx={{ width: 32, height: 32 }}
-            />
-            <Typography
+        <Link href="/profile" style={{ textDecoration: 'none' }}>
+            <Box
                 sx={{
-                    fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
-                    fontSize: '16px',
-                    fontWeight: 400,
-                    color: '#000',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 1.5,
+                    cursor: 'pointer',
+                    '&:hover': { opacity: 0.8 },
                 }}
             >
-                Angelica_21
-            </Typography>
-            <KeyboardArrowDownIcon sx={{ color: '#1A73E8', fontSize: 24 }} />
-        </Box>
+                <Avatar
+                    alt="User Avatar"
+                    src="/static/images/avatar/1.jpg"
+                    sx={{ width: 32, height: 32 }}
+                />
+                <Typography
+                    sx={{
+                        fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
+                        fontSize: '16px',
+                        fontWeight: 400,
+                        color: '#000',
+                    }}
+                >
+                    Angelica_21
+                </Typography>
+                <KeyboardArrowDownIcon sx={{ color: '#1A73E8', fontSize: 24 }} />
+            </Box>
+        </Link>
     );
 
     return (
@@ -127,27 +123,35 @@ const TopNavbar = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    {links.map((item) => (
-                        <Box
-                            key={item.id}
-                            // href={item.route}
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <Typography
-                                sx={{
-                                    fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
-                                    fontSize: { sm: '14px', md: '15px', lg: '16px' },
-                                    fontWeight: 400,
-                                    color: '#5F6368',
-                                    whiteSpace: 'nowrap',
-                                    transition: 'color 0.2s ease-in-out',
-                                    '&:hover': { color: '#000' },
-                                }}
+                    {links.map((item) => {
+                        const isActive =
+                            item.route === '/'
+                                ? path === '/'
+                                : path === item.route ||
+                                  (item.route === '/profile' && path.startsWith('/profile/'));
+
+                        return (
+                            <Link
+                                key={item.id}
+                                href={item.route}
+                                style={{ textDecoration: 'none' }}
                             >
-                                {item.name}
-                            </Typography>
-                        </Box>
-                    ))}
+                                <Typography
+                                    sx={{
+                                        fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
+                                        fontSize: { sm: '14px', md: '15px', lg: '16px' },
+                                        fontWeight: isActive ? 600 : 400,
+                                        color: isActive ? '#000' : '#5F6368',
+                                        whiteSpace: 'nowrap',
+                                        transition: 'color 0.2s ease-in-out',
+                                        '&:hover': { color: '#000' },
+                                    }}
+                                >
+                                    {item.name}
+                                </Typography>
+                            </Link>
+                        );
+                    })}
                 </Box>
                 <Box sx={{ flexShrink: 0 }}>{userSection}</Box>
             </Box>

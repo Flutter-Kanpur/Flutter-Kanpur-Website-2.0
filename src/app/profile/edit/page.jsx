@@ -389,8 +389,10 @@ const handleUpdate = async () => {
 <>
 <Box
       sx={{
-        display: { xs: "none", md: "flex" },
+        display: { xs: "none", sm: "flex" },
         minHeight: "100vh",
+        width: "100%",
+        overflowX: "hidden",
       }}
     >
       <ProfileSidebar />

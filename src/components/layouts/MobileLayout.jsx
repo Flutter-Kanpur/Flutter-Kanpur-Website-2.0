@@ -6,10 +6,10 @@ export default function MobileLayout({ children }) {
   return (
     <Box
       sx={{
-        maxWidth: 425,
+        // maxWidth: 425,
         mx: "auto",
         minHeight: "100vh",
-        display: { xs: "block", md: "none" },
+        display: { xs: "block", sm: "none" },
         backgroundColor: "#fff"
       }}
     >

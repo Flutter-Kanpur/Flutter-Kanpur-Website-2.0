@@ -16,7 +16,7 @@ export default function SocialLinksSection({
 }) {
   return (
     <>
-      <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1 }}>
+      <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1, color: "#1a1a1a" }}>
         Work & social links
       </Typography>
 

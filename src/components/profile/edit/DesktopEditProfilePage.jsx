@@ -18,18 +18,47 @@ const addSkills = ["Flutter", "Dart", "Figma", "Kubernetes", "Docker", "Kafka", 
 
 export default function DesktopEditProfilePage() {
   return (
-    <Box sx={{ flex: 1, px: 5, py: 4, display: { xs: "none", md: "block" } }}>
+    <Box
+      sx={{
+        flex: 1,
+        minWidth: 0,
+        width: "100%",
+        px: { sm: 2, md: 3, lg: 5 },
+        py: 4,
+        display: { xs: "none", sm: "block" },
+        overflowX: "hidden",
+      }}
+    >
       <Button
-        startIcon={<ArrowBackIosNewIcon />}
+        startIcon={<ArrowBackIosNewIcon sx={{ fontSize: { sm: 14, md: 16 } }} />}
         variant="outlined"
-        sx={{ textTransform: "none", borderRadius: 2, color: "#333", borderColor: "#ddd", mb: 6 }}
+        size="small"
+        sx={{
+          textTransform: "none",
+          borderRadius: { sm: "10px", md: "12px" },
+          color: "#333",
+          borderColor: "#ddd",
+          mb: { sm: 3, md: 6 },
+          height: { sm: 36, md: 40, lg: 44 },
+          px: { sm: 1.5, md: 2 },
+          fontSize: { sm: "13px", md: "14px", lg: "15px" },
+          fontWeight: 500,
+          width: "fit-content",
+          minWidth: "auto",
+        }}
       >
         Back
       </Button>
 
-      <Box sx={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 6 }}>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { sm: "1fr", lg: "1fr 320px" },
+          gap: { sm: 3, lg: 6 },
+        }}
+      >
         {/* LEFT FORM */}
-        <Box sx={{ maxWidth: 720 }}>
+        <Box sx={{ maxWidth: 720, minWidth: 0, width: "100%" }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 3, mb: 5 }}>
             <Avatar src="/assets/profile-page-assets/profile.png" sx={{ width: 92, height: 92 }} />
 
@@ -41,7 +70,7 @@ export default function DesktopEditProfilePage() {
                 </Button>
               </Box>
 
-              <Typography sx={{ color: "#777", fontSize: 14 }}>
+              <Typography sx={{ color: "#555", fontSize: 14 }}>
                 At least 800*800 px recommended. <br />
                 JPG or PNG is allowed.
               </Typography>
@@ -178,7 +207,7 @@ export default function DesktopEditProfilePage() {
 function Input({ label, value }) {
   return (
     <Box>
-      <Typography sx={{ color: "#777", fontSize: 14, mb: 0.5 }}>{label}</Typography>
+      <Typography sx={{ color: "#444", fontSize: 14, mb: 0.5, fontWeight: 500 }}>{label}</Typography>
       <TextField fullWidth size="small" defaultValue={value} sx={fieldStyle} />
     </Box>
   );
@@ -226,6 +255,7 @@ const titleStyle = {
   fontSize: 16,
   fontWeight: 600,
   mb: 1,
+  color: "#1a1a1a",
 };
 
 const btnStyle = {

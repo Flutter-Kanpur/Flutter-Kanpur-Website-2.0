@@ -65,9 +65,17 @@ export default function ProfilePage() {
     //   }}
     // >
 <>
-    <Box sx={{ display: { xs: "none", md: "flex" } }}>
+    {/* Desktop + tablet */}
+    <Box
+      sx={{
+        display: { xs: "none", sm: "flex" },
+        minHeight: "100vh",
+        width: "100%",
+        overflowX: "hidden",
+      }}
+    >
       <ProfileSidebar />
-      <DesktopProfilePage/>
+      <DesktopProfilePage />
     </Box>
 
       <MobileLayout>

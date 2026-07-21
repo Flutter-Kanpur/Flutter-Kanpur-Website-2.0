@@ -12,7 +12,7 @@ export default function ProfileBasicInfo({
 }) {
   return (
     <>
-      <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1 }}>
+      <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1, color: "#1a1a1a" }}>
         Username
       </Typography>
 
@@ -24,7 +24,7 @@ export default function ProfileBasicInfo({
         sx={{ mb: 3, "& .MuiOutlinedInput-root": { borderRadius: 3 } }}
       />
 
-      <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1 }}>
+      <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1, color: "#1a1a1a" }}>
         About me
       </Typography>
 
@@ -39,7 +39,7 @@ export default function ProfileBasicInfo({
         sx={{ mb: 3, "& .MuiOutlinedInput-root": { borderRadius: 3 } }}
       />
 
-      <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1 }}>
+      <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1, color: "#1a1a1a" }}>
         Years of Experience
       </Typography>
 

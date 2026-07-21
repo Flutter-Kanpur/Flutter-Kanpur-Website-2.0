@@ -21,58 +21,70 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 export default function DesktopProfilePage() {
   return (
     <Box
-  sx={{
-    flex: 1,
-    px: 5,
-    pt: 4,
-    pb: 6,
-    display: { xs: "none", md: "block" },
-    maxWidth: "calc(100vw - 340px)",
-    overflowX: "hidden",
-  }}
->
+      sx={{
+        flex: 1,
+        minWidth: 0,
+        width: "100%",
+        px: { sm: 2, md: 3, lg: 5 },
+        pt: { sm: 3, md: 4 },
+        pb: 6,
+        display: { xs: "none", sm: "block" },
+        overflowX: "hidden",
+      }}
+    >
       {/* Top Bar */}
       <Box
-  sx={{
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    mb: 4,
-    maxWidth: 1120,
-    mx: "auto",
-  }}
->
-      <Button
-  variant="outlined"
-  startIcon={
-    <Image
-      src="/assets/profile-page-assets/back_arrow_icon.svg"
-      alt="Back"
-      width={22}
-      height={22}
-    />
-  }
-  sx={{
-    height: 56,
-    borderRadius: "16px",
-    px: 3,
-    borderColor: "#DADADA",
-    color: "#3A3A3A",
-    fontSize: "18px",
-    fontWeight: 500,
-    textTransform: "none",
-    boxShadow: "0px 2px 4px rgba(0,0,0,0.05)",
+        sx={{
+          display: "flex",
+          flexDirection: { sm: "column", md: "row" },
+          justifyContent: "space-between",
+          alignItems: { sm: "stretch", md: "center" },
+          gap: 2,
+          mb: 4,
+          maxWidth: 1120,
+          mx: "auto",
+        }}
+      >
+        <Button
+          variant="outlined"
+          size="small"
+          startIcon={
+            <Image
+              src="/assets/profile-page-assets/back_arrow_icon.svg"
+              alt="Back"
+              width={14}
+              height={14}
+            />
+          }
+          sx={{
+            height: { sm: 36, md: 40, lg: 44 },
+            minWidth: "auto",
+            width: "fit-content",
+            borderRadius: { sm: "10px", md: "12px" },
+            px: { sm: 1.5, md: 2 },
+            borderColor: "#DADADA",
+            color: "#3A3A3A",
+            fontSize: { sm: "13px", md: "14px", lg: "15px" },
+            fontWeight: 500,
+            textTransform: "none",
+            boxShadow: "0px 1px 3px rgba(0,0,0,0.05)",
+            "& .MuiButton-startIcon": {
+              mr: 0.75,
+              "& img": {
+                width: { sm: 14, md: 16 },
+                height: { sm: 14, md: 16 },
+              },
+            },
+            "&:hover": {
+              borderColor: "#DADADA",
+              background: "#fff",
+            },
+          }}
+        >
+          Back
+        </Button>
 
-    "&:hover": {
-      borderColor: "#DADADA",
-      background: "#fff",
-    },
-  }}
->
-  Back
-</Button>
-
-        <Box sx={{ display: "flex", gap: 1 }}>
+        <Box sx={{ display: "flex", gap: 1, minWidth: 0, flex: 1, justifyContent: { md: "flex-end" } }}>
           <TextField
             size="small"
             placeholder="Search menu options..."
@@ -80,7 +92,8 @@ export default function DesktopProfilePage() {
               endAdornment: <SearchIcon sx={{ color: "#777" }} />,
             }}
             sx={{
-              width: 420,
+              flex: 1,
+              maxWidth: { sm: "100%", md: 420 },
               "& .MuiOutlinedInput-root": {
                 borderRadius: "12px",
               },
@@ -93,6 +106,7 @@ export default function DesktopProfilePage() {
               borderRadius: "12px",
               width: 42,
               height: 42,
+              flexShrink: 0,
             }}
           >
             <SettingsIcon />
@@ -100,15 +114,18 @@ export default function DesktopProfilePage() {
         </Box>
       </Box>
 
-      <Box sx={{ maxWidth: 1120, mx: "auto" }}>
-  <Box
-    sx={{
-      display: "grid",
-      gridTemplateColumns: "minmax(620px, 760px) 360px",
-      gap: 3,
-      alignItems: "start",
-    }}
-  >
+      <Box sx={{ maxWidth: 1120, mx: "auto", width: "100%" }}>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              sm: "1fr",
+              lg: "minmax(0, 1fr) 320px",
+            },
+            gap: 3,
+            alignItems: "start",
+          }}
+        >
         {/* Left Content */}
         <Box>
           {/* Photo Row */}
@@ -131,7 +148,7 @@ export default function DesktopProfilePage() {
               >
                 Change photo
               </Button>
-              <Typography sx={{ color: "#777", fontSize: 14 }}>
+              <Typography sx={{ color: "#555", fontSize: 14 }}>
                 At least 800*800 px recommended.
                 <br />
                 JPG or PNG is allowed.
@@ -142,7 +159,7 @@ export default function DesktopProfilePage() {
           {/* Personal Info */}
           <Paper variant="outlined" sx={{ p: 2, borderRadius: "14px", mb: 2 }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-              <Typography sx={{ fontSize: 18, fontWeight: 600 }}>
+              <Typography sx={{ fontSize: 18, fontWeight: 600, color: "#1a1a1a" }}>
                 Personal info
               </Typography>
 
@@ -156,7 +173,13 @@ export default function DesktopProfilePage() {
               </Button>
             </Box>
 
-            <Box sx={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { sm: "1fr", md: "repeat(3, 1fr)" },
+                gap: { sm: 2, md: 0 },
+              }}
+            >
               <Info label="Full name" value="test" />
               <Info label="Username" value="test123_" />
               <Info label="Email address" value="test123@gmail.com" />
@@ -164,7 +187,14 @@ export default function DesktopProfilePage() {
           </Paper>
 
           {/* Role Location */}
-          <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 3, mb: 2 }}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { sm: "1fr", md: "1fr 1fr" },
+              gap: 3,
+              mb: 2,
+            }}
+          >
             <SmallCard label="Role" value="Student" editable />
             <SmallCard
               label="Location"
@@ -175,7 +205,7 @@ export default function DesktopProfilePage() {
 
           {/* Bio */}
           <Paper variant="outlined" sx={{ p: 2.2, borderRadius: "14px", mb: 2 }}>
-            <Typography sx={{ fontSize: 18, fontWeight: 600, mb: 2 }}>
+            <Typography sx={{ fontSize: 18, fontWeight: 600, mb: 2, color: "#1a1a1a" }}>
               Bio
             </Typography>
             <Typography sx={{ fontSize: 15 }}>
@@ -187,23 +217,37 @@ export default function DesktopProfilePage() {
           </Paper>
 
           {/* Stats */}
-          <Box sx={{ display: "flex", gap: 4, my: 3 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { sm: "column", md: "row" },
+              gap: { sm: 2, md: 4 },
+              my: 3,
+            }}
+          >
             <Stat label="Current Steak" value="151" blue />
             <Stat label="Reputation Points -" value="2489" dark />
           </Box>
 
           {/* Badges + Recent */}
-          <Box sx={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 2, mb: 2 }}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { sm: "1fr", md: "1.5fr 1fr" },
+              gap: 2,
+              mb: 2,
+            }}
+          >
             <Paper variant="outlined" sx={{ p: 1.5, borderRadius: "14px" }}>
               <Typography sx={{ fontWeight: 600 }}>Badges</Typography>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-                <Typography sx={{ fontSize: 52, color: "#4f6df5", fontWeight: 700 }}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: { sm: 2, md: 3 }, flexWrap: "wrap" }}>
+                <Typography sx={{ fontSize: { sm: 40, md: 52 }, color: "#4f6df5", fontWeight: 700 }}>
                   8+
                 </Typography>
                 <Box sx={{ display: "flex", gap: 2 }}>
-                  <Avatar sx={{ width: 62, height: 62 }} />
-                  <Avatar sx={{ width: 62, height: 62 }} />
-                  <Avatar sx={{ width: 62, height: 62 }} />
+                  <Avatar sx={{ width: { sm: 48, md: 62 }, height: { sm: 48, md: 62 } }} />
+                  <Avatar sx={{ width: { sm: 48, md: 62 }, height: { sm: 48, md: 62 } }} />
+                  <Avatar sx={{ width: { sm: 48, md: 62 }, height: { sm: 48, md: 62 } }} />
                 </Box>
               </Box>
             </Paper>
@@ -223,7 +267,13 @@ export default function DesktopProfilePage() {
           </Box>
 
           {/* Bottom Cards */}
-          <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1.45fr", gap: 3 }}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { sm: "1fr", md: "1fr 1.45fr" },
+              gap: 3,
+            }}
+          >
             <SummaryCard
               title="Practice Summary"
               button="Go To Practice"
@@ -249,7 +299,7 @@ export default function DesktopProfilePage() {
         </Box>
 
         {/* Right Content */}
-        <Box>
+        <Box sx={{ minWidth: 0 }}>
           <CompleteProfileCard />
           <LeaderboardCard />
         </Box>
@@ -262,8 +312,8 @@ export default function DesktopProfilePage() {
 function Info({ label, value }) {
   return (
     <Box>
-      <Typography sx={{ color: "#888", fontSize: 13 }}>{label}</Typography>
-      <Typography sx={{ fontSize: 16 }}>{value}</Typography>
+      <Typography sx={{ color: "#555", fontSize: 13, fontWeight: 500 }}>{label}</Typography>
+      <Typography sx={{ fontSize: 16, color: "#111" }}>{value}</Typography>
     </Box>
   );
 }
@@ -279,9 +329,11 @@ function SmallCard({ label, value, editable, icon }) {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        gap: 1,
+        minWidth: 0,
       }}
     >
-      <Typography sx={{ fontSize: 17, fontWeight: 600 }}>
+      <Typography sx={{ fontSize: { sm: 15, md: 17 }, fontWeight: 600, minWidth: 0 }}>
         {icon} {label} &nbsp; - &nbsp;{" "}
         <Box component="span" sx={{ fontWeight: 400 }}>
           {value}
@@ -293,7 +345,7 @@ function SmallCard({ label, value, editable, icon }) {
           size="small"
           variant="outlined"
           startIcon={<EditIcon />}
-          sx={{ textTransform: "none", borderRadius: "10px" }}
+          sx={{ textTransform: "none", borderRadius: "10px", flexShrink: 0 }}
         >
           Edit
         </Button>
