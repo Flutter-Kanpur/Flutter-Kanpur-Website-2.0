@@ -38,13 +38,15 @@ const TopNavbar = () => {
 
     if (!isTabletOrDesktop) return null;
 
+    // Blogs is proxied to the separate readme deploy via next.config rewrites
+    // (/blogs → BLOGS_UPSTREAM_URL). Same product URL space, independent app.
     const links = [
         { id: 1, name: 'Home', route: '/' },
         { id: 2, name: 'Explore', route: '/explore' },
-        { id: 2, name: 'Community', route: '' },
-        { id: 2, name: 'Practice', route: '' },
-        { id: 2, name: 'Forum', route: '' },
-        { id: 3, name: 'Blogs', route: '' },
+        { id: 3, name: 'Community', route: '' },
+        { id: 4, name: 'Practice', route: '' },
+        { id: 5, name: 'Forum', route: '' },
+        { id: 6, name: 'Blogs', route: '/blogs' },
     ];
 
     const userSection = (
@@ -125,11 +127,38 @@ const TopNavbar = () => {
                     }}
                 >
                     {links.map((item) => {
+                        const hasRoute = Boolean(item.route);
                         const isActive =
-                            item.route === '/'
+                            hasRoute &&
+                            (item.route === '/'
                                 ? path === '/'
-                                : path === item.route ||
-                                  (item.route === '/profile' && path.startsWith('/profile/'));
+                                : path === item.route || path.startsWith(`${item.route}/`));
+
+                        const label = (
+                            <Typography
+                                sx={{
+                                    fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
+                                    fontSize: { sm: '14px', md: '15px', lg: '16px' },
+                                    fontWeight: isActive ? 600 : 400,
+                                    color: isActive ? '#000' : '#5F6368',
+                                    whiteSpace: 'nowrap',
+                                    transition: 'color 0.2s ease-in-out',
+                                    cursor: hasRoute ? 'pointer' : 'default',
+                                    opacity: hasRoute ? 1 : 0.55,
+                                    '&:hover': hasRoute ? { color: '#000' } : undefined,
+                                }}
+                            >
+                                {item.name}
+                            </Typography>
+                        );
+
+                        if (!hasRoute) {
+                            return (
+                                <Box key={item.id} component="span" aria-disabled="true">
+                                    {label}
+                                </Box>
+                            );
+                        }
 
                         return (
                             <Link
@@ -137,19 +166,7 @@ const TopNavbar = () => {
                                 href={item.route}
                                 style={{ textDecoration: 'none' }}
                             >
-                                <Typography
-                                    sx={{
-                                        fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
-                                        fontSize: { sm: '14px', md: '15px', lg: '16px' },
-                                        fontWeight: isActive ? 600 : 400,
-                                        color: isActive ? '#000' : '#5F6368',
-                                        whiteSpace: 'nowrap',
-                                        transition: 'color 0.2s ease-in-out',
-                                        '&:hover': { color: '#000' },
-                                    }}
-                                >
-                                    {item.name}
-                                </Typography>
+                                {label}
                             </Link>
                         );
                     })}

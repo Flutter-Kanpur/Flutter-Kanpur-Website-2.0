@@ -120,7 +120,7 @@ const sections = [
       },
       {
         label: "Project Submissions",
-        href: "/profile/submissions",
+        href: "/explore/projects",
         icon: "/assets/profile-sidebar-assets/project_submissios_icon.svg",
       },
     ],
