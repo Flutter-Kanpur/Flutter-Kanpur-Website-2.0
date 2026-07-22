@@ -1,11 +1,41 @@
 import React from "react";
+import { Box, Typography } from "@mui/material";
+
 export default function GuidelineCard({ title, description }) {
   return (
-    <div className="p-6 bg-[#FAF9F6] border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-between">
-      <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-        <p className="text-sm text-gray-600 leading-relaxed">{description}</p>
-      </div>
-    </div>
+    <Box
+      sx={{
+        p: { xs: 2.5, md: 3 },
+        bgcolor: "#fff",
+        border: "1px solid #E8E8E8",
+        borderRadius: "16px",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+        height: "100%",
+        transition: "box-shadow 0.2s ease",
+        "&:hover": {
+          boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
+        },
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: { xs: 16, md: 18 },
+          fontWeight: 600,
+          color: "#111",
+          mb: 1.25,
+        }}
+      >
+        {title}
+      </Typography>
+      <Typography
+        sx={{
+          fontSize: { xs: 16, md: 18 },
+          color: "#666",
+          lineHeight: 1.65,
+        }}
+      >
+        {description}
+      </Typography>
+    </Box>
   );
 }

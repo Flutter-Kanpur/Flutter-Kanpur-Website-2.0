@@ -115,7 +115,7 @@ const sections = [
       },
       {
         label: "Community Guidelines",
-        href: "/profile/guidelines",
+        href: "/communityGuidelines",
         icon: "/assets/profile-sidebar-assets/community_guidlines_icon.svg",
       },
       {

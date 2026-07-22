@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+import { Box, Button, Typography } from "@mui/material";
+import Image from "next/image";
 import GuidelineCard from "./guidelineCard";
 
 const guidelinesData = [
@@ -31,46 +35,113 @@ const guidelinesData = [
 
 export default function CommunityGuidelines() {
   return (
-    <div className="w-full min-h-screen bg-white text-gray-800 p-6 md:p-8 lg:p-10 overflow-y-auto">
-      {/* Back Button */}
-      <div className="mb-6">
-        <button
-          onClick={() => window.history.back()}
-          className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors flex items-center gap-2 shadow-sm"
-        >
-          <span>&larr;</span> Back
-        </button>
-      </div>
+    <Box
+      sx={{
+        width: "100%",
+        minHeight: "100%",
+        bgcolor: "#fff",
+        px: { xs: 2.5, md: 4, lg: 5 },
+        pt: { xs: 2, md: 3.5 },
+        pb: { xs: 4, md: 6 },
+        overflowY: "auto",
+      }}
+    >
+      <Button
+        variant="outlined"
+        size="small"
+        onClick={() => window.history.back()}
+        startIcon={
+          <Image
+            src="/assets/profile-page-assets/back_arrow_icon.svg"
+            alt="Back"
+            width={14}
+            height={14}
+          />
+        }
+        sx={{
+          height: { xs: 36, md: 40 },
+          minWidth: "auto",
+          width: "fit-content",
+          borderRadius: "12px",
+          px: 2,
+          mb: { xs: 3, md: 4 },
+          borderColor: "#DADADA",
+          color: "#3A3A3A",
+          fontSize: { xs: "14px", md: "16px" },
+          fontWeight: 500,
+          textTransform: "none",
+          boxShadow: "0px 1px 3px rgba(0,0,0,0.05)",
+          "& .MuiButton-startIcon": { mr: 0.75 },
+          "&:hover": {
+            borderColor: "#DADADA",
+            background: "#fff",
+          },
+        }}
+      >
+        Back
+      </Button>
 
-      {/* Header Area - Kept clean as per Figma */}
-      <div className="max-w-4xl mb-8 space-y-3">
-        <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
+      <Box sx={{ maxWidth: 1500, mb: { xs: 3, md: 4 } }}>
+        <Typography
+          component="h1"
+          sx={{
+            fontSize: { xs: 22, md: 28 },
+            fontWeight: 700,
+            color: "#111",
+            letterSpacing: "-0.02em",
+            mb: 1.5,
+          }}
+        >
           Community Guidelines
-        </h1>
-        <p className="text-sm text-gray-600 leading-relaxed max-w-3xl">
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: { xs: 14, md: 18 },
+            color: "#666",
+            lineHeight: 1.7,
+            maxWidth: 1500,
+          }}
+        >
           Flutter Kanpur is a collaborative space for developers, designers,
           learners, and contributors to connect, learn, and grow together. Our
           goal is to create an environment where everyone feels safe, respected,
           and encouraged to participate. These guidelines exist to maintain a
           healthy and welcoming community experience for all members.
-        </p>
-      </div>
+        </Typography>
+      </Box>
 
-      {/* Grid Layout for Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
-        {guidelinesData.map((guideline, index) => (
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            md: "1fr 1fr",
+          },
+          gap: { xs: 2, md: 2.5 },
+          maxWidth: 1500,
+        }}
+      >
+        {guidelinesData.map((guideline) => (
           <GuidelineCard
-            key={index}
+            key={guideline.title}
             title={guideline.title}
             description={guideline.description}
           />
         ))}
-      </div>
+      </Box>
 
-      {/* Footer Text */}
-      <div className="mt-12 pt-4 border-t border-gray-100 text-xs text-gray-400">
+      <Typography
+        sx={{
+          mt: { xs: 4, md: 6 },
+          pt: 2,
+          borderTop: "1px solid #F0F0F0",
+          fontSize: 16,
+          color: "#9CA3AF",
+          maxWidth: 1500,
+        }}
+      >
         Last Updated on April, 2026
-      </div>
-    </div>
+      </Typography>
+    </Box>
   );
 }

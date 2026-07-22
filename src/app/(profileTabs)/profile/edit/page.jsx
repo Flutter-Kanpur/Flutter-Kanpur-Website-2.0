@@ -33,7 +33,6 @@ import SuccessOverlay from "@/components/profile/edit/SuccessOverlay";
 import ActionButtons from "@/components/profile/edit/ActionButtons";
 import { Box } from "@mui/material";
 import GradientHeader from "@/components/header/GradientHeader";
-import ProfileSidebar from "@/components/profile/ProfileSidebar";
 import DesktopEditProfile from "@/components/profile/edit/DesktopEditProfilePage";
 import MobileLayout from "@/components/layouts/MobileLayout";
 
@@ -386,29 +385,10 @@ const handleUpdate = async () => {
 //     const [showSuccess, setShowSuccess] = useState(false);
 
   return (
-<>
-<Box
-      sx={{
-        display: { xs: "none", sm: "flex" },
-        minHeight: "100vh",
-        width: "100%",
-        overflowX: "hidden",
-      }}
-    >
-      <ProfileSidebar />
+    <>
+      <DesktopEditProfile />
 
-      <DesktopEditProfile/>
-    </Box>
-
-{/* //     <Box
-//    sx={{
-//   maxWidth: 425,
-//   mx: "auto",
-//   minHeight: "100vh",
-//   display: { xs: "block", md: "none" }
-// }}
-//     > */}
-<MobileLayout>
+      <MobileLayout>
     <GradientHeader
     title="Edit profile"
     onBack={() => router.back()}

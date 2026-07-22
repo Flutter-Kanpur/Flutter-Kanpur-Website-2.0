@@ -5,7 +5,6 @@ import { Box, List, Divider } from "@mui/material";
 import { useRouter } from "next/navigation";
 // import { onAuthStateChanged, signOut } from "firebase/auth";
 // import { auth } from "@/firebase/config";
-import ProfileSidebar from "@/components/profile/ProfileSidebar";
 import DesktopProfilePage from "@/components/profile/DesktopProfilePage";
 import MobileLayout from "@/components/layouts/MobileLayout";
 import GradientHeader from "@/components/header/GradientHeader";
@@ -55,28 +54,8 @@ export default function ProfilePage() {
   };
 
   return (
-    // <Box
-    //   sx={{
-    //     maxWidth: 425,
-    //     mx: "auto",
-    //     minHeight: "100vh",
-    //     backgroundColor: "#fff",
-    //     pb: 12,
-    //   }}
-    // >
-<>
-    {/* Desktop + tablet */}
-    <Box
-      sx={{
-        display: { xs: "none", sm: "flex" },
-        minHeight: "100vh",
-        width: "100%",
-        overflowX: "hidden",
-      }}
-    >
-      <ProfileSidebar />
+    <>
       <DesktopProfilePage />
-    </Box>
 
       <MobileLayout>
     <GradientHeader
@@ -203,7 +182,7 @@ export default function ProfilePage() {
                     height={20}
                   />
                 } 
-                text="Community Guidelines" onClick={() => { }} isLast />
+                text="Community Guidelines" onClick={() => router.push("/communityGuidelines")} isLast />
               </List>
             </ProfileSection>
 

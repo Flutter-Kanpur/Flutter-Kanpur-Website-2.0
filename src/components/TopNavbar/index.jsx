@@ -41,7 +41,10 @@ const TopNavbar = () => {
     const links = [
         { id: 1, name: 'Home', route: '/' },
         { id: 2, name: 'Explore', route: '/explore' },
-        { id: 3, name: 'Guidelines', route: '/dashboard/communityGuidelines' },
+        { id: 2, name: 'Community', route: '' },
+        { id: 2, name: 'Practice', route: '' },
+        { id: 2, name: 'Forum', route: '' },
+        { id: 3, name: 'Blogs', route: '' },
     ];
 
     const userSection = (
@@ -77,13 +80,12 @@ const TopNavbar = () => {
     );
 
     return (
-        <PaddingContainer>
+        <PaddingContainer style={{ pt: { sm: 2.5, md: 5 } }}>
             <Box
                 sx={{
                     display: shouldHide ? 'none' : 'flex',
                     flexDirection: 'row',
                     mx: 'auto',
-                    mt: 4,
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     maxWidth: 1040,
@@ -96,7 +98,6 @@ const TopNavbar = () => {
                     px: { xs: 2, sm: 2.5, md: 3 },
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
                     position: 'sticky',
-                    top: 20,
                     zIndex: 1000,
                 }}
             >
