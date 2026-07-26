@@ -1,0 +1,91 @@
+.hero {
+  width: 100%;
+
+  /* Pull the hero up so its blue gradient sits *behind* the global
+     navbar (which is rendered above the page in layout.js and has a
+     higher z-index, so it keeps floating on top as a white pill). */
+  margin-top: -104px;
+  padding: 176px 24px 120px;
+
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(180deg, #9cc8fe 0%, #ffffff 100%);
+}
+
+.heroContent {
+  width: 100%;
+  max-width: 700px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+.badge {
+  margin-top: 12px;
+  margin-bottom: 14px;
+  padding: 4px 14px;
+  color: #4167f2;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.heading {
+  width: 1185px;
+  height: 225px;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #000000;
+  margin: 0;
+}
+
+.description {
+  Width: 785px;
+  height:44px;
+
+  margin-top: 16px;
+
+  font-size: 15px;
+  line-height: 1.7;
+  color: #6b7280;
+}
+
+.searchBar {
+  position: relative;
+  width: 100%;
+  height: 56px;
+  Width: 627px;
+  margin: 32px auto 0;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 16px 52px 16px 22px;
+  background: #ffffff;
+  border: 1px solid #E4E4E4;
+  border-radius: 12px;
+  outline: none;
+  font-size: 16px;
+  box-shadow: 0 12px 30px rgba(31, 33, 48, 0.08);
+  transition: border-color 0.2s ease;
+  color:#000000
+}
+
+.searchInput::placeholder {
+  color: #5D5D5D;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}

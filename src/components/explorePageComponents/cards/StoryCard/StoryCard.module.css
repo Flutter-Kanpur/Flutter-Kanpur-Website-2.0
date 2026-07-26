@@ -1,0 +1,128 @@
+.card {
+  position: relative;
+  width: 264px;
+  height: 297px;
+  min-height: 250px;
+
+  border-radius: 16px;
+  border: 1px solid #ededed;
+  background: #FAFAFA;
+  box-shadow: none;
+  padding: 18px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  /* transform: translateY(-4px); */
+  background: #4263eb;
+  border-color: transparent;
+  box-shadow: 0 28px 48px rgba(66, 99, 235, 0.18);
+}
+
+.card:hover .title,
+.card:hover .description,
+.card:hover .author,
+.card:hover .icon {
+  color: #ffffff;
+}
+
+.active,
+.card.active {
+  background: #4263eb;
+  border-color: transparent;
+  box-shadow: 0 28px 48px rgba(66, 99, 235, 0.18);
+}
+
+.active .title,
+.card.active .title {
+  color: #ffffff;
+}
+
+.active .description,
+.card.active .description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.active .author,
+.card.active .author {
+  color: #ffffff;
+}
+
+.imageBox {
+  width: 216px;
+  height: 85px;
+  border-radius: 12px;
+  overflow: hidden;
+  /* background: #eef0f5; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.image {
+  width: 132px;
+  height: 85px;
+  margin-right: 75px;
+  position: relative;
+  object-fit: contain;
+  display: block;
+}
+
+.icon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: 18px;
+  gap: 12px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #000000;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #5D5D5D;
+}
+
+.author {
+  margin-top: auto;
+  font-size: 16px;
+  font-weight: 400;
+  color: #638DF7;
+}
+
+.card:hover .imageBox,
+.card.active .imageBox {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.card:hover .icon,
+.card.active .icon {
+  color: #ffffff;
+}
+
+@media (max-width: 720px) {
+  .imageBox {
+    height: 128px;
+  }
+}

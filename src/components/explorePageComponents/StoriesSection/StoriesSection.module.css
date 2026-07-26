@@ -1,0 +1,104 @@
+.storiesSection {
+  padding: 88px 0;
+  background: #ffffff;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 95px;
+  align-items: flex-start;
+  padding: 0 24px;
+}
+
+.left,
+.right {
+  min-height: 618px;
+}
+
+.left {
+  flex: 1;
+  max-width: 393px;
+  display: flex;
+  flex-direction: column;
+}
+
+.left h1 {
+  height:174px;
+  width: 393px;
+  margin: 0;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #000000;
+}
+
+.left p {
+  height:325px;
+  width: 348px;
+  margin-top: 24px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #6d6d6d;
+  max-width: 360px;
+}
+
+.ctaButton {
+  margin-top: auto;
+  padding: 16px 32px;
+  border-radius: 999px;
+  border: none;
+  background: #000000;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.right {
+  width: 552px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 0 24px;
+  }
+
+  .left,
+  .right {
+    max-width: 100%;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

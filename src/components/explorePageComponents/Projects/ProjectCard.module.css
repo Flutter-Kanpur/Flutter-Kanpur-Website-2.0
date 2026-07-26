@@ -1,0 +1,89 @@
+.cardContainer {
+  width: 421px;
+  height: 346px;
+  display: flex;
+  
+}
+
+.card {
+  position: relative;
+  background: #FAFAFA;
+  border-radius: 16px;
+  padding: 24px;
+  width: 421px;
+  height: 346px;
+  box-sizing: border-box;
+  box-shadow: none;
+  border: 1px solid #ececec;
+  display: flex;
+  flex-direction: column;
+  
+  
+}
+
+.topIcon {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #EAEAEA;
+  box-shadow: 0 4px 12px rgba(31, 33, 48, 0.05);
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+  font-weight: 400;
+  color: #101010;
+  height: 28px;
+  width: 373px;
+}
+
+.desc {
+  font-size: 16px;
+  color: #6D6D6D;
+  margin: 0 0 16px 0;
+  line-height: 1.6;
+  height: 66px;
+  width: 373px;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.tag {
+  background: #EFEFEF;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  color: #4F4F4F;
+}
+
+.meta {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date {
+  font-size: 18px;
+  color: #000000;
+}
+
+.author {
+  font-size: 18px;
+  color: #4167F2;
+  text-decoration: none;
+  font-weight: 400;
+}
