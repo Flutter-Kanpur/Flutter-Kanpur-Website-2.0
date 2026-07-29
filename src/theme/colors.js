@@ -12,7 +12,6 @@ export const colors = {
     900: "#202a88",
     950: "#181c53",
   },
-
   neutral: {
     50:  "#f6f6f6",
     100: "#e7e7e7",
@@ -26,7 +25,6 @@ export const colors = {
     900: "#3d3d3d",
     950: "#000000",
   },
-
   success: {
     50:  "#eafff5",
     100: "#cdfee4",
@@ -40,7 +38,6 @@ export const colors = {
     900: "#00553c",
     950: "#003023",
   },
-
   pending: {
     50:  "#fdf7e9",
     100: "#fbedc6",
@@ -54,7 +51,6 @@ export const colors = {
     900: "#6c2f17",
     950: "#3f1609",
   },
-
   warning: {
     50:  "#fdf3f3",
     100: "#fce4e4",
@@ -68,7 +64,6 @@ export const colors = {
     900: "#772525",
     950: "#400f0f",
   },
-
   base: {
     white: "#ffffff",
     black: "#000000",
