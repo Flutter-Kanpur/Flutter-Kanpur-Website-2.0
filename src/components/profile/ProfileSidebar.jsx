@@ -388,11 +388,15 @@ export default function ProfileSidebar({ inDrawer = false, onNavigate } = {}) {
                                 textAlign: "left",
                               },
                             }}
-                            primaryTypographyProps={{
-                              fontSize: { sm: 14, md: 15 },
-                              fontWeight: 500,
-                              lineHeight: 1.3,
-                              noWrap: true,
+                            slotProps={{
+                              primary: {
+                                noWrap: true,
+                                sx: {
+                                  fontSize: { sm: 14, md: 15 },
+                                  fontWeight: 500,
+                                  lineHeight: 1.3,
+                                },
+                              },
                             }}
                           />
 
@@ -485,12 +489,16 @@ export default function ProfileSidebar({ inDrawer = false, onNavigate } = {}) {
             <ListItemText
               primary="Log out"
               sx={{ m: 0 }}
-              primaryTypographyProps={{
-                fontSize: { sm: 14, md: 15 },
-                fontWeight: 500,
-                textAlign: "left",
-                color: "#e53935",
-                noWrap: true,
+              slotProps={{
+                primary: {
+                  noWrap: true,
+                  sx: {
+                    fontSize: { sm: 14, md: 15 },
+                    fontWeight: 500,
+                    textAlign: "left",
+                    color: "#e53935",
+                  },
+                },
               }}
             />
           </ListItemButton>
@@ -541,11 +549,15 @@ export default function ProfileSidebar({ inDrawer = false, onNavigate } = {}) {
             <ListItemText
               primary="Contact support"
               sx={{ m: 0 }}
-              primaryTypographyProps={{
-                fontSize: { sm: 14, md: 15 },
-                fontWeight: 500,
-                textAlign: "left",
-                noWrap: true,
+              slotProps={{
+                primary: {
+                  noWrap: true,
+                  sx: {
+                    fontSize: { sm: 14, md: 15 },
+                    fontWeight: 500,
+                    textAlign: "left",
+                  },
+                },
               }}
             />
           </ListItemButton>

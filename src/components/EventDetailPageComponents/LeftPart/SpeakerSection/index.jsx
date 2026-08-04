@@ -52,14 +52,14 @@ const SpeakerSection = ({ speakers = defaultSpeakers }) => {
       {/* GRID */}
       <Grid container spacing={4}>
         {speakers.map((speaker) => (
-          <Grid size={{ xs: 6, sm: 4, md: 3 }} key={speaker.id}>
+          <Grid item xs={6} sm={4} md={3} key={speaker.id}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 textAlign: "center",
-                gap: "14px",
+                gap: "10px",
               }}
             >
               {/* IMAGE */}

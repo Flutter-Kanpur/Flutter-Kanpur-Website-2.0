@@ -1,21 +1,25 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // Flutter `screen_util`-style proportional scaling for the web.
 //
-// The page is authored at a fixed `designWidth` canvas. On desktop
-// (viewport >= desktopMin) the whole canvas is scaled by
-// `viewport / designWidth` via CSS `zoom`, reproducing the design at every
-// width. Below desktopMin the wrapper is a passthrough so the layout can
-// reflow naturally.
+// The content is authored at a fixed `designWidth` canvas. On desktop
+// (viewport >= desktopMin) the canvas is scaled by `availableWidth / designWidth`
+// via CSS `zoom`, so it reproduces the design exactly while always fitting the
+// space it is given. Below desktopMin the wrapper is a passthrough so the layout
+// can reflow naturally.
 //
-// `zoom` is used instead of `transform: scale` because it scales the px
-// literals this codebase uses everywhere AND reserves layout space, so the
-// document flow (scrollbars, centering) stays correct.
+// IMPORTANT: it scales to the width of its CONTAINER (measured with a
+// ResizeObserver), NOT the raw viewport — so it stays correct even when placed
+// next to a sidebar or inside any narrower column.
+//
+// `zoom` is used instead of `transform: scale` because it scales the px literals
+// this codebase uses everywhere AND reserves layout space, so the document flow
+// (scrollbars, centering) stays correct.
 
-// useLayoutEffect warns during SSR; fall back to useEffect on the server so
-// the client can measure and correct the scale before the first paint.
+// useLayoutEffect warns during SSR; fall back to useEffect on the server so the
+// client can measure and correct the scale before the first paint.
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
@@ -25,39 +29,51 @@ export default function ScreenUtilScaler({
   desktopMin = 1200,
   allowUpscale = false,
 }) {
-  // Start at 1 so the server-rendered markup is deterministic; the layout
-  // effect corrects it on the client before paint.
+  const containerRef = useRef(null);
+  // Start as a passthrough so the server-rendered markup is deterministic; the
+  // layout effect measures and corrects before paint.
   const [scale, setScale] = useState(1);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [scaling, setScaling] = useState(false);
 
   useIsomorphicLayoutEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
     const update = () => {
-      const w = window.innerWidth;
-      if (w >= desktopMin) {
-        setIsDesktop(true);
-        setScale(allowUpscale ? w / designWidth : Math.min(1, w / designWidth));
+      const available = el.clientWidth;
+      // Band decision uses the real viewport so it lines up with the MUI
+      // breakpoints used elsewhere (desktopMin === lg).
+      if (window.innerWidth >= desktopMin && available > 0) {
+        const ratio = available / designWidth;
+        setScale(allowUpscale ? ratio : Math.min(1, ratio));
+        setScaling(true);
       } else {
-        setIsDesktop(false);
         setScale(1);
+        setScaling(false);
       }
     };
 
     update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
     window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", update);
+    };
   }, [designWidth, desktopMin, allowUpscale]);
 
-  const style = isDesktop
-    ? {
-        zoom: scale,
-        width: designWidth,
-        // Under `zoom: scale`, a child's `100vh` renders as `100vh * scale`,
-        // leaving a gap below full-height elements (the sidebar) when scale<1.
-        // `(100/scale)vh` compensates so it fills the viewport visually.
-        minHeight: `${100 / scale}vh`,
-        marginInline: "auto",
-      }
-    : { width: "100%" };
-
-  return <div style={style}>{children}</div>;
+  return (
+    <div ref={containerRef} style={{ width: "100%" }}>
+      <div
+        style={
+          scaling
+            ? { zoom: scale, width: designWidth, marginInline: "auto" }
+            : { width: "100%" }
+        }
+      >
+        {children}
+      </div>
+    </div>
+  );
 }
