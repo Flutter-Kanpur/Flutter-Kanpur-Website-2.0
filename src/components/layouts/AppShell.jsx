@@ -10,6 +10,8 @@ export default function AppShell({ children }) {
     "/profile",
     "/explore/projects",
     "/communityGuidelines",
+    "/auth/signup",
+    "/auth/login",
   ];
 
   // The "/" landing page imports its own navbar as an overlay on the hero
