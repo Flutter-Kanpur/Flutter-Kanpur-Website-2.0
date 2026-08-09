@@ -16,7 +16,7 @@ const ProjectSubmissionPage = () => {
   const [selectedFilter, setSelectedFilter] = useState(null);
 
   return (
-    <ScreenUtilScaler designWidth={1600} desktopMin={1200}>
+    <ScreenUtilScaler designWidth={1200} desktopMin={1200}>
       <Box
         sx={{
           width: "100%",
