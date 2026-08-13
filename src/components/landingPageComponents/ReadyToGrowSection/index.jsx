@@ -28,22 +28,38 @@ const OverlappingCircles = ({ colors, dashed = false }) => (
     </Box>
 )
 
-const ReadyToGrowSection = () => {
+/**
+ * Every prop is optional and defaults to the original landing-page content, so
+ * `<ReadyToGrowSection />` renders exactly as it always has. Other pages (e.g.
+ * /explore/browse-projects) reuse the same visual with their own copy, and can
+ * pass `renderButton` to swap in a shared button component.
+ */
+const ReadyToGrowSection = ({
+    title = 'Ready to Grow with Flutter Kanpur?',
+    description = 'Join events, practice daily, and contribute to the community. Join events, practice daily, and contribute to the community.',
+    buttonLabel = 'Join community',
+    onButtonClick,
+    renderButton,
+    backgroundColor = '#FFF',
+    borderRadius = '40px',
+    sx
+}) => {
     const leftColors = ['#7B7BFF', '#28C04E', '#3D6BFF', '#F7E34E', '#D13431']
     const dashedColors = [null, null, null, null]
 
     return (
 
         <Box sx={{
-            backgroundColor: '#FFF',
-            borderRadius: '40px',
+            backgroundColor,
+            borderRadius,
             padding: { xs: '60px 20px', md: '100px 40px' },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
             gap: 4,
-            width: '100%'
+            width: '100%',
+            ...sx
         }}>
             {/* Visual Illustration */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, md: 2 } }}>
@@ -67,7 +83,7 @@ const ReadyToGrowSection = () => {
                     color: '#000',
                     lineHeight: 1.1
                 }}>
-                    Ready to Grow with Flutter Kanpur?
+                    {title}
                 </ProductText>
                 <ProductText sx={{
                     fontSize: 18,
@@ -76,27 +92,34 @@ const ReadyToGrowSection = () => {
                     maxWidth: '600px',
                     margin: '0 auto'
                 }}>
-                    Join events, practice daily, and contribute to the community. Join events, practice daily, and contribute to the community.
+                    {description}
                 </ProductText>
             </Box>
 
             {/* CTA */}
-            <Button sx={{
-                backgroundColor: '#1A1A1A',
-                color: '#FFF',
-                padding: '16px 48px',
-                borderRadius: '100px',
-                textTransform: 'none',
-                fontSize: '18px',
-                fontFamily: PRODUCT_SANS,
-                fontWeight: 500,
-                mt: 2,
-                '&:hover': {
-                    backgroundColor: '#333'
-                }
-            }}>
-                Join community
-            </Button>
+            {renderButton ? (
+                <Box sx={{ mt: 2 }}>{renderButton()}</Box>
+            ) : (
+                <Button
+                    onClick={onButtonClick}
+                    sx={{
+                        backgroundColor: '#1A1A1A',
+                        color: '#FFF',
+                        padding: '16px 48px',
+                        borderRadius: '100px',
+                        textTransform: 'none',
+                        fontSize: '18px',
+                        fontFamily: PRODUCT_SANS,
+                        fontWeight: 500,
+                        mt: 2,
+                        '&:hover': {
+                            backgroundColor: '#333'
+                        }
+                    }}
+                >
+                    {buttonLabel}
+                </Button>
+            )}
         </Box>
     )
 }
