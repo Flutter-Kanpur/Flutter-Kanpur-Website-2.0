@@ -208,10 +208,10 @@ export default function DesktopProfilePage() {
           <TextField
             size="small"
             placeholder="Search menu options..."
-            InputProps={{
-              endAdornment: (
-                <SearchIcon sx={{ color: "#777" }} />
-              ),
+            slotProps={{
+              input: {
+                endAdornment: <SearchIcon sx={{ color: "#777" }} />,
+              },
             }}
             sx={{
               flex: 1,
