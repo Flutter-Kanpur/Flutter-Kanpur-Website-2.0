@@ -14,6 +14,7 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 import { useRouter } from "next/navigation";
 import PrimaryButton from "@/components/buttons/PrimaryButton/PrimaryButton";
 import WrapperComponent from "@/components/WrapperComponent";
+import {supabase} from "@/lib/supabase/client";
 
 export default function MLoginPage() {
   const router = useRouter();
@@ -33,54 +34,86 @@ export default function MLoginPage() {
 
   const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 
-  const handleLogin = async () => {
-    const identifier = form.emailOrUsername.trim();
-    const password = form.password;
+  // const handleLogin = async () => {
+  //   const identifier = form.emailOrUsername.trim();
+  //   const password = form.password;
 
-    if (!identifier || !password) {
-      setMessage("Please fill all fields");
+  //   if (!identifier || !password) {
+  //     setMessage("Please fill all fields");
+  //     return;
+  //   }
+
+  //   try {
+  //     let emailToUse = identifier;
+
+  //     // ✅ If it's username, resolve email from Firestore
+  //     if (!isEmail(identifier)) {
+  //       const resolvedEmail = await findEmailByIdentifier(identifier);
+
+  //       if (!resolvedEmail) {
+  //         setMessage("No account found for this username/email.");
+  //         return;
+  //       }
+
+  //       emailToUse = resolvedEmail.trim();
+  //     }
+  //     //Sign in using email+password
+  //     await signInUserWithEmailAndPassword(emailToUse, password);
+
+  //     router.push("/");
+  //   } catch (err) {
+  //     console.error("LOGIN ERROR:", err);
+
+  //     const code = err?.code || "";
+
+  //     if (code === "auth/invalid-credential") {
+  //       //wrong pass OR google-only account
+  //       setMessage(
+  //         "Invalid email/username or password. If you signed up with Google, use Google login.",
+  //       );
+  //     } else if (code === "auth/user-not-found") {
+  //       setMessage("Account not found.");
+  //     } else if (code === "auth/wrong-password") {
+  //       setMessage("Wrong password.");
+  //     } else if (code === "auth/too-many-requests") {
+  //       setMessage("Too many attempts. Try again later.");
+  //     } else {
+  //       setMessage("Login failed. Try again.");
+  //     }
+  //   }
+  // };
+
+const handleLogin = async () => {
+  const email = form.emailOrUsername.trim();
+  const password = form.password;
+
+  if (!email || !password) {
+    setMessage("Please fill all fields");
+    return;
+  }
+
+  try {
+    setMessage("");
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.error("SUPABASE LOGIN ERROR:", error);
+      setMessage(error.message);
       return;
     }
 
-    try {
-      let emailToUse = identifier;
+    console.log("LOGIN SUCCESS:", data.user);
 
-      // ✅ If it's username, resolve email from Firestore
-      if (!isEmail(identifier)) {
-        const resolvedEmail = await findEmailByIdentifier(identifier);
-
-        if (!resolvedEmail) {
-          setMessage("No account found for this username/email.");
-          return;
-        }
-
-        emailToUse = resolvedEmail.trim();
-      }
-      //Sign in using email+password
-      await signInUserWithEmailAndPassword(emailToUse, password);
-
-      router.push("/");
-    } catch (err) {
-      console.error("LOGIN ERROR:", err);
-
-      const code = err?.code || "";
-
-      if (code === "auth/invalid-credential") {
-        //wrong pass OR google-only account
-        setMessage(
-          "Invalid email/username or password. If you signed up with Google, use Google login.",
-        );
-      } else if (code === "auth/user-not-found") {
-        setMessage("Account not found.");
-      } else if (code === "auth/wrong-password") {
-        setMessage("Wrong password.");
-      } else if (code === "auth/too-many-requests") {
-        setMessage("Too many attempts. Try again later.");
-      } else {
-        setMessage("Login failed. Try again.");
-      }
-    }
-  };
+    router.push("/");
+  } catch (error) {
+    console.error("LOGIN ERROR:", error);
+    setMessage("Login failed. Please try again.");
+  }
+};
 
   return (
     <WrapperComponent
@@ -180,7 +213,7 @@ export default function MLoginPage() {
                   backgroundColor: "#F6F6F6",
                   fontSize: "16px",
 
-                  // ✅ placeholder styling
+            
                   "& input::placeholder": {
                     fontSize: "13px",
                     fontWeight: 500,
@@ -237,9 +270,9 @@ export default function MLoginPage() {
                   fontWeight: 500,
 
                   "& input::placeholder": {
-                    fontSize: "13px", // 👈 reduce here
-                    opacity: 1, // keeps color visible (important in MUI)
-                    color: "#6D6D6D", // optional softer color
+                    fontSize: "13px", 
+                    opacity: 1, 
+                    color: "#6D6D6D", 
                   },
                 },
               }}
@@ -260,7 +293,7 @@ export default function MLoginPage() {
 
             {/* Forgot password */}
             <Typography
-              onClick={() => router.push("/forgot-password")} // change route if needed
+              onClick={() => router.push("/forgot-password")} 
               sx={{
                 fontSize: 14,
                 fontWeight: 500,
