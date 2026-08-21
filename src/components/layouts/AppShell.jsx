@@ -12,6 +12,8 @@ export default function AppShell({ children }) {
     "/explore/forum-discussions",
     "/eventsPage",
     "/communityGuidelines",
+    "/auth/signup",
+    "/auth/login",
   ];
 
   // The "/" landing page imports its own navbar as an overlay on the hero

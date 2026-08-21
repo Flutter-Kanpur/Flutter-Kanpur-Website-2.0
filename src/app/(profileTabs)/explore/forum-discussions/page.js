@@ -20,8 +20,14 @@ import {
 } from "@/components/forumDiscussionsComponents";
 import { t, fontFamily } from "@/components/forumDiscussionsComponents/tokens";
 
-/** The author attached to anything posted from this page. */
+
 const currentUser = { name: "Sam Sameul", avatar: defaultAvatar };
+const ULTRA_WIDE = "@media (min-width:2400px)";
+const ultra = {
+  
+  contentMax: "none",
+  railWidth: 420,
+};
 
 const matchesQuickFilter = (discussion, filter) => {
   if (filter === "trending") return Boolean(discussion.trending);
@@ -130,7 +136,13 @@ export default function ForumDiscussionsPage() {
         py: { xs: t.spacing.xl, md: t.spacing.xxl },
       }}
     >
-      <Box sx={{ maxWidth: t.layout.contentMax, mx: "auto" }}>
+      <Box
+        sx={{
+          maxWidth: t.layout.contentMax,
+          mx: "auto",
+          [ULTRA_WIDE]: { maxWidth: ultra.contentMax },
+        }}
+      >
         <ForumHeader
           backLabel={forumContent.backLabel}
           backHref={forumContent.backHref}
@@ -209,6 +221,7 @@ export default function ForumDiscussionsPage() {
               flexShrink: 0,
               position: { lg: "sticky" },
               top: { lg: t.spacing.xxl },
+              [ULTRA_WIDE]: { width: ultra.railWidth },
             }}
           >
             <RelatedDiscussions

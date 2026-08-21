@@ -6,25 +6,30 @@ import Projects from "@/components/explorePageComponents/Projects";
 import Discussions from "@/components/explorePageComponents/Discussions";
 import ExploreCategoriesSection from "@/components/landingPageComponents/ExploreCategories";
 import { exploreCategoriesContent } from "@/data/exploreCategoriesData";
+import styles from "./page.module.css";
 
 export default function ExplorePage() {
   return (
-    <>
+    <> 
       <Hero />
-      <StoriesSection />
-      <Features />
 
-      <Projects />
+      <div className={styles.stories}>
+        <StoriesSection />
+      </div>
 
-      <Discussions />
+      <div className={styles.features}>
+        <Features />
+      </div>
 
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "72px 24px",
-        }}
-      >
+      <div className={styles.projects}>
+        <Projects />
+      </div>
+
+      <div className={styles.discussions}>
+        <Discussions />
+      </div>
+
+      <div className={styles.container}>
         <ExploreCategoriesSection
           title={exploreCategoriesContent.title}
           titleHighlight={exploreCategoriesContent.titleHighlight}
@@ -33,13 +38,7 @@ export default function ExplorePage() {
         />
       </div>
 
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 24px 48px",
-        }}
-      >
+      <div className={styles.footerContainer}>
         <FooterComponent />
       </div>
     </>

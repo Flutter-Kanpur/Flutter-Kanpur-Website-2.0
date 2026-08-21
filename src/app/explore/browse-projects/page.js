@@ -25,6 +25,8 @@ const HERO = {
 };
 
 const CONTENT_PX = { xs: t.spacing.lg, md: t.spacing.xxl };
+const ULTRA_WIDE = "@media (min-width:2400px)";
+const ULTRA_MAX_WIDTH = "none";
 
 export default function BrowseProjectsPage() {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
@@ -63,7 +65,16 @@ export default function BrowseProjectsPage() {
           px: CONTENT_PX,
         }}
       >
-        <Box sx={{ maxWidth: t.layout.maxWidth, mx: "auto" }}>
+        <Box
+          sx={{
+            maxWidth: t.layout.maxWidth,
+            mx: "auto",
+            [ULTRA_WIDE]: {
+              maxWidth: ULTRA_MAX_WIDTH,
+              "& > div > div:last-of-type": { width: 480 },
+            },
+          }}
+        >
           <BrowseHero {...HERO} />
         </Box>
       </Box>
@@ -74,6 +85,7 @@ export default function BrowseProjectsPage() {
           mx: "auto",
           px: CONTENT_PX,
           pb: { xs: t.spacing.xxxl, md: t.spacing.huge },
+          [ULTRA_WIDE]: { maxWidth: ULTRA_MAX_WIDTH },
         }}
       >
         <Box
@@ -106,6 +118,11 @@ export default function BrowseProjectsPage() {
               display: "flex",
               flexDirection: "column",
               gap: t.layout.sectionGap,
+              [ULTRA_WIDE]: {
+                "& > section > div": {
+                  gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+                },
+              },
             }}
           >
             {visibleSections.map((section) => (

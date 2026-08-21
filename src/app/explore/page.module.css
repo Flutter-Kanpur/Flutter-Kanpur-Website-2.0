@@ -1,0 +1,93 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 72px 24px;
+}
+
+.footerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+}
+
+@media (min-width: 2400px) {
+  .container {
+    max-width: none;
+    padding: 72px 96px;
+  }
+
+  .footerContainer {
+    max-width: none;
+    padding: 0 96px 48px;
+  }
+  .container > div > div:last-child {
+    flex: 1;
+  }
+
+  .container > div > div:last-child > div {
+    max-width: none;
+    flex: 1 1 0;
+  }
+  .stories > section > section {
+    max-width: none;
+    padding: 0 96px;
+  }
+
+  .stories > section > section > div:first-child {
+    max-width: none;
+    flex: 1;
+  }
+
+  .stories > section > section > div:first-child > h1,
+  .stories > section > section > div:first-child > p {
+    width: auto;
+    max-width: none;
+  }
+
+  .stories > section > section > div:last-child {
+    width: auto;
+    flex: 1;
+  }
+  .stories > section > section > div:last-child article {
+    width: 100%;
+  }
+
+  .features > section > div:last-child {
+    max-width: none;
+  }
+
+  .features > section > div:last-child > div:first-child {
+    max-width: none;
+    flex: 1;
+  }
+
+  .features > section > div:last-child > div:last-child {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .features > section > div:last-child > div:last-child > div {
+    width: auto;
+    margin-left: 0;
+  }
+
+  .projects > section > div:last-child {
+    max-width: none;
+  }
+
+  .projects > section > div:last-child > div {
+    flex: 1 1 0;
+    width: auto;
+  }
+
+  .projects > section > div:last-child > div > article {
+    width: 100%;
+  }
+
+  .projects > section > div:last-child > div > article > h4,
+  .projects > section > div:last-child > div > article > p {
+    width: auto;
+  }
+  .discussions > section > div:last-child {
+    max-width: none;
+  }
+}
