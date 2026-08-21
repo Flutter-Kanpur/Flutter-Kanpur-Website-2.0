@@ -9,6 +9,8 @@ export default function AppShell({ children }) {
   const hideNavbarRoutes = [
     "/profile",
     "/explore/projects",
+    "/explore/forum-discussions",
+    "/eventsPage",
     "/communityGuidelines",
     "/auth/signup",
     "/auth/login",

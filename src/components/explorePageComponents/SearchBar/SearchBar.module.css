@@ -1,0 +1,43 @@
+/* Search field shared by the Explore hero and Browse Projects.
+   Values match the original Explore hero search bar exactly. */
+
+.searchBar {
+  position: relative;
+  width: 100%;
+  height: 56px;
+  margin: 0 auto;
+}
+
+.searchInput {
+  width: 100%;
+  height: 100%;
+  padding: 16px 52px 16px 22px;
+  background: #ffffff;
+  border: 1px solid #e4e4e4;
+  border-radius: 12px;
+  outline: none;
+  font-family: var(--font-product-sans), "Product Sans", sans-serif;
+  font-size: 16px;
+  box-shadow: 0 12px 30px rgba(31, 33, 48, 0.08);
+  transition: border-color 0.2s ease;
+  color: #000000;
+}
+
+.searchInput::placeholder {
+  color: #5d5d5d;
+}
+
+.searchInput:focus {
+  border-color: #4167f2;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}

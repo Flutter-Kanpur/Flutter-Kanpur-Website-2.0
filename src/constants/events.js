@@ -84,4 +84,24 @@ export const eventsData = [
     location: "Bangalore",
     date: "06 Mar'26"
   },
+  {
+    image: ExploreEventImage,
+    time: "6:00 PM – 9:00 PM",
+    type: "Hackathon",
+    title: "Flutter Community Hack Night",
+    description: "Build a project with the community, collaborate on UI and backend features, and ship a prototype in one evening.",
+    registeredCount: "72+",
+    location: "Hyderabad",
+    date: "14 Mar'26"
+  },
+  {
+    image: ExploreEventImage,
+    time: "10:00 AM – 12:30 PM",
+    type: "Design Sprint",
+    title: "Mobile UI Sprint Workshop",
+    description: "Design and prototype a polished mobile experience with guided sprint exercises and expert feedback.",
+    registeredCount: "43+",
+    location: "Pune",
+    date: "20 Mar'26"
+  },
 ]
