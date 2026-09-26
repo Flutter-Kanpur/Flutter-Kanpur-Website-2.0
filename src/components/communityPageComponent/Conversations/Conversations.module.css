@@ -1,0 +1,95 @@
+.section {
+  width: 100%;
+  padding: 80px 24px;
+  background: #f6f6f6;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+}
+
+.left {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.heading {
+  margin: 0 0 16px;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+
+.headingAccent {
+  color: #4167f2;
+}
+
+.description {
+  margin: 0 0 24px;
+  max-width: 480px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #6d6d6d;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-areas:
+    "ask ask"
+    "reply start"
+    "explore explore";
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #ececec;
+  color: #000000;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.ask {
+  grid-area: ask;
+}
+
+.reply {
+  grid-area: reply;
+}
+
+.start {
+  grid-area: start;
+}
+
+.explore {
+  grid-area: explore;
+}
+
+.right {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.convoImg{
+  height: 572px;
+  width: 503px;
+} 

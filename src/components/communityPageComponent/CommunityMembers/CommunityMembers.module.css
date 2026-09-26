@@ -1,0 +1,177 @@
+.section {
+  width: 100%;
+  padding: 75px 24px 80px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4167f2;
+  margin-bottom: 12px;
+}
+
+.heading {
+  
+  width: 1021px;
+  height: 116px;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: auto;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+
+
+.collage {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(20px, 4vw, 56px);
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0px 24px 16px;
+}
+
+
+.cluster {
+  position: relative;
+  flex-basis: 0;
+  min-width: 140px;
+}
+
+
+.tile {
+  position: absolute;
+  border-radius: 20px;
+  box-shadow: 0 10px 24px rgba(20, 30, 60, 0.08);
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.tileImageWrap {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  background: #f0f0f0;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.tileImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cornerBadge {
+  position: absolute;
+  bottom: -8px;
+  left: -8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border: 3px solid #ffffff;
+  z-index: 4;
+}
+
+.tag {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px 9px 12px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #ececec;
+  box-shadow: 0 6px 16px rgba(20, 30, 60, 0.06);
+  white-space: nowrap;
+}
+
+.tagDot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.tagText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.3;
+}
+
+.tagRole {
+  font-size: 11px;
+  color: #888888;
+}
+
+.tagName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.sparkle {
+  position: absolute !important;
+  font-size: 20px !important;
+  z-index: 5;
+}
+
+.sparkleOne {
+  top: 44%;
+  left: 9%;
+}
+
+.sparkleTwo {
+  top: 37%;
+  right: 26%;
+}
+
+
+.sparkleThree {
+  top: 43%;
+  left: 33%;
+}
+
+.sparkleFour {
+  top: 74%;
+  left: 9%;
+}
+
+.sparkleFive {
+  top: 80%;
+  left: 45%;
+}
+
+.sparkleSix {
+  top: 56%;
+  right: 7%;
+}
