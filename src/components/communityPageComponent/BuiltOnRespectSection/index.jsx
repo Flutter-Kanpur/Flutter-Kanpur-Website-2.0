@@ -1,6 +1,8 @@
 import PrimaryButton from "@/components/buttons/PrimaryButton/PrimaryButton";
 import styles from "./BuiltOnRespectSection.module.css";
 import Image from "next/image";
+import { height } from "@mui/system";
+import { Button } from "@mui/material";
 
 
 
@@ -43,19 +45,24 @@ export default function BuiltOnRespectSection() {
             <p className={styles.cardDescription}>
               Share your feedback, suggestions or simply chat with our community of passionate developers.
             </p>
-            <PrimaryButton
-              fullWidth={false}
-              sx={{
-                width: "fit-content",
-                minWidth: "0",
-                maxWidth: "none",
-                px: "28px",
-                fontSize: "15px",
+            <Button sx={{
+                backgroundColor: '#1A1A1A',
+                color: '#FFF',
+                padding: '12px 19px',
+                borderRadius: '100px',
+                textTransform: 'none',
+                fontSize: '18px',
                 fontWeight: 500,
-              }}
-            >
-              Join discord
-            </PrimaryButton>
+                
+                '&:hover': {
+                    backgroundColor: '#333'
+                }
+            }}>
+            <span >Join our discord</span>
+            
+              
+            
+        </Button>
           </div>
         </div>
       </div>

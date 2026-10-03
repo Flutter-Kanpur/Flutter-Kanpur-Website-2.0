@@ -15,18 +15,18 @@
 
 .heading {
   margin: 0 0 16px;
-  font-size: 40px;
+  font-size: 48px;
   font-weight: 700;
   letter-spacing: -0.01em;
-  line-height: 1.2;
+  line-height: normal;
   color: #000000;
 }
 
 .description {
   margin: 0;
   max-width: 620px;
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 20px;
+  line-height: 28px;
   color: #6d6d6d;
 }
 
@@ -70,9 +70,9 @@
 
 .itemTitle {
   margin: 0;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: normal;
   color: #000000;
   max-width: 560px;
 }
@@ -94,7 +94,7 @@
 
 
 .author {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
   color: #000000;
 }

@@ -30,7 +30,7 @@ const Hero = () => {
         <Button sx={{
                 backgroundColor: '#1A1A1A',
                 color: '#FFF',
-                padding: '16px 48px',
+                padding: '10px 36px',
                 borderRadius: '100px',
                 textTransform: 'none',
                 fontSize: '18px',
