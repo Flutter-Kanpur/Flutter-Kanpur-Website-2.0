@@ -1,0 +1,50 @@
+.hero {
+  width: 100%;
+  margin-top: -104px; /* tucks under the navbar */
+ 
+  /* top: 176px @1200 → 140px @480 | bottom: 120px @1200 → 84px @480 */
+  padding: clamp(140px, calc(116px + 5vw), 176px)
+    clamp(16px, 2vw, 24px)
+    clamp(84px, calc(60px + 5vw), 120px);
+ 
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(180deg, #9cc8fe 0%, #ffffff 100%);
+}
+ 
+.heroContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+ 
+.badge {
+  color: #4167f2;
+  font-size: clamp(12px, 2vw, 14px);
+  font-weight: 500;
+}
+ 
+.heading {
+  /* 60px @1200 → 23px @480 (linear) */
+  font-size: clamp(23px, calc(5.14vw - 1.7px), 60px);
+  height: 2.5em; /* = 150px at 60px, scales with the font */
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #000000;
+  margin: clamp(16px, 2.5vw, 30px) 0;
+}
+ 
+.description {
+  width: 100%;
+  max-width: 785px;
+  /* 15px @ ≥680px → 10.5px @480 */
+  font-size: clamp(10.5px, 2.2vw, 15px);
+  line-height: 1.7;
+  color: #6b7280;
+  /* original: 44px box + 30px margin, with 2 lines of 25.5px = 51px → 23px margin at 15px */
+  margin-bottom: 1.53em;
+}
+ 

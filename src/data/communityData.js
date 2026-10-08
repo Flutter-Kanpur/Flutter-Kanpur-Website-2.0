@@ -32,13 +32,7 @@ export const forumDiscussionsTimeline = [
   },
 ];
 
-export const conversationsContent = {
-  label: "",
-  title: "",
-  description:
-    "",
-  ctaLabel: "",
-};
+
 
 export const conversationFeatures = [
   { id: 1, title: "Ask questions and share solutions", area: "ask" },
