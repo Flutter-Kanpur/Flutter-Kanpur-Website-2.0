@@ -4,8 +4,8 @@ import { Box, Typography } from '@mui/material'
 
 const PRODUCT_SANS = "'Product Sans', system-ui, -apple-system, sans-serif"
 
-const FAQSection = () => {
-    const accordianData = [
+
+export const accordianData = [
         {
             title: 'Who can join the Flutter Kanpur community?',
             description: 'Flutter Kanpur is a community-driven group of Flutter developers, designers, and enthusiasts focused on learning, collaboration, and knowledge sharing through events, blogs, and peer interactions.'
@@ -31,6 +31,9 @@ const FAQSection = () => {
             description: 'Absolutely! We have sessions and resources tailored for all skill levels, including beginners just starting their Flutter journey.'
         },
     ]
+
+const FAQSection = () => {
+    
 
     return (
         <Box sx={{

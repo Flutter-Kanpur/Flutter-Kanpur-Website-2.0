@@ -1,0 +1,120 @@
+.section {
+  width: 100%;
+  padding: 80px 24px;
+  background: #ffffff;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 64px;
+}
+
+.left {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-top: 8px;
+}
+
+.heading {
+  margin: 0 0 16px;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+
+.headingAccent {
+  color: #4167f2;
+}
+
+.description {
+  margin: 0 0 24px;
+  max-width: 440px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #6d6d6d;
+}
+
+.right {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 460px;
+}
+
+.card {
+  background: #eff3ff;
+  border-radius: 20px;
+  padding: 20px 24px;
+}
+
+.categoryRow {
+  display: flex;
+  flex-direction: column;
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.categoryLabel {
+  font-size: 17px;
+  font-weight: 500;
+  color: #000000;
+}
+
+.badgeIcons {
+  display: flex;
+  gap: 12px;
+  padding: 4px 0 16px;
+  flex-wrap: wrap;
+}
+
+.badgeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.badgeEarned {
+  color: #f3b239;
+}
+
+.badgeLocked {
+ 
+  color: #ffffff;
+}
+
+.divider {
+  height: 1px;
+  background: #dce5fd;
+}
+
+.viewBadgesLink {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4167f2;
+  text-decoration: none;
+}
+

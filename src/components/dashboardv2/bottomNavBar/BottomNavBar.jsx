@@ -6,7 +6,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeRounded from '@mui/icons-material/HomeRounded';
 import Groups from '@mui/icons-material/Groups';
 import Explore from '@mui/icons-material/Explore';
-// import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutlineRounded";
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
@@ -15,9 +15,9 @@ const INACTIVE = '#9CA3AF';
 
 const tabs = [
     { label: 'Home', value: '/', icon: <HomeRounded /> },
-    { label: 'Community', value: '/communityPage', icon: <Groups /> },
+    { label: 'Community', value: '/community', icon: <Groups /> },
     { label: 'Explore', value: '/explore', icon: <Explore /> },
-    // { label: 'Profile', value: '/profile', icon: <PersonOutlineIcon /> },
+    { label: 'Profile', value: '/profile', icon: <PersonOutlineIcon /> },
 ];
 
 /**

@@ -43,7 +43,7 @@ const TopNavbar = () => {
     const links = [
         { id: 1, name: 'Home', route: '/' },
         { id: 2, name: 'Explore', route: '/explore' },
-        { id: 3, name: 'Community', route: '' },
+        { id: 3, name: 'Community', route: '/community' },
         { id: 4, name: 'Practice', route: '' },
         { id: 5, name: 'Forum', route: '' },
         { id: 6, name: 'Blogs', route: '/blogs' },
