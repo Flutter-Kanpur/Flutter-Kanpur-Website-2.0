@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
 
+import { useUltraWide } from "@/hooks/useUltraWide";
 import MobileTopBar from "@/components/profile/MobileTopBar";
 import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
 import SearchBar from "@/components/dashboardv2/searchBar/SearchBar";
@@ -14,9 +15,14 @@ import UploadProject from "@/components/explorePageComponents/projectSubmission/
 const ProjectSubmissionPage = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilter, setSelectedFilter] = useState(null);
+  const ultraWide = useUltraWide();
 
   return (
-    <ScreenUtilScaler designWidth={1200} desktopMin={1200}>
+    <ScreenUtilScaler
+      designWidth={1200}
+      desktopMin={1200}
+      allowUpscale={ultraWide}
+    >
       <Box
         sx={{
           width: "100%",

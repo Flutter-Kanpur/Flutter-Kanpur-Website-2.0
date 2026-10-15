@@ -189,3 +189,48 @@
     width: 100%;
   }
 }
+
+@media (max-width: 900px) {
+  .featuresSection {
+    padding: 48px 16px;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .leftCard {
+    max-width: 100%;
+  }
+
+  .logo,
+  .lead {
+    margin-left: 0;
+  }
+
+  .lead {
+    width: 100%;
+    height: auto;
+  }
+
+  .author {
+    margin-left: 0;
+  }
+
+  .rightGrid {
+    width: 100%;
+  }
+
+  .large,
+  .medium,
+  .small {
+    width: 100%;
+  }
+
+  .featureItem {
+    white-space: normal;
+    height: auto;
+    min-height: 49px;
+  }
+}

@@ -6,25 +6,38 @@ import Projects from "@/components/explorePageComponents/Projects";
 import Discussions from "@/components/explorePageComponents/Discussions";
 import ExploreCategoriesSection from "@/components/landingPageComponents/ExploreCategories";
 import { exploreCategoriesContent } from "@/data/exploreCategoriesData";
+import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
+import { ULTRA_WIDE_MIN } from "@/theme/breakpoints";
+import styles from "./page.module.css";
+
+const DESIGN_WIDTH = 1440;
 
 export default function ExplorePage() {
   return (
-    <>
+    <ScreenUtilScaler
+      designWidth={DESIGN_WIDTH}
+      desktopMin={ULTRA_WIDE_MIN}
+      allowUpscale
+    >
       <Hero />
-      <StoriesSection />
-      <Features />
 
-      <Projects />
+      <div className={styles.stories}>
+        <StoriesSection />
+      </div>
 
-      <Discussions />
+      <div className={styles.features}>
+        <Features />
+      </div>
 
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "72px 24px",
-        }}
-      >
+      <div className={styles.projects}>
+        <Projects />
+      </div>
+
+      <div className={styles.discussions}>
+        <Discussions />
+      </div>
+
+      <div className={styles.container}>
         <ExploreCategoriesSection
           title={exploreCategoriesContent.title}
           titleHighlight={exploreCategoriesContent.titleHighlight}
@@ -33,15 +46,9 @@ export default function ExplorePage() {
         />
       </div>
 
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 24px 48px",
-        }}
-      >
+      <div className={styles.footerContainer}>
         <FooterComponent />
       </div>
-    </>
+    </ScreenUtilScaler>
   );
 }

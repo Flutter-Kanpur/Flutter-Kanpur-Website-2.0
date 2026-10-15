@@ -105,7 +105,7 @@ const sections = [
       },
       {
         label: "Forum Discussions",
-        href: "/profile/forum",
+        href: "/explore/forum-discussions",
         icon: "/assets/profile-sidebar-assets/forum_discussions_icon.svg",
       },
       {

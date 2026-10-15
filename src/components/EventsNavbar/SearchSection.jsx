@@ -11,7 +11,7 @@ const SearchSection = () => {
     <Box
       sx={{
         width: "100%",
-        bgcolor: "#FAFAFA",
+        bgcolor: "#FFFFFF",
       }}
     >
       <Box

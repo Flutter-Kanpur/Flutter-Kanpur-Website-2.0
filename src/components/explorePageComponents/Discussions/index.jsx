@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Discussions.module.css";
-import PrimaryButton from "@/components/buttons/PrimaryButton/PrimaryButton";
 import Image from "next/image";
 import { discussions, discussionsContent } from "@/data/discussionsData";
 
@@ -29,31 +28,7 @@ export default function Discussions() {
       <h2 className={styles.heading}>{discussionsContent.heading}</h2>
 
       <div className={styles.actions}>
-        <PrimaryButton
-          fullWidth={false}
-          sx={{
-            width: "fit-content",
-            minWidth: "0",
-            maxWidth: "none",
-            px: "24px",
-            fontSize: "16px",
-            fontWeight: 400,
-            backgroundColor: "#1a1a1a",
-            color: "#ffffff",
-            "&:hover": { backgroundColor: "#000000" },
-          }}
-          endIcon={
-            <Image
-              src="/assets/explore-page-assets/eye-icon.svg"
-              alt="View"
-              width={18}
-              height={18}
-            />
-          }
-        >
-          {discussionsContent.viewAllLabel}
-        </PrimaryButton>
-        <a className={styles.askButton} href="#">
+        <a className={styles.askButton} href={discussionsContent.askHref}>
           {discussionsContent.askLabel}
           <Image
             src="/assets/explore-page-assets/discussion-arrow.svg"

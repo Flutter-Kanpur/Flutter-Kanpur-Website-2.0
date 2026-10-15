@@ -1,12 +1,9 @@
-// Content + data for the Projects section on the Explore page.
-// Edit the text/values here — the components render whatever lives in this file.
-
 export const projectsContent = {
   heading: "Learn from Outstanding Community Projects",
   subheading:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum nulla sed consectetur.",
   ctaLabel: "View all projects",
-  ctaHref: "/explore/projects",
+  ctaHref: "/explore/browse-projects",
 };
 
 const sampleProject = {

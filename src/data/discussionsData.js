@@ -1,10 +1,8 @@
-// Content + data for the Discussions section on the Explore page.
-// Edit the text/values here — the component renders whatever lives in this file.
-
 export const discussionsContent = {
   heading: "Active discussion highlights",
   viewAllLabel: "View all discussion",
   askLabel: "Post a question",
+  askHref: "/explore/forum-discussions",
 };
 
 export const discussions = [

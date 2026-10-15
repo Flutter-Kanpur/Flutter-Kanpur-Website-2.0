@@ -9,14 +9,15 @@ import { useRouter } from 'next/navigation';
 const EventPageComponent = () => {
     const router = useRouter();
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, mt: '100px' }}>
-            <Typography sx={{ fontSize: 24, fontWeight: 600, color: '#000' }}>
-                Search for events
-            </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, mt: '30px' }}>
+            
             <Grid container spacing={2} rowSpacing={8} sx={{ display: "flex", }}>
                 {eventsData.map((item, index) => (
                     <Grid
-                        size={{ xs: 12, sm: 6, md: 4 }}
+                        item
+                        xs={12}
+                        sm={6}
+                        md={3}
                         key={item.id ?? index}
                     >
                         <EventsCard onClick={() => router.push(`/eventsDetail/${item.id ?? index}`)} event={item} />
