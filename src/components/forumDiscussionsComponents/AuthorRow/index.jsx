@@ -38,7 +38,7 @@ const AuthorRow = ({ author, timeLabel, size = "md", trailing }) => {
           <Typography
             sx={{
               fontFamily,
-              fontSize: isSmall ? "11px" : t.typography.label3.fontSize,
+              fontSize: isSmall ? t.fontSize.caption : t.typography.label3.fontSize,
               fontWeight: t.typography.label3.fontWeight,
               color: t.text.muted,
               lineHeight: 1.4,

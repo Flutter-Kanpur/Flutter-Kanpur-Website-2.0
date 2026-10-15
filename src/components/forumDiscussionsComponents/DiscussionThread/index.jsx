@@ -17,7 +17,7 @@ const DiscussionThread = ({ discussion, onTagClick }) => (
       component="h2"
       sx={{
         fontFamily,
-        fontSize: { xs: t.typography.display3.fontSize, md: "31.88px" },
+        fontSize: { xs: t.typography.display3.fontSize, md: t.fontSize.threadTitle },
         fontWeight: t.typography.heading1.fontWeight,
         lineHeight: 1.25,
         color: t.text.heading,

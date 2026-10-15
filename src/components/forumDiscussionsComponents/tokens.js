@@ -41,6 +41,18 @@ export const t = {
   shadow: {
     pill: "0 1px 3px rgba(16, 24, 40, 0.06), inset 0 0 8.91px rgba(179, 196, 255, 0.43)",
     card: "0px 1px 2px rgba(0, 0, 0, 0.04)",
+    menu: "0 8px 24px rgba(16, 24, 40, 0.10)",
+    control: "0 1px 4px rgba(16, 24, 40, 0.12)",
+  },
+
+  gradient: {
+    button: `linear-gradient(180deg, ${colors.base.white} 0%, ${colors.neutral[100]} 100%)`,
+    buttonHover: `linear-gradient(180deg, ${colors.base.white} 0%, ${colors.neutral[200]} 100%)`,
+  },
+
+  fontSize: {
+    caption: "11px",
+    threadTitle: "31.88px",
   },
 
   layout: {

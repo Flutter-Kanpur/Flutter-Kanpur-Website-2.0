@@ -37,7 +37,7 @@ const navButtonSx = (side) => ({
   height: 28,
   bgcolor: t.surface.card,
   border: `1px solid ${t.border.subtle}`,
-  boxShadow: "0 1px 4px rgba(16, 24, 40, 0.12)",
+  boxShadow: t.shadow.control,
   zIndex: 1,
   "&:hover": { bgcolor: t.surface.hover },
 });

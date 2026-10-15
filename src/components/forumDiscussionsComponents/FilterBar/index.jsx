@@ -86,7 +86,7 @@ const FilterBar = ({
                 mt: t.spacing.sm,
                 borderRadius: t.radius.sm,
                 border: `1px solid ${t.border.subtle}`,
-                boxShadow: "0 8px 24px rgba(16, 24, 40, 0.10)",
+                boxShadow: t.shadow.menu,
               },
             },
           }}

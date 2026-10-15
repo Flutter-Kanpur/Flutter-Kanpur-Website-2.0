@@ -16,6 +16,7 @@ import {
   showcaseCta,
 } from "@/components/browseProjectsComponents";
 import { t, figma } from "@/components/browseProjectsComponents/tokens";
+import { ULTRA_WIDE_MEDIA } from "@/theme/breakpoints";
 
 const HERO = {
   title: "Browse Projects",
@@ -25,7 +26,6 @@ const HERO = {
 };
 
 const CONTENT_PX = { xs: t.spacing.lg, md: t.spacing.xxl };
-const ULTRA_WIDE = "@media (min-width:2400px)";
 const ULTRA_MAX_WIDTH = "none";
 
 export default function BrowseProjectsPage() {
@@ -69,7 +69,7 @@ export default function BrowseProjectsPage() {
           sx={{
             maxWidth: t.layout.maxWidth,
             mx: "auto",
-            [ULTRA_WIDE]: {
+            [ULTRA_WIDE_MEDIA]: {
               maxWidth: ULTRA_MAX_WIDTH,
               "& > div > div:last-of-type": { width: 480 },
             },
@@ -85,7 +85,7 @@ export default function BrowseProjectsPage() {
           mx: "auto",
           px: CONTENT_PX,
           pb: { xs: t.spacing.xxxl, md: t.spacing.huge },
-          [ULTRA_WIDE]: { maxWidth: ULTRA_MAX_WIDTH },
+          [ULTRA_WIDE_MEDIA]: { maxWidth: ULTRA_MAX_WIDTH },
         }}
       >
         <Box
@@ -118,7 +118,7 @@ export default function BrowseProjectsPage() {
               display: "flex",
               flexDirection: "column",
               gap: t.layout.sectionGap,
-              [ULTRA_WIDE]: {
+              [ULTRA_WIDE_MEDIA]: {
                 "& > section > div": {
                   gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
                 },

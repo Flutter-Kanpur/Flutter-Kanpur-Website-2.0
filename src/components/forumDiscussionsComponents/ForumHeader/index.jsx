@@ -23,14 +23,14 @@ const ForumHeader = ({ backLabel, backHref, title, subtitle }) => (
         gap: t.spacing.sm,
         borderRadius: t.radius.sm,
         border: `1px solid ${t.border.subtle}`,
-        background: "linear-gradient(180deg, #FFFFFF 0%, #ECECEC 100%)",
+        background: t.gradient.button,
         color: t.text.onLight,
         textTransform: "none",
         fontFamily,
         fontSize: t.typography.label2.fontSize,
         fontWeight: t.typography.label2.fontWeight,
         "&:hover": {
-          background: "linear-gradient(180deg, #FFFFFF 0%, #E6E6E6 100%)",
+          background: t.gradient.buttonHover,
           borderColor: t.border.strong,
         },
       }}

@@ -94,7 +94,7 @@ const ResponseItem = ({ response, onToggleLike }) => (
       <Typography
         sx={{
           fontFamily,
-          fontSize: "11px",
+          fontSize: t.fontSize.caption,
           color: t.text.muted,
           lineHeight: 1.4,
         }}

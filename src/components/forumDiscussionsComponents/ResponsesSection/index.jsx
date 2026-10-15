@@ -52,7 +52,7 @@ const ResponsesSection = ({
           alignItems: "center",
           justifyContent: "center",
           fontFamily,
-          fontSize: "11px",
+          fontSize: t.fontSize.caption,
           color: t.text.heading,
         }}
       >

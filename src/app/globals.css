@@ -32,6 +32,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Mirrors src/theme/colors.js, radius.js and spacing.js for CSS modules */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-neutral-600: #5d5d5d;
+  --color-primary-500: #4167f2;
+  --color-input-border: #e4e4e4;
+  --radius-sm: 12px;
+  --space-lg: 16px;
 }
 
 @theme inline {
