@@ -37,7 +37,7 @@ export default function MobileBottomNav() {
     },
     {
       label: "Community",
-      path: "/communityPage",
+      path: "/community",
       icon: (color) => (
         <svg
           width="26"
@@ -160,3 +160,4 @@ export default function MobileBottomNav() {
     </Box>
   );
 }
+
