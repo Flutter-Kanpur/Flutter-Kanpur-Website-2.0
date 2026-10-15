@@ -7,11 +7,20 @@ import PastSpeakerSection from '@/components/landingPageComponents/PastSpeakerSe
 import ReadyToGrowSection from '@/components/landingPageComponents/ReadyToGrowSection'
 import PaddingContainer from '@/components/PaddingContainer'
 import TopNavbar from '@/components/TopNavbar'
+import ScreenUtilScaler from '@/components/layouts/ScreenUtilScaler'
+import { ULTRA_WIDE_MIN } from '@/theme/breakpoints'
 import { Box } from '@mui/material'
 import React from 'react'
 
+const DESIGN_WIDTH = 1440
+
 const Home = () => {
     return (
+        <ScreenUtilScaler
+            designWidth={DESIGN_WIDTH}
+            desktopMin={ULTRA_WIDE_MIN}
+            allowUpscale
+        >
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '130px' }}>
             {/* Navbar overlays the hero so it floats on the gradient with just a
                 small top margin (from TopNavbar's own mt) instead of sitting in a
@@ -51,6 +60,7 @@ const Home = () => {
                 <FooterComponent />
             </PaddingContainer>
         </Box>
+        </ScreenUtilScaler>
     )
 }
 
