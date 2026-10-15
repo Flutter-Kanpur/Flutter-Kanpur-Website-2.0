@@ -16,7 +16,8 @@ import {
   showcaseCta,
 } from "@/components/browseProjectsComponents";
 import { t, figma } from "@/components/browseProjectsComponents/tokens";
-import { ULTRA_WIDE_MEDIA } from "@/theme/breakpoints";
+import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
+import { ULTRA_WIDE_MIN } from "@/theme/breakpoints";
 
 const HERO = {
   title: "Browse Projects",
@@ -26,7 +27,7 @@ const HERO = {
 };
 
 const CONTENT_PX = { xs: t.spacing.lg, md: t.spacing.xxl };
-const ULTRA_MAX_WIDTH = "none";
+const DESIGN_WIDTH = t.layout.maxWidth + 2 * 32;
 
 export default function BrowseProjectsPage() {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
@@ -52,6 +53,11 @@ export default function BrowseProjectsPage() {
   );
 
   return (
+    <ScreenUtilScaler
+      designWidth={DESIGN_WIDTH}
+      desktopMin={ULTRA_WIDE_MIN}
+      allowUpscale
+    >
     <Box sx={{ width: "100%", bgcolor: t.surface.page }}>
       {/* The navbar is rendered above the page by AppShell, so this band pulls
           itself up underneath it — the gradient then starts at the very top of
@@ -69,10 +75,6 @@ export default function BrowseProjectsPage() {
           sx={{
             maxWidth: t.layout.maxWidth,
             mx: "auto",
-            [ULTRA_WIDE_MEDIA]: {
-              maxWidth: ULTRA_MAX_WIDTH,
-              "& > div > div:last-of-type": { width: 480 },
-            },
           }}
         >
           <BrowseHero {...HERO} />
@@ -85,7 +87,6 @@ export default function BrowseProjectsPage() {
           mx: "auto",
           px: CONTENT_PX,
           pb: { xs: t.spacing.xxxl, md: t.spacing.huge },
-          [ULTRA_WIDE_MEDIA]: { maxWidth: ULTRA_MAX_WIDTH },
         }}
       >
         <Box
@@ -118,11 +119,6 @@ export default function BrowseProjectsPage() {
               display: "flex",
               flexDirection: "column",
               gap: t.layout.sectionGap,
-              [ULTRA_WIDE_MEDIA]: {
-                "& > section > div": {
-                  gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-                },
-              },
             }}
           >
             {visibleSections.map((section) => (
@@ -145,5 +141,6 @@ export default function BrowseProjectsPage() {
         <FooterComponent />
       </Box>
     </Box>
+    </ScreenUtilScaler>
   );
 }

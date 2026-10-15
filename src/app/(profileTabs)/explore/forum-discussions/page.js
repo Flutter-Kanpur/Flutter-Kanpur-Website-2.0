@@ -17,12 +17,10 @@ import {
 } from "@/components/forumDiscussionsComponents";
 import { t, fontFamily } from "@/components/forumDiscussionsComponents/tokens";
 import { useForumDiscussions } from "@/hooks/useForumDiscussions";
-import { ULTRA_WIDE_MEDIA } from "@/theme/breakpoints";
+import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
+import { ULTRA_WIDE_MIN } from "@/theme/breakpoints";
 
-const ultra = {
-  contentMax: "none",
-  railWidth: 420,
-};
+const DESIGN_WIDTH = t.layout.contentMax + 2 * 32;
 
 export default function ForumDiscussionsPage() {
   const {
@@ -41,6 +39,11 @@ export default function ForumDiscussionsPage() {
   } = useForumDiscussions();
 
   return (
+    <ScreenUtilScaler
+      designWidth={DESIGN_WIDTH}
+      desktopMin={ULTRA_WIDE_MIN}
+      allowUpscale
+    >
     <Box
       sx={{
         width: "100%",
@@ -54,7 +57,6 @@ export default function ForumDiscussionsPage() {
         sx={{
           maxWidth: t.layout.contentMax,
           mx: "auto",
-          [ULTRA_WIDE_MEDIA]: { maxWidth: ultra.contentMax },
         }}
       >
         <ForumHeader
@@ -135,7 +137,6 @@ export default function ForumDiscussionsPage() {
               flexShrink: 0,
               position: { lg: "sticky" },
               top: { lg: t.spacing.xxl },
-              [ULTRA_WIDE_MEDIA]: { width: ultra.railWidth },
             }}
           >
             <RelatedDiscussions
@@ -156,5 +157,6 @@ export default function ForumDiscussionsPage() {
         onSubmit={handleCreateDiscussion}
       />
     </Box>
+    </ScreenUtilScaler>
   );
 }

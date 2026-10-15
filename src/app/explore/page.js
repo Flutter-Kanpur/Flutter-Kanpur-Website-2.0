@@ -6,11 +6,19 @@ import Projects from "@/components/explorePageComponents/Projects";
 import Discussions from "@/components/explorePageComponents/Discussions";
 import ExploreCategoriesSection from "@/components/landingPageComponents/ExploreCategories";
 import { exploreCategoriesContent } from "@/data/exploreCategoriesData";
+import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
+import { ULTRA_WIDE_MIN } from "@/theme/breakpoints";
 import styles from "./page.module.css";
+
+const DESIGN_WIDTH = 1440;
 
 export default function ExplorePage() {
   return (
-    <> 
+    <ScreenUtilScaler
+      designWidth={DESIGN_WIDTH}
+      desktopMin={ULTRA_WIDE_MIN}
+      allowUpscale
+    >
       <Hero />
 
       <div className={styles.stories}>
@@ -41,6 +49,6 @@ export default function ExplorePage() {
       <div className={styles.footerContainer}>
         <FooterComponent />
       </div>
-    </>
+    </ScreenUtilScaler>
   );
 }
