@@ -61,7 +61,7 @@ export default function ProfilePage() {
     console.log("USER ERROR:", error);
 
     if (!currentUser) {
-      router.push("/auth/login");
+      router.push("/Auth/login");
       return;
     }
 
