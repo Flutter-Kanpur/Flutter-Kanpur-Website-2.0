@@ -6,6 +6,7 @@ const MobileFormLayout = ({
   onBack,
   children,
   formSx = {},
+  headerSx = {},
 }) => (
   <Box
     sx={{
@@ -47,6 +48,7 @@ const MobileFormLayout = ({
         "& .MuiSvgIcon-root": {
           fontSize: "18px",
         },
+        ...headerSx,
       }}
     />
 

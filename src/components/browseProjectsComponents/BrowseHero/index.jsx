@@ -3,7 +3,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import SearchBar from "@/components/explorePageComponents/SearchBar";
+import SearchBar from "@/components/explorePageComponents/desktopScreen/SearchBar";
 import { t, fontFamily } from "../tokens";
 
 const BrowseHero = ({ title, description, searchPlaceholder, onSearch }) => (

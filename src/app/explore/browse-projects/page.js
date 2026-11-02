@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
+import { useMediaQuery } from "@mui/material";
 
 import FooterComponent from "@/components/FooterComponent";
 import {
@@ -17,6 +18,7 @@ import {
 } from "@/components/browseProjectsComponents";
 import { t, figma } from "@/components/browseProjectsComponents/tokens";
 import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
+import ProjectsListScreen from "@/components/explorePageComponents/mobileScreen/projects";
 import { ULTRA_WIDE_MIN } from "@/theme/breakpoints";
 
 const HERO = {
@@ -30,6 +32,7 @@ const CONTENT_PX = { xs: t.spacing.lg, md: t.spacing.xxl };
 const DESIGN_WIDTH = t.layout.maxWidth + 2 * 32;
 
 export default function BrowseProjectsPage() {
+  const isMobile = useMediaQuery("(max-width:480px)");
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [isFiltering, setIsFiltering] = useState(false);
 
@@ -51,6 +54,8 @@ export default function BrowseProjectsPage() {
         : projectSections,
     [isFiltering, activeCategory],
   );
+
+  if (isMobile) return <ProjectsListScreen />;
 
   return (
     <ScreenUtilScaler
