@@ -42,7 +42,9 @@ const ExploreCategoriesSection = ({
       {/* LEFT TITLE */}
       <Box
         sx={{
-          flex: variant === "explore" ? "0 0 40%" : "unset",
+          flexShrink: 0,
+          flex: variant === "explore" ? "0 0 40%" : { xs: "unset", md: "0 0 auto" },
+          maxWidth: { xs: "100%", md: variant === "explore" ? "40%" : "360px" },
         }}
       >
         <Typography
@@ -67,21 +69,22 @@ const ExploreCategoriesSection = ({
       {/* RIGHT CARDS */}
       <Box
         sx={{
+          width: "100%",
+          minWidth: 0,
+          flex: 1,
           display: "flex",
           flexDirection: "row",
-          flexWrap: variant === "explore" ? "nowrap" : "wrap",
+          flexWrap: "nowrap",
           justifyContent: "flex-start",
           alignItems: "center",
           gap: "16px",
-          overflowX: variant === "explore" ? "auto" : "visible",
-          paddingBottom: variant === "explore" ? "8px" : 0,
-          ...(variant === "explore" && {
-            "&::-webkit-scrollbar": {
-              display: "none",
-            },
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-          }),
+          overflowX: "auto",
+          paddingBottom: "8px",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
         }}
       >
         {categories.map((data, index) => (

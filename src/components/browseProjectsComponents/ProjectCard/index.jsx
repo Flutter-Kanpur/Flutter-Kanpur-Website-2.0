@@ -54,7 +54,9 @@ const ProjectCard = ({
       p: t.spacing.xl,
     }}
   >
-    <Stack direction="row" spacing={t.spacing.md} alignItems="flex-start">
+    <Stack direction="row" spacing={t.spacing.md}
+     sx={{alignItems:"flex-start"}} 
+     >
       <Box
         sx={{
           width: THUMBNAIL_SIZE,

@@ -7,8 +7,32 @@ import Image from "next/image";
 
 const font = 'var(--font-product-sans), "Product Sans", sans-serif';
 
-//"Project submitted" screen
-const ProjectSubmittedScreen = () => {
+const DEFAULT_MESSAGE = (
+  <>
+    Thanks for sharing your project. Our team will
+    <br />
+    review it and notify you once it’s approved.
+  </>
+);
+
+/**
+ * "Submitted" confirmation screen.
+ * With no props it renders the original "Project submitted" screen, so the
+ * community flow is unchanged. Other flows (e.g. Open call applications)
+ * reuse it by passing their own copy / link:
+ */
+const ProjectSubmittedScreen = ({
+  title = "Project submitted",
+  message = DEFAULT_MESSAGE,
+  status,
+  buttonLabel = "View my projects",
+  href = "/explore/projects",
+  startIcon,
+  buttonWidth = 212,
+  spacing = {},
+}) => {
+  const gap = { titleMt: 2, messageMt: 17, statusMt: 25, buttonMt: 28, ...spacing };
+
   return (
     <Box
       sx={{
@@ -30,13 +54,13 @@ const ProjectSubmittedScreen = () => {
         src="/assets/community-page-assets/completed.svg"
         width={260}
         height={251}
-        alt="Project submitted"
+        alt={title}
         priority
       />
 
       <Typography
         sx={{
-          mt: "2px",
+          mt: `${gap.titleMt}px`,
           fontFamily: font,
           fontSize: "24px",
           fontWeight: 700,
@@ -44,32 +68,46 @@ const ProjectSubmittedScreen = () => {
           color: "#000000",
         }}
       >
-        Project submitted
+        {title}
       </Typography>
 
       <Typography
         sx={{
-          mt: "17px",
+          mt: `${gap.messageMt}px`,
           fontFamily: font,
           fontSize: "16px",
           lineHeight: "24px",
           color: "#6D6D6D",
         }}
       >
-        Thanks for sharing your project. Our team will
-        <br />
-        review it and notify you once it’s approved.
+        {message}
       </Typography>
+
+      {status && (
+        <Typography
+          sx={{
+            mt: `${gap.statusMt}px`,
+            fontFamily: font,
+            fontSize: "16px",
+            fontStyle: "italic",
+            lineHeight: "20px",
+            color: "#D1D1D1",
+          }}
+        >
+          {status}
+        </Typography>
+      )}
 
       <Box
         component={Link}
-        href="/explore/projects"
+        href={href}
         sx={{
-          mt: "28px",
+          mt: `${gap.buttonMt}px`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          width: "212px",
+          gap: "8px",
+          width: `${buttonWidth}px`,
           height: "46px",
           borderRadius: "999px",
           border: "1px solid #D3D3D3",
@@ -82,7 +120,8 @@ const ProjectSubmittedScreen = () => {
           textDecoration: "none",
         }}
       >
-        View my projects
+        {startIcon}
+        {buttonLabel}
       </Box>
     </Box>
   );

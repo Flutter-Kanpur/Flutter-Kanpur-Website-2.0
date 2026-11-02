@@ -14,7 +14,10 @@ const StartDiscussionCard = () => {
       sx={{
         width: "88%",
         borderRadius: "24px",
-        background: "linear-gradient(135deg, #00A46B 0%, #00B374 60%, #00C97F 100%)",
+        background:
+          "radial-gradient(22.6% 41.9% at 70.5% -8.8%, #18B664 0%, #18B664 55%, rgba(24,182,100,0) 100%), " +
+          "radial-gradient(21.4% 39.5% at 19.7% 64.7%, #18B664 0%, #18B664 55%, rgba(24,182,100,0) 100%), " +
+          "#00A46B",
         p: "20px",
         margin:"auto",
         display: "flex",

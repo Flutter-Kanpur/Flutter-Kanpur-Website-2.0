@@ -14,7 +14,7 @@ const EventPageComponent = () => {
             <Grid container spacing={2} rowSpacing={8} sx={{ display: "flex", }}>
                 {eventsData.map((item, index) => (
                     <Grid
-                        item
+                        
                         xs={12}
                         sm={6}
                         md={3}
