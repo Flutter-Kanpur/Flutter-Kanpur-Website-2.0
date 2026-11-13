@@ -8,22 +8,49 @@ import { useEvents } from '@/hooks/useEvents'
 import ExploreEventImage from '@/../public/assets/landing-page-assets/explore-event-card-image.svg'
 
 /**
- * Format a start_at / end_at pair into a readable time range string.
+ * Format a start_at / end_at pair into a readable time label.
  * Uses a fixed locale ('en-IN') and timeZone ('Asia/Kolkata') so the output
  * is identical on server and client, avoiding hydration mismatches.
  */
 function formatTimeRange(startAt, endAt) {
-  const opts = {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-    timeZone: 'Asia/Kolkata',
-  }
+  if (!startAt) return ''
   try {
-    const start = new Date(startAt).toLocaleTimeString('en-IN', opts)
+    const timeOpts = {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: 'Asia/Kolkata',
+    }
+    const formatTime = (d) =>
+      new Date(d)
+        .toLocaleTimeString('en-IN', timeOpts)
+        .replace(/\u202f/g, ' ')
+        .toUpperCase()
+
+    const start = formatTime(startAt)
     if (!endAt) return start
-    const end = new Date(endAt).toLocaleTimeString('en-IN', opts)
-    return `${start} – ${end}`
+
+    const dayOpts = {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+    }
+    const isSameDay =
+      new Date(startAt).toLocaleDateString('en-IN', dayOpts) ===
+      new Date(endAt).toLocaleDateString('en-IN', dayOpts)
+
+    if (isSameDay) {
+      const end = formatTime(endAt)
+      return `${start} – ${end}`
+    }
+
+    const startDate = new Date(startAt).toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'short',
+      timeZone: 'Asia/Kolkata',
+    })
+    return `${startDate} · ${start}`
   } catch {
     return ''
   }

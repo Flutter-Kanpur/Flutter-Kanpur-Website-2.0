@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import Dashboard from "@/components/dashboardv2/dashboard";
 import SearchScreen from "@/components/dashboardv2/searchScreen/SearchScreen";
 import BottomNavBar from "@/components/dashboardv2/bottomNavBar/BottomNavBar";
-import GradientHeader from "@/components/header/GradientHeader";
-const DashboardClient = ({ events = [], announcements = [] }) => {
+
+const DashboardClient = ({ events = [], announcements = [], loading = false }) => {
   const [activeScreen, setActiveScreen] = useState("dashboard");
 
   return (
@@ -19,6 +19,7 @@ const DashboardClient = ({ events = [], announcements = [] }) => {
       <Dashboard
         events={events}
         announcements={announcements}
+        loading={loading}
         onSearchClick={() => setActiveScreen("search")}
       />
 

@@ -15,6 +15,7 @@ import { supabase } from "@/lib/supabase/client";
  * Deduplicates by name. Limits to 5.
  *
  * Returns { speakers, loading, error }.
+ * Refetches when the browser tab becomes visible again.
  */
 export const useSpeakers = () => {
   const [speakers, setSpeakers] = useState([]);
@@ -24,6 +25,7 @@ export const useSpeakers = () => {
       ? new Error("Supabase client is not initialised (missing env vars).")
       : null
   );
+  const [fetchCount, setFetchCount] = useState(0);
 
   useEffect(() => {
     if (!supabase) return;
@@ -31,6 +33,7 @@ export const useSpeakers = () => {
     let cancelled = false;
 
     const fetchSpeakers = async () => {
+      setLoading(true);
       const now = new Date().toISOString();
 
       // Primary query: past events (end_at is set and in the past)
@@ -112,14 +115,31 @@ export const useSpeakers = () => {
         if (flat.length >= 5) break;
       }
 
-      setSpeakers(flat.slice(0, 5));
-      setLoading(false);
+      if (!cancelled) {
+        setSpeakers(flat.slice(0, 5));
+        setError(null);
+        setLoading(false);
+      }
     };
 
     fetchSpeakers();
 
     return () => {
       cancelled = true;
+    };
+  }, [fetchCount]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        setFetchCount((c) => c + 1);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
 
