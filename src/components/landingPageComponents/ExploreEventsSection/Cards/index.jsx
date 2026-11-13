@@ -72,16 +72,18 @@ const EventsCard = ({ onClick = () => {}, event }) => {
           sx={{
             p: "16px 16px 0 16px",
             width: "100%",
-            height: "100%",
           }}
         >
           <Image
-            src={image}
+            src={image || ExploreEventImage}
             alt={title}
+            width={254}
+            height={135}
             style={{
               width: "100%",
-              objectFit: "contain",
-              height: "100%",
+              objectFit: "cover",
+              height: "auto",
+              aspectRatio: "254 / 135",
               borderRadius: "18px",
             }}
           />

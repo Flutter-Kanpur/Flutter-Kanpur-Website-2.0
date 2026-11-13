@@ -9,6 +9,16 @@ const BLOGS_UPSTREAM =
 const nextConfig = {
   reactCompiler: true,
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "wwbfhfkuaaebbfjqgddo.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
+  },
+
   /**
    * Super-app style path proxy:
    *   /blogs        → https://readme.flutterkanpur.in/blogs

@@ -2,20 +2,19 @@ import React from "react";
 import Box from "@mui/material/Box";
 import NavHeader from "../navHeader/NavHeader";
 import SearchBar from "../searchBar/SearchBar";
-import UpdateCard from "../updateCard/UpdateCard";
 import CardContainer from "../cardContainer/CardContainer";
 import GradientHeader from "@/components/header/GradientHeader";
 import UpdateCardCarousel from "../updateCard/UpdateCardCarousel";
+import { useCarouselSlides } from "@/hooks/useCarouselSlides";
 
-const updateCards = [
+const FALLBACK_CARDS = [
   {
     id: 1,
     title: "Design Challenge 2026",
-    description: `Join us for an exciting design challenge!
-Create Stunning UI/UX design and win
-amazing prize!`,
+    description: `Join us for an exciting design challenge!\nCreate Stunning UI/UX design and win\namazing prize!`,
     buttonText: "View Details",
     backgroundImage: "/assets/landing-page-assets/updateCard.png",
+    btn_url: null,
   },
   {
     id: 2,
@@ -24,6 +23,7 @@ amazing prize!`,
       "Learn Flutter from experts and build real-world applications.",
     buttonText: "Register",
     backgroundImage: "/assets/landing-page-assets/updateCard.png",
+    btn_url: null,
   },
   {
     id: 3,
@@ -31,6 +31,7 @@ amazing prize!`,
     description: "Network with Flutter developers and industry professionals.",
     buttonText: "Join Now",
     backgroundImage: "/assets/landing-page-assets/updateCard.png",
+    btn_url: null,
   },
   {
     id: 4,
@@ -39,6 +40,7 @@ amazing prize!`,
       "Participate in our biggest hackathon and win exciting prizes.",
     buttonText: "Apply",
     backgroundImage: "/assets/landing-page-assets/updateCard.png",
+    btn_url: null,
   },
 ];
 
@@ -52,6 +54,12 @@ const Dashboard = ({
   onSearchClick,
   children,
 }) => {
+  const { slides, loading: slidesLoading, error: slidesError } = useCarouselSlides();
+
+  // On error or empty, fall back to hardcoded cards
+  const useHardcoded = slidesError || (!slidesLoading && slides.length === 0);
+  const carouselCards = useHardcoded ? FALLBACK_CARDS : slides;
+
   return (
     <Box
       sx={{
@@ -94,7 +102,7 @@ const Dashboard = ({
 
         <SearchBar onSearchClick={onSearchClick} />
 
-        <UpdateCardCarousel cards={updateCards} />
+        <UpdateCardCarousel cards={carouselCards} loading={slidesLoading} />
 
         <CardContainer
           events={events}
