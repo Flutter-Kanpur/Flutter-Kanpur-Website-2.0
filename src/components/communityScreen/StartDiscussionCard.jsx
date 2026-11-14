@@ -1,14 +1,45 @@
 "use client";
- 
+
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { startDiscussionCard } from "@/data/communityScreenData";
- 
+import { fetchCommunityMembers } from "@/lib/supabase/community";
+
 const StartDiscussionCard = () => {
   const router = useRouter();
- 
+  const [avatars, setAvatars] = useState(startDiscussionCard.avatars);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function loadAvatars() {
+      try {
+        const users = await fetchCommunityMembers();
+        if (!isCancelled && users.length > 0) {
+          const userAvatars = users
+            .map((u) => u.photo_url)
+            .filter(Boolean)
+            .slice(0, 5);
+
+          if (userAvatars.length >= 2) {
+            setAvatars(userAvatars);
+          }
+        }
+      } catch (e) {
+        console.warn("Could not load dynamic avatars:", e);
+      }
+    }
+
+    loadAvatars();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
   return (
     <Box
       sx={{
@@ -16,7 +47,7 @@ const StartDiscussionCard = () => {
         borderRadius: "24px",
         background: "linear-gradient(135deg, #00A46B 0%, #00B374 60%, #00C97F 100%)",
         p: "20px",
-        margin:"auto",
+        margin: "auto",
         display: "flex",
         flexDirection: "column",
         gap: "14px",
@@ -36,15 +67,15 @@ const StartDiscussionCard = () => {
       >
         Confused about where to start?
       </Typography>
- 
-      {/* Overlapping avatar stack */}
+
+      {/* Overlapping avatar stack from Supabase users */}
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        {startDiscussionCard.avatars.map((src, index) => (
+        {avatars.map((src, index) => (
           <Box
-            key={src}
+            key={`${src}-${index}`}
             component="img"
             src={src}
-            alt=""
+            alt="Community member"
             sx={{
               width: "28px",
               height: "28px",
@@ -56,7 +87,7 @@ const StartDiscussionCard = () => {
           />
         ))}
       </Box>
- 
+
       <Typography
         sx={{
           fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
@@ -68,7 +99,7 @@ const StartDiscussionCard = () => {
       >
         Ask questions, share ideas, or help others by starting a conversation with the community.
       </Typography>
- 
+
       <Button
         variant="contained"
         onClick={() => router.push("/community/ask")}
@@ -92,5 +123,5 @@ const StartDiscussionCard = () => {
     </Box>
   );
 };
- 
+
 export default StartDiscussionCard;
