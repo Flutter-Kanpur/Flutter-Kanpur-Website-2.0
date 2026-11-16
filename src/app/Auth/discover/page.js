@@ -46,7 +46,7 @@ export default function DiscoverPage() {
 
   const handleNext = () => {
     if (activeStep < maxSteps - 1) setActiveStep((s) => s + 1);
-    else router.push("/Auth/signup");
+    else router.push("/auth/signup");
   };
 
   const step = STEPS[activeStep];
