@@ -1,17 +1,16 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import PrimaryButton from "@/components/buttons/PrimaryButton/PrimaryButton";
 import styles from "./Conversations.module.css";
-
-import {
-  
-  conversationFeatures,
-} from "@/data/communityData";
+import { conversationFeatures } from "@/data/communityData";
 import Image from "next/image";
-
 
 const icon = "/assets/community-page-assets/conversation.svg";
 
-
 export default function ConversationsSection() {
+  const router = useRouter();
+
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
@@ -28,17 +27,16 @@ export default function ConversationsSection() {
 
           <div className={styles.featureGrid}>
             {conversationFeatures.map((feature) => {
-              
               return (
                 <div
                   key={feature.id}
                   className={`${styles.featureItem} ${styles[feature.area]}`}
                 >
                   <Image 
-                  src={icon}
-                  height={22}
-                  width={22}
-                  alt="Conversation Icon"
+                    src={icon}
+                    height={22}
+                    width={22}
+                    alt="Conversation Icon"
                   />
                   <span>{feature.title}</span>
                 </div>
@@ -47,6 +45,7 @@ export default function ConversationsSection() {
           </div>
 
           <PrimaryButton
+            onClick={() => router.push("/community/ask")}
             fullWidth={false}
             sx={{
               width: "fit-content",
@@ -67,7 +66,6 @@ export default function ConversationsSection() {
             alt="conversation Image"
             width={503}
             height={572}              
-                          
           />
         </div>
       </div>

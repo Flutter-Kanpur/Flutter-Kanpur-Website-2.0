@@ -19,9 +19,27 @@ const pillSx = {
   fontWeight: 500,
   color: "#000000",
   whiteSpace: "nowrap",
+  cursor: "pointer",
+  transition: "all 0.2s ease",
+  "&:hover": {
+    borderColor: "#4167F2",
+  },
 };
 
-const FilterRow = () => {
+const activePillSx = {
+  ...pillSx,
+  background: "#4167F2",
+  color: "#FFFFFF",
+  borderColor: "#4167F2",
+  "&:hover": {
+    background: "#3557D6",
+    borderColor: "#3557D6",
+  },
+};
+
+const FilterRow = ({ activeFilter = "All", onSelectFilter = () => {} }) => {
+  const allFilters = ["All", ...discussionFilters];
+
   return (
     <Box
       sx={{
@@ -34,17 +52,32 @@ const FilterRow = () => {
         scrollbarWidth: "none",
       }}
     >
-      <Box sx={pillSx}>
+      <Box sx={pillSx} onClick={() => onSelectFilter("All")}>
         <IoFilterOutline size={15} />
         Filters
         <KeyboardArrowDownRoundedIcon sx={{ fontSize: 16 }} />
       </Box>
 
-      {discussionFilters.map((filter) => (
-        <Box key={filter} sx={pillSx}>
-          {filter}
-        </Box>
-      ))}
+      {allFilters.map((filter) => {
+        const isActive = activeFilter.toLowerCase() === filter.toLowerCase();
+        return (
+          <Box
+            key={filter}
+            role="button"
+            tabIndex={0}
+            onClick={() => onSelectFilter(filter)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectFilter(filter);
+              }
+            }}
+            sx={isActive ? activePillSx : pillSx}
+          >
+            {filter}
+          </Box>
+        );
+      })}
     </Box>
   );
 };
