@@ -67,7 +67,7 @@ export default function DiscoverPage() {
           }}
         >
           <Typography
-            onClick={() => router.push("/Auth/signup")}
+            onClick={() => router.push("/auth/signup")}
             sx={{
               fontSize: { xs: 14, sm: 17, md: 20 },
               fontWeight: 400,
