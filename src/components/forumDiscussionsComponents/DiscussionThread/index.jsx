@@ -29,9 +29,9 @@ const DiscussionThread = ({ discussion, onTagClick }) => (
     {discussion.tags?.length > 0 && (
       <Stack
         direction="row"
-        flexWrap="wrap"
+        
         spacing={0}
-        sx={{ gap: t.spacing.md, mt: t.spacing.xl }}
+        sx={{ gap: t.spacing.md, mt: t.spacing.xl,flexWrap:"wrap" }}
       >
         {discussion.tags.map((tag) => (
           <TagChip

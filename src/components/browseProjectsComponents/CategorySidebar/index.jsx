@@ -31,7 +31,9 @@ const StarOutline = ({ color }) => (
 
 const CategorySidebar = ({ categories, activeCategory, onSelect }) => (
   <Box component="nav" aria-label="Project categories" sx={{ width: "100%" }}>
-    <Stack spacing={t.spacing.md} alignItems="flex-start">
+    <Stack spacing={t.spacing.md} 
+     sx={{alignItems:"flex-start"}}
+    >
       {categories.map(({ id, label }) => {
         const isActive = id === activeCategory;
         const tint = isActive ? t.colors.primary[500] : t.text.muted;
