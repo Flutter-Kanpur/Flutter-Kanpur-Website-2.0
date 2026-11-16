@@ -13,8 +13,9 @@ import {
 } from "@/lib/supabase/community";
 
 function AuthorAvatar({ onLine, avatarUrl }) {
-  const isCustomImage =
-    avatarUrl && avatarUrl !== "/assets/community-page-assets/avatar-icon.svg";
+  const fallback = "/assets/community-page-assets/avatar-icon.svg";
+  const [hasError, setHasError] = useState(false);
+  const displaySrc = hasError || !avatarUrl ? fallback : avatarUrl;
 
   return (
     <span
@@ -24,29 +25,22 @@ function AuthorAvatar({ onLine, avatarUrl }) {
           : styles.avatarIcon
       }
     >
-      {isCustomImage ? (
-        <Image
-          src={avatarUrl}
-          alt="Avatar"
-          width={22}
-          height={22}
-          unoptimized
-          style={{
-            borderRadius: "50%",
-            objectFit: "cover",
-            width: "22px",
-            height: "22px",
-            display: "block",
-          }}
-        />
-      ) : (
-        <Image
-          src="/assets/community-page-assets/avatar-icon.svg"
-          alt="Avatar Icon"
-          width={22}
-          height={22}
-        />
-      )}
+      <Image
+        key={avatarUrl}
+        src={displaySrc}
+        alt="Avatar"
+        width={22}
+        height={22}
+        unoptimized
+        onError={() => setHasError(true)}
+        style={{
+          borderRadius: "50%",
+          objectFit: "cover",
+          width: "22px",
+          height: "22px",
+          display: "block",
+        }}
+      />
     </span>
   );
 }

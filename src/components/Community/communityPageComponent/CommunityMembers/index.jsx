@@ -47,7 +47,7 @@ function PhotoTile({ member }) {
     >
       <span className={styles.tileImageWrap}>
         <Image
-          src={member.image}
+          src={member.image || "/assets/community-page-assets/avatar-icon.svg"}
           alt={member.tag?.role || "Flutter Kanpur community member"}
           className={styles.tileImage}
           width={200}

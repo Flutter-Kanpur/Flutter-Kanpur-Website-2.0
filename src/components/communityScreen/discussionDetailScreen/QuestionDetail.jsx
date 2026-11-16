@@ -1,7 +1,12 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-const QuestionDetail = ({ question }) => {
+const QuestionDetail = ({ question = {} }) => {
+  const tags = Array.isArray(question.tags) ? question.tags : [];
+  const images = Array.isArray(question.images) ? question.images : [];
+  const avatar =
+    question.avatar || "/assets/community-page-assets/avatar-icon.svg";
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "14px" }}>
       <Typography
@@ -16,38 +21,43 @@ const QuestionDetail = ({ question }) => {
         {question.title}
       </Typography>
 
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-        {question.tags.map((tag) => (
-          <Box
-            key={tag}
-            sx={{
-              bgcolor: "#E4E9FF",
-              color: "#33415C",
-              borderRadius: "999px",
-              px: "14px",
-              py: "7px",
-              fontSize: "13px",
-              fontWeight: 500,
-              fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
-            }}
-          >
-            {tag}
-          </Box>
-        ))}
-      </Box>
+      {tags.length > 0 && (
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+          {tags.map((tag) => (
+            <Box
+              key={tag}
+              sx={{
+                bgcolor: "#E4E9FF",
+                color: "#33415C",
+                borderRadius: "999px",
+                px: "14px",
+                py: "7px",
+                fontSize: "13px",
+                fontWeight: 500,
+                fontFamily:
+                  'var(--font-product-sans), "Product Sans", sans-serif',
+              }}
+            >
+              {tag}
+            </Box>
+          ))}
+        </Box>
+      )}
 
-      <Typography
-        sx={{
-          fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
-          fontSize: "15px",
-          color: "#6D6D6D",
-          lineHeight: 1.6,
-        }}
-      >
-        {question.body}
-      </Typography>
+      {question.body && (
+        <Typography
+          sx={{
+            fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
+            fontSize: "15px",
+            color: "#6D6D6D",
+            lineHeight: 1.6,
+          }}
+        >
+          {question.body}
+        </Typography>
+      )}
 
-      {question.images.length > 0 && (
+      {images.length > 0 && (
         <Box
           sx={{
             display: "flex",
@@ -59,9 +69,9 @@ const QuestionDetail = ({ question }) => {
             scrollbarWidth: "none",
           }}
         >
-          {question.images.map((src) => (
+          {images.map((src, idx) => (
             <Box
-              key={src}
+              key={`${src}-${idx}`}
               component="img"
               src={src}
               alt=""
@@ -80,8 +90,8 @@ const QuestionDetail = ({ question }) => {
       <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Box
           component="img"
-          src={question.avatar}
-          alt={question.author}
+          src={avatar}
+          alt={question.author || "Author"}
           sx={{
             width: "36px",
             height: "36px",

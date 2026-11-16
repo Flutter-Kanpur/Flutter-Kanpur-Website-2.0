@@ -27,8 +27,11 @@ const DiscussionCard = ({ discussion }) => {
       <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Box
           component="img"
-          src={discussion.avatar}
-          alt={discussion.author}
+          src={
+            discussion.avatar ||
+            "/assets/community-page-assets/avatar-icon.svg"
+          }
+          alt={discussion.author || "Author"}
           sx={{
             width: "40px",
             height: "40px",
@@ -95,7 +98,7 @@ const DiscussionCard = ({ discussion }) => {
 
       {/* Hashtags */}
       <Box sx={{ display: "flex", flexWrap: "wrap", columnGap: "10px", rowGap: "4px" }}>
-        {discussion.hashtags.map((tag) => (
+        {(discussion.hashtags || []).map((tag) => (
           <Typography
             key={tag}
             sx={{

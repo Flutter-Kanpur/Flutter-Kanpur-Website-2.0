@@ -181,7 +181,7 @@ export default function MembersModal({ isOpen, onClose, members = [] }) {
                   <div key={user.uid || `user-${idx}`} className={styles.memberCard}>
                     <div className={styles.avatarWrap}>
                       <Image
-                        src={avatar}
+                        src={avatar || "/assets/community-page-assets/avatar-icon.svg"}
                         alt={name}
                         width={48}
                         height={48}

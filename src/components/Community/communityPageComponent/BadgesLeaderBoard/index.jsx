@@ -46,6 +46,7 @@ function BadgeCategoryRow({ category, isOpen, onToggle }) {
                 alt={badge.title || (badge.earned ? "Earned badge" : "Locked badge")}
                 width={60}
                 height={61}
+                unoptimized
               />
             </span>
           ))}

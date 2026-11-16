@@ -42,8 +42,8 @@ const MemberPill = ({ member }) => (
   >
     <Box
       component="img"
-      src={member.avatar}
-      alt={member.name}
+      src={member.avatar || "/assets/community-page-assets/avatar-icon.svg"}
+      alt={member.name || "Team member"}
       sx={{
         width: "52px",
         height: "52px",

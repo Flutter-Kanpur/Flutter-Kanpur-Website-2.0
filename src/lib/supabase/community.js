@@ -351,3 +351,278 @@ export function mapCommunityItemToFeaturedDiscussion(item, index) {
     bookmarks: String(item.save_count ?? item.bookmarks ?? "0"),
   };
 }
+
+/**
+ * Maps raw database rows from Supabase into the UI format for Discussion questions list.
+ */
+export function mapCommunityItemToQuestion(item, index = 0) {
+  const authorName =
+    item.users?.full_name ||
+    item.users?.display_name ||
+    item.users?.username ||
+    item.author_name ||
+    item.author ||
+    "Community Member";
+
+  const authorAvatar =
+    item.users?.photo_url ||
+    item.image_url ||
+    item.avatar_url ||
+    item.avatar ||
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(authorName)}&background=4167F2&color=fff`;
+
+  let images = [];
+  if (Array.isArray(item.images)) {
+    images = item.images;
+  } else if (item.image_url) {
+    images = [item.image_url];
+  }
+
+  let timeStr = "Recently";
+  if (item.created_at) {
+    try {
+      const createdDate = new Date(item.created_at);
+      const diffMs = Date.now() - createdDate.getTime();
+      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+      const diffDays = Math.floor(diffHours / 24);
+      if (diffHours < 1) {
+        timeStr = "Just now";
+      } else if (diffHours < 24) {
+        timeStr = `${diffHours}h ago`;
+      } else if (diffDays < 7) {
+        timeStr = `${diffDays}d ago`;
+      } else {
+        timeStr = createdDate.toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+        });
+      }
+    } catch {
+      timeStr = "Recently";
+    }
+  }
+
+  return {
+    id: item.id || `question-${index}`,
+    title: item.title || item.subject || "Discussion question",
+    body: item.body || item.content || item.description || "",
+    author: authorName,
+    avatar: authorAvatar,
+    time: timeStr,
+    answers: item.answer_count ?? item.answers ?? 0,
+    images,
+    category: item.category || "General",
+    tags:
+      Array.isArray(item.tags) && item.tags.length > 0
+        ? item.tags.map((t) => (t.startsWith("#") ? t : `#${t}`))
+        : item.category
+        ? [`#${item.category.toLowerCase().replace(/\s+/g, "")}`]
+        : ["#Flutter"],
+    likes: item.like_count ?? 0,
+    views: item.view_count ?? 0,
+    created_at: item.created_at,
+  };
+}
+
+/**
+ * Fetches dynamic discussion questions from Supabase `questions` or `community` table.
+ * Supports filters: "All", "Trending", "Active", "Unanswered".
+ */
+export async function fetchDiscussionQuestions(filter = "All") {
+  if (supabase) {
+    try {
+      let query = supabase
+        .from("questions")
+        .select("*, users(*)")
+        .eq("is_deleted", false);
+
+      const f = (filter || "").toLowerCase();
+      if (f === "trending") {
+        query = query
+          .order("like_count", { ascending: false })
+          .order("view_count", { ascending: false });
+      } else if (f === "active") {
+        query = query.gt("answer_count", 0).order("created_at", { ascending: false });
+      } else if (f === "unanswered") {
+        query = query.eq("answer_count", 0).order("created_at", { ascending: false });
+      } else {
+        query = query.order("created_at", { ascending: false });
+      }
+
+      const { data, error } = await query;
+      if (!error && data && data.length > 0) {
+        return data.map((item, index) => mapCommunityItemToQuestion(item, index));
+      }
+    } catch (err) {
+      console.warn("fetchDiscussionQuestions error with supabase client:", err);
+    }
+  }
+
+  // Fallback to REST endpoint
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (supabaseUrl && anonKey) {
+    try {
+      const endpoint = `${supabaseUrl}/rest/v1/questions?select=*,users(*)&is_deleted=eq.false&order=created_at.desc`;
+      const res = await fetch(endpoint, {
+        headers: {
+          apikey: anonKey,
+          Authorization: `Bearer ${anonKey}`,
+        },
+        cache: "no-store",
+      });
+      if (res.ok) {
+        const raw = await res.json();
+        if (raw && raw.length > 0) {
+          const f = (filter || "").toLowerCase();
+          let filtered = raw;
+          if (f === "trending") {
+            filtered = [...raw].sort(
+              (a, b) => (b.like_count || 0) - (a.like_count || 0)
+            );
+          } else if (f === "active") {
+            filtered = raw.filter((q) => (q.answer_count || 0) > 0);
+          } else if (f === "unanswered") {
+            filtered = raw.filter((q) => (q.answer_count || 0) === 0);
+          }
+          return filtered.map((item, index) =>
+            mapCommunityItemToQuestion(item, index)
+          );
+        }
+      }
+    } catch (err) {
+      console.warn("fetchDiscussionQuestions REST error:", err);
+    }
+  }
+
+  return [];
+}
+
+/**
+ * Fetches single discussion question by ID and its answers/replies.
+ */
+export async function fetchQuestionById(id) {
+  if (supabase && id) {
+    try {
+      // 1. Fetch Question
+      const { data: qData, error: qErr } = await supabase
+        .from("questions")
+        .select("*, users(*)")
+        .eq("id", id)
+        .maybeSingle();
+
+      if (!qErr && qData) {
+        const question = mapCommunityItemToQuestion(qData);
+        let postedLabel = "Posted recently";
+        if (qData.created_at) {
+          try {
+            const d = new Date(qData.created_at);
+            postedLabel = `Posted on ${d.toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })}`;
+          } catch {
+            postedLabel = "Posted recently";
+          }
+        }
+
+        // 2. Fetch Answers
+        const { data: aData } = await supabase
+          .from("answers")
+          .select("*, users(*)")
+          .eq("question_id", id)
+          .eq("is_deleted", false)
+          .order("created_at", { ascending: true });
+
+        const responses = (aData || []).map((ans, idx) => {
+          const aAuthor =
+            ans.users?.full_name ||
+            ans.users?.display_name ||
+            ans.users?.username ||
+            "Community Member";
+          const aAvatar =
+            ans.users?.photo_url ||
+            ans.image_url ||
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(
+              aAuthor
+            )}&background=4167F2&color=fff`;
+
+          let timeStr = "Recently";
+          if (ans.created_at) {
+            try {
+              timeStr = new Date(ans.created_at).toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+              });
+            } catch {
+              timeStr = "Recently";
+            }
+          }
+
+          return {
+            id: ans.id || `answer-${idx}`,
+            author: aAuthor,
+            avatar: aAvatar,
+            time: timeStr,
+            postedLabel: timeStr,
+            content: ans.body || ans.content || "",
+            body: ans.body || ans.content || "",
+            likes: ans.like_count ?? 0,
+            replies: [],
+          };
+        });
+
+        return {
+          question: {
+            ...question,
+            postedLabel,
+          },
+          responses,
+        };
+      }
+    } catch (err) {
+      console.warn("fetchQuestionById supabase-js error:", err);
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Posts an answer / reply to a question.
+ */
+export async function postDiscussionAnswer(questionId, body, authorUid = null) {
+  if (!supabase) {
+    throw new Error("Supabase client is not available.");
+  }
+
+  let uid = authorUid;
+  if (!uid) {
+    try {
+      const { data } = await supabase.auth.getUser();
+      uid = data?.user?.id || null;
+    } catch {
+      uid = null;
+    }
+  }
+
+  const { data, error } = await supabase
+    .from("answers")
+    .insert([
+      {
+        question_id: questionId,
+        body,
+        author_uid: uid,
+      },
+    ])
+    .select("*, users(*)")
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
