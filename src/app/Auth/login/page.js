@@ -339,7 +339,7 @@ const handleLogin = async () => {
             New here?{" "}
             <Box
               component="span"
-              onClick={() => router.push("/Auth/create-account")}
+              onClick={() => router.push("/auth/create-account")}
               sx={{ color: "#4167F2", cursor: "pointer", fontWeight: 500 }}
             >
               Create an account

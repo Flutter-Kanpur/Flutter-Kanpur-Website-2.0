@@ -133,7 +133,7 @@ export default function SignupPage() {
               <Button
                 fullWidth
                 onClick={() => {
-                  router.push("/Auth/login");
+                  router.push("/auth/login");
                 }}
                 sx={{
                   py: { xs: 1.3, sm: 1.5 },
@@ -194,7 +194,7 @@ export default function SignupPage() {
                   boxShadow: "inset 4px 6px 6px rgba(226,226,226,0.2)",
                 },
               }}
-              onClick={() => router.push("/Auth/create-account")}
+              onClick={() => router.push("/auth/create-account")}
             >
               Create Account
             </Button>
