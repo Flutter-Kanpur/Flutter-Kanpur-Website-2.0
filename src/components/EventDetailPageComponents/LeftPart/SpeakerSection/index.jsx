@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const PRODUCT_SANS = "'Product Sans', system-ui, -apple-system, sans-serif";
 
-// 👉 DEFAULT STATIC DATA (UI unchanged for now)
+// DEFAULT STATIC DATA (UI unchanged for now)
 const defaultSpeakers = [
   {
     id: 1,
@@ -59,7 +59,7 @@ const SpeakerSection = ({ speakers = defaultSpeakers }) => {
                 flexDirection: "column",
                 alignItems: "center",
                 textAlign: "center",
-                gap: "14px",
+                gap: "10px",
               }}
             >
               {/* IMAGE */}

@@ -23,8 +23,7 @@ const NavbarSection = () => {
           alignItems: "center",
 
           width: "100%",
-          width: "100%",
-          maxWidth: "1400px",
+          maxWidth: "100%",
           height: "36px",
 
           mx: "auto",

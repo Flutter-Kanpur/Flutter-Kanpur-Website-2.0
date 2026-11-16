@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, List, Divider } from "@mui/material";
+import { Box, List, Divider, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 // import { onAuthStateChanged, signOut } from "firebase/auth";
 // import { auth } from "@/firebase/config";
@@ -12,8 +12,10 @@ import ProfileInfo from "@/components/profile/ProfileInfo";
 import ProfileSection from "@/components/profile/ProfileSection";
 import ProfileItem from "@/components/profile/ProfileItem";
 import LogoutDialog from "@/components/profile/LogoutDialog";
+import { supabase } from "@/lib/supabase/client";
 
 import Image from "next/image";
+import { APP_VERSION } from "@/constants/app";
 
 
 export default function ProfilePage() {
@@ -38,20 +40,62 @@ export default function ProfilePage() {
 //     router.push("/m-onboarding/m-login");
 //   };
 
-  useEffect(() => {
-    // temporary dummy user
+  // useEffect(() => {
+  //   // temporary dummy user
+  //   setUser({
+  //     displayName: "Vaishnavi",
+  //     email: "test@gmail.com",
+  //   });
+  // }, []);
+
+ useEffect(() => {
+  const getCurrentUser = async () => {
+    const {
+      data: { user: currentUser },
+      error,
+    } = await supabase.auth.getUser();
+
+    console.log("SUPABASE CURRENT USER:", currentUser);
+    console.log("USER EMAIL:", currentUser?.email);
+    console.log("USER METADATA:", currentUser?.user_metadata);
+    console.log("USER ERROR:", error);
+
+    if (!currentUser) {
+      router.push("/auth/login");
+      return;
+    }
+
     setUser({
-      displayName: "Vaishnavi",
-      email: "test@gmail.com",
+      id: currentUser.id,
+      displayName:
+        currentUser.user_metadata?.username ||
+        currentUser.email?.split("@")[0] ||
+        "User",
+      email: currentUser.email || "",
     });
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    router.push("/m-onboarding/m-login");
   };
+
+  getCurrentUser();
+}, [router]);
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error("LOGOUT ERROR:", error);
+      return;
+    }
+
+    setUser(null);
+    router.push("/auth/login");
+  };
+
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("user");
+
+  //   router.push("/m-onboarding/m-login");
+  // };
+
 
   return (
     <>
@@ -326,8 +370,30 @@ export default function ProfilePage() {
         onClose={() => setOpenLogout(false)}
         onConfirm={handleLogout}
       />
+
+<Box
+  sx={{
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    py: 4,
+    mt: 4,
+  }}
+>
+  <Typography
+    sx={{
+      fontSize: 12,
+      color: "#999",
+      fontWeight: 500,
+    }}
+  >
+    Version {APP_VERSION}
+  </Typography>
+</Box>
+
  </MobileLayout>
 </>
     // </Box>
+    
   );
 }

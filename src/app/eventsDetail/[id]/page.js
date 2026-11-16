@@ -6,11 +6,22 @@ import FooterComponent from "@/components/FooterComponent";
 import NavbarSection from "@/components/EventsNavbar/NavbarSection";
 import { Box } from "@mui/material";
 import React from "react";
+import { ULTRA_WIDE_MEDIA } from "@/theme/breakpoints";
+const ULTRA_RAIL_WIDTH = "620px";
 
 const Index = () => {
   return (
     <>
-      <NavbarSection />
+      <Box
+        sx={{
+          [ULTRA_WIDE_MEDIA]: {
+            "& .MuiToolbar-root": { px: "32px" },
+          },
+        }}
+      >
+        <NavbarSection />
+      </Box>
+
       <Box
         sx={{
           width: "100%",
@@ -20,6 +31,7 @@ const Index = () => {
           mt: "100px",
           mb: "80px",
           boxSizing: "border-box",
+          [ULTRA_WIDE_MEDIA]: { maxWidth: "none" },
         }}
       >
         {/* MAIN LAYOUT */}
@@ -30,10 +42,24 @@ const Index = () => {
             gap: "30px",
             width: "100%",
             alignItems: "start",
+            [ULTRA_WIDE_MEDIA]: {
+              gridTemplateColumns: `1fr ${ULTRA_RAIL_WIDTH}`,
+            },
           }}
         >
           {/* LEFT SIDE */}
-          <Box sx={{ minWidth: 0 }}>
+          <Box
+            sx={{
+              minWidth: 0,
+              [ULTRA_WIDE_MEDIA]: {
+                "& > div > div:nth-of-type(2)": {
+                  width: "100%",
+                  height: "auto",
+                  aspectRatio: "795 / 390",
+                },
+              },
+            }}
+          >
             <LeftPart />
           </Box>
 
@@ -59,6 +85,9 @@ const Index = () => {
           sx={{
             mt: "120px",
             width: "100%",
+            [ULTRA_WIDE_MEDIA]: {
+              "& .MuiGrid-container > div > div": { maxWidth: "none" },
+            },
           }}
         >
           <EventCard />
