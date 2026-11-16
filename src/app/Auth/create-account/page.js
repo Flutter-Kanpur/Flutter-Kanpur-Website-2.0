@@ -180,7 +180,7 @@ export default function EmailSignupPage() {
             "Account created successfully! Please check your email to verify your account."
           );
 
-          router.push("/Auth/login");
+          router.push("/auth/login");
           return;
         }
 
@@ -490,7 +490,7 @@ export default function EmailSignupPage() {
             Already have an account?{" "}
             <Box
               component="span"
-              onClick={() => router.push("/Auth/login")}
+              onClick={() => router.push("/auth/login")}
               sx={{
                 color: "#4167F2",
                 cursor: "pointer",

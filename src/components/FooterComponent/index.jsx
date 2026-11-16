@@ -89,7 +89,7 @@ const columns = [
       { label: "Community Guidelines", href: "/communityGuidelines" },
       { label: "Profile", href: "/profile" },
       { label: "Dashboard", href: "/dashboard" },
-      { label: "Join / Login", href: "/Auth/login" },
+      { label: "Join / Login", href: "/auth/login" },
     ],
   },
   {

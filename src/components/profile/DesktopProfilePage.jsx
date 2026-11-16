@@ -44,12 +44,12 @@ export default function DesktopProfilePage() {
 
         if (authError) {
           console.error("AUTH USER ERROR:", authError);
-          router.push("/Auth/login");
+          router.push("/auth/login");
           return;
         }
 
         if (!authUser) {
-          router.push("/Auth/login");
+          router.push("/auth/login");
           return;
         }
 
