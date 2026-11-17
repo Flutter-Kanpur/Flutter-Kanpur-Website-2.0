@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { useMediaQuery } from "@mui/material";
-import MobileTopBar from "@/components/TopNavbar/MobileTopBar";
+import MobileTopBar from "@/components/profile/MobileTopBar";
 import MobileLayout from "@/components/layouts/MobileLayout";
 import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
 import SearchBar from "@/components/dashboardv2/searchBar/SearchBar";
