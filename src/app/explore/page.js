@@ -1,10 +1,14 @@
+"use client";
+
+import { useMediaQuery } from "@mui/material";
 import FooterComponent from "@/components/FooterComponent";
-import Hero from "@/components/explorePageComponents/Hero";
-import StoriesSection from "@/components/explorePageComponents/StoriesSection";
-import Features from "@/components/explorePageComponents/Features";
-import Projects from "@/components/explorePageComponents/Projects";
-import Discussions from "@/components/explorePageComponents/Discussions";
+import Hero from "@/components/explorePageComponents/desktopScreen/Hero";
+import StoriesSection from "@/components/explorePageComponents/desktopScreen/StoriesSection";
+import Features from "@/components/explorePageComponents/desktopScreen/Features";
+import Projects from "@/components/explorePageComponents/desktopScreen/Projects";
+import Discussions from "@/components/explorePageComponents/desktopScreen/Discussions";
 import MemberStoriesSection from "@/components/explorePageComponents/MemberStoriesSection";
+import ExploreScreen from "@/components/explorePageComponents/mobileScreen";
 import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
 import { ULTRA_WIDE_MIN } from "@/theme/breakpoints";
 import styles from "./page.module.css";
@@ -12,6 +16,10 @@ import styles from "./page.module.css";
 const DESIGN_WIDTH = 1440;
 
 export default function ExplorePage() {
+  const isMobile = useMediaQuery("(max-width:480px)");
+
+  if (isMobile) return <ExploreScreen />;
+
   return (
     <ScreenUtilScaler
       designWidth={DESIGN_WIDTH}

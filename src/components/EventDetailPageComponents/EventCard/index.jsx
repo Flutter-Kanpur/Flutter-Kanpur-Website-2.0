@@ -51,9 +51,9 @@ const EventCard = () => {
         }}
       >
         {eventsData.slice(0, 5).map((item, index) => (
-          <Grid item key={item.id ?? index}>
+          <Box key={item.id ?? index}>
             <EventsCard event={item} />
-          </Grid>
+          </Box>
         ))}
       </Grid>
     </Box>

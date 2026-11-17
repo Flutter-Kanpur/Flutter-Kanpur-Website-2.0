@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 
-const CommunityHeader = () => {
+const CommunityHeader = ({ title = "Community" }) => {
   return (
     <Box
       sx={{
@@ -23,7 +23,7 @@ const CommunityHeader = () => {
           lineHeight: 1.3,
         }}
       >
-        Community
+        {title}
       </Typography>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
