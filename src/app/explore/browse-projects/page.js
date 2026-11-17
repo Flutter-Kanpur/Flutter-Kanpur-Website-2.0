@@ -3,6 +3,10 @@
 import { useMemo, useState } from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Skeleton from "@mui/material/Skeleton";
+import { useMediaQuery } from "@mui/material";
 
 import FooterComponent from "@/components/FooterComponent";
 import {
@@ -11,13 +15,12 @@ import {
   ProjectSection,
   ShowMoreButton,
   ShowcaseCTA,
-  categories,
-  projectSections,
-  showcaseCta,
 } from "@/components/browseProjectsComponents";
-import { t, figma } from "@/components/browseProjectsComponents/tokens";
+import { t, figma, fontFamily } from "@/components/browseProjectsComponents/tokens";
 import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
+import ProjectsListScreen from "@/components/explorePageComponents/mobileScreen/projects";
 import { ULTRA_WIDE_MIN } from "@/theme/breakpoints";
+import { useBrowseProjects } from "@/hooks/useBrowseProjects";
 
 const HERO = {
   title: "Browse Projects",
@@ -26,31 +29,67 @@ const HERO = {
   searchPlaceholder: "Search Projects...",
 };
 
+const SHOWCASE_CTA = {
+  title: "Want to showcase your skills?",
+  description:
+    "We're always looking for passionate contributors, mentors, and organisers to help grow the Flutter Kanpur community.",
+  buttonLabel: "Upload your project",
+  buttonHref: "/explore/projects",
+};
+
+const PAGE_SIZE = 6;
 const CONTENT_PX = { xs: t.spacing.lg, md: t.spacing.xxl };
 const DESIGN_WIDTH = t.layout.maxWidth + 2 * 32;
 
 export default function BrowseProjectsPage() {
-  const [activeCategory, setActiveCategory] = useState(categories[0].id);
-  const [isFiltering, setIsFiltering] = useState(false);
+  const isMobile = useMediaQuery("(max-width:480px)");
+  const { data, loading, error, refetch } = useBrowseProjects();
+
+  const allProjects = useMemo(() => data?.projects || [], [data]);
+  const techNames = useMemo(() => data?.techNames || [], [data]);
+
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  const sidebarCategories = useMemo(() => {
+    return [
+      { id: "all", label: "All projects" },
+      ...techNames.map((tech) => ({ id: tech, label: tech })),
+    ];
+  }, [techNames]);
 
   const handleSelectCategory = (id) => {
-    if (id === activeCategory && isFiltering) {
-      setIsFiltering(false);
-      return;
-    }
-    setActiveCategory(id);
-    setIsFiltering(true);
+    setActiveCategory((prev) => (prev === id && id !== "all" ? "all" : id));
+    setVisibleCount(PAGE_SIZE);
   };
 
-  const visibleSections = useMemo(
-    () =>
-      isFiltering
-        ? projectSections.filter(
-            (section) => section.category === activeCategory,
-          )
-        : projectSections,
-    [isFiltering, activeCategory],
-  );
+  const handleSearch = (val) => {
+    setSearchQuery(val);
+    setVisibleCount(PAGE_SIZE);
+  };
+
+  const filteredProjects = useMemo(() => {
+    let list = allProjects;
+    if (activeCategory !== "all") {
+      list = list.filter((p) => p.tags.includes(activeCategory));
+    }
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      list = list.filter((p) => {
+        const inTitle = p.title?.toLowerCase().includes(q);
+        const inSummary = p.description?.toLowerCase().includes(q);
+        const inTech = p.tags?.some((tech) => tech.toLowerCase().includes(q));
+        return inTitle || inSummary || inTech;
+      });
+    }
+    return list;
+  }, [allProjects, activeCategory, searchQuery]);
+
+  if (isMobile) return <ProjectsListScreen />;
+
+  const sectionTitle =
+    activeCategory === "all" ? "All Projects" : `${activeCategory} Projects`;
 
   return (
     <ScreenUtilScaler
@@ -58,89 +97,168 @@ export default function BrowseProjectsPage() {
       desktopMin={ULTRA_WIDE_MIN}
       allowUpscale
     >
-    <Box sx={{ width: "100%", bgcolor: t.surface.page }}>
-      {/* The navbar is rendered above the page by AppShell, so this band pulls
-          itself up underneath it — the gradient then starts at the very top of
-          the viewport with the navbar floating on it. */}
-      <Box
-        sx={{
-          background: figma.topGradient,
-          mt: figma.navbarOffset,
-          pt: figma.navbarClearance,
-          pb: { xs: t.spacing.xxxl, md: "120px" },
-          px: CONTENT_PX,
-        }}
-      >
+      <Box sx={{ width: "100%", bgcolor: t.surface.page }}>
+        <Box
+          sx={{
+            background: figma.topGradient,
+            mt: figma.navbarOffset,
+            pt: figma.navbarClearance,
+            pb: { xs: t.spacing.xxxl, md: "120px" },
+            px: CONTENT_PX,
+          }}
+        >
+          <Box
+            sx={{
+              maxWidth: t.layout.maxWidth,
+              mx: "auto",
+            }}
+          >
+            <BrowseHero
+              {...HERO}
+              searchValue={searchQuery}
+              onSearch={handleSearch}
+            />
+          </Box>
+        </Box>
+
         <Box
           sx={{
             maxWidth: t.layout.maxWidth,
             mx: "auto",
-          }}
-        >
-          <BrowseHero {...HERO} />
-        </Box>
-      </Box>
-
-      <Box
-        sx={{
-          maxWidth: t.layout.maxWidth,
-          mx: "auto",
-          px: CONTENT_PX,
-          pb: { xs: t.spacing.xxxl, md: t.spacing.huge },
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-            alignItems: "flex-start",
-            gap: t.layout.columnGap,
+            px: CONTENT_PX,
+            pb: { xs: t.spacing.xxxl, md: t.spacing.huge },
           }}
         >
           <Box
             sx={{
-              width: { xs: "100%", md: t.layout.sidebarWidth },
-              flexShrink: 0,
-              position: { md: "sticky" },
-              top: { md: t.spacing.xxl },
-            }}
-          >
-            <CategorySidebar
-              categories={categories}
-              activeCategory={activeCategory}
-              onSelect={handleSelectCategory}
-            />
-          </Box>
-
-          <Box
-            sx={{
-              flex: 1,
-              minWidth: 0,
               display: "flex",
-              flexDirection: "column",
-              gap: t.layout.sectionGap,
+              flexDirection: { xs: "column", md: "row" },
+              alignItems: "flex-start",
+              gap: t.layout.columnGap,
             }}
           >
-            {visibleSections.map((section) => (
-              <ProjectSection
-                key={section.id}
-                title={section.title}
-                projects={section.projects}
+            <Box
+              sx={{
+                width: { xs: "100%", md: t.layout.sidebarWidth },
+                flexShrink: 0,
+                position: { md: "sticky" },
+                top: { md: t.spacing.xxl },
+              }}
+            >
+              <CategorySidebar
+                categories={sidebarCategories}
+                activeCategory={activeCategory}
+                onSelect={handleSelectCategory}
               />
-            ))}
+            </Box>
 
-            <ShowMoreButton onClick={() => {}} />
+            <Box
+              sx={{
+                flex: 1,
+                minWidth: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: t.layout.sectionGap,
+              }}
+            >
+              {loading && (
+                <Box
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: {
+                      xs: "1fr",
+                      sm: "repeat(2, minmax(0, 1fr))",
+                    },
+                    gap: t.layout.cardGap,
+                  }}
+                >
+                  {[1, 2, 3, 4, 5, 6].map((n) => (
+                    <Skeleton
+                      key={n}
+                      variant="rounded"
+                      height={200}
+                      sx={{ borderRadius: t.radius.md }}
+                    />
+                  ))}
+                </Box>
+              )}
+
+              {!loading && error && (
+                <Box sx={{ py: 4, textAlign: "center" }}>
+                  <Typography sx={{ color: "#d32f2f", mb: 2 }}>
+                    Failed to load projects: {error.message || "Unknown error"}
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    onClick={refetch}
+                    sx={{
+                      borderRadius: "999px",
+                      textTransform: "none",
+                      color: t.colors.primary[500],
+                      borderColor: t.colors.primary[500],
+                    }}
+                  >
+                    Retry
+                  </Button>
+                </Box>
+              )}
+
+              {!loading && !error && allProjects.length === 0 && (
+                <Typography
+                  sx={{
+                    fontFamily,
+                    fontSize: t.typography.paragraph2.fontSize,
+                    color: t.text.muted,
+                    py: 4,
+                    textAlign: "center",
+                  }}
+                >
+                  No projects yet. Be the first to share yours.
+                </Typography>
+              )}
+
+              {!loading &&
+                !error &&
+                allProjects.length > 0 &&
+                filteredProjects.length === 0 && (
+                  <Typography
+                    sx={{
+                      fontFamily,
+                      fontSize: t.typography.paragraph2.fontSize,
+                      color: t.text.muted,
+                      py: 4,
+                      textAlign: "center",
+                    }}
+                  >
+                    No projects match your search
+                  </Typography>
+                )}
+
+              {!loading && !error && filteredProjects.length > 0 && (
+                <>
+                  <ProjectSection
+                    title={sectionTitle}
+                    projects={filteredProjects.slice(0, visibleCount)}
+                  />
+
+                  {visibleCount < filteredProjects.length && (
+                    <ShowMoreButton
+                      onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+                    />
+                  )}
+                </>
+              )}
+            </Box>
           </Box>
-        </Box>
 
-        <Box sx={{ mt: { xs: t.spacing.xxxl, md: t.spacing.massive } }}>
-          <ShowcaseCTA {...showcaseCta} />
-        </Box>
+          <Box sx={{ mt: { xs: t.spacing.xxxl, md: t.spacing.massive } }}>
+            <ShowcaseCTA {...SHOWCASE_CTA} />
+          </Box>
 
-        <Divider sx={{ my: t.spacing.xxxl, borderColor: t.border.subtle }} />
-        <FooterComponent />
+          <Divider sx={{ my: t.spacing.xxxl, borderColor: t.border.subtle }} />
+          <FooterComponent />
+        </Box>
       </Box>
-    </Box>
     </ScreenUtilScaler>
   );
 }

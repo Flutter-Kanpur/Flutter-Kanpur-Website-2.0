@@ -25,12 +25,14 @@ export default function SocialLinksSection({
         placeholder="github.com/username"
         value={githubLink}
         onChange={(e) => setGithubLink(e.target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Image src="/assets/profile-page-assets/manage-profile-page-assets/github_icon.svg" alt="GitHub" width={20} height={20} />
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <Image src="/assets/profile-page-assets/manage-profile-page-assets/github_icon.svg" alt="GitHub" width={20} height={20} />
+              </InputAdornment>
+            ),
+          },
         }}
         sx={{ mb: 2 }}
       />
@@ -40,12 +42,14 @@ export default function SocialLinksSection({
         placeholder="linkedin.com/in/username"
         value={linkedinLink}
         onChange={(e) => setLinkedinLink(e.target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LinkedInIcon />
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <LinkedInIcon />
+              </InputAdornment>
+            ),
+          },
         }}
         sx={{ mb: 2 }}
       />
@@ -55,12 +59,14 @@ export default function SocialLinksSection({
         placeholder="https://yourwebsite.com"
         value={websiteLink}
         onChange={(e) => setWebsiteLink(e.target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LanguageIcon />
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <LanguageIcon />
+              </InputAdornment>
+            ),
+          },
         }}
         sx={{ mb: 4 }}
       />

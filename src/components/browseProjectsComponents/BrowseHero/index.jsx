@@ -6,7 +6,14 @@ import Typography from "@mui/material/Typography";
 import SearchBar from "@/components/explorePageComponents/SearchBar";
 import { t, fontFamily } from "../tokens";
 
-const BrowseHero = ({ title, description, searchPlaceholder, onSearch }) => (
+const BrowseHero = ({
+  title,
+  description,
+  searchPlaceholder,
+  searchValue,
+  onSearchChange,
+  onSearch,
+}) => (
   <Box
     sx={{
       display: "flex",
@@ -52,6 +59,12 @@ const BrowseHero = ({ title, description, searchPlaceholder, onSearch }) => (
     >
       <SearchBar
         placeholder={searchPlaceholder}
+        value={searchValue}
+        onChange={(e) => {
+          const val = e.target.value;
+          if (onSearchChange) onSearchChange(val);
+          if (onSearch) onSearch(val);
+        }}
         onSubmit={onSearch}
         maxWidth="100%"
         ariaLabel="Search projects"

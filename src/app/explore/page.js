@@ -4,8 +4,7 @@ import StoriesSection from "@/components/explorePageComponents/StoriesSection";
 import Features from "@/components/explorePageComponents/Features";
 import Projects from "@/components/explorePageComponents/Projects";
 import Discussions from "@/components/explorePageComponents/Discussions";
-import ExploreCategoriesSection from "@/components/landingPageComponents/ExploreCategories";
-import { exploreCategoriesContent } from "@/data/exploreCategoriesData";
+import MemberStoriesSection from "@/components/explorePageComponents/MemberStoriesSection";
 import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
 import { ULTRA_WIDE_MIN } from "@/theme/breakpoints";
 import styles from "./page.module.css";
@@ -37,14 +36,7 @@ export default function ExplorePage() {
         <Discussions />
       </div>
 
-      <div className={styles.container}>
-        <ExploreCategoriesSection
-          title={exploreCategoriesContent.title}
-          titleHighlight={exploreCategoriesContent.titleHighlight}
-          categories={exploreCategoriesContent.categories}
-          variant="explore"
-        />
-      </div>
+      <MemberStoriesSection />
 
       <div className={styles.footerContainer}>
         <FooterComponent />

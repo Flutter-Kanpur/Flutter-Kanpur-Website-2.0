@@ -2562,17 +2562,19 @@ const [showCustomSkillInput, setShowCustomSkillInput] = useState(false);
             }
             disabled={saving}
             placeholder="Enter location"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LocationOnOutlinedIcon
-                    sx={{
-                      color: "#444",
-                      fontSize: 21,
-                    }}
-                  />
-                </InputAdornment>
-              ),
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LocationOnOutlinedIcon
+                      sx={{
+                        color: "#444",
+                        fontSize: 21,
+                      }}
+                    />
+                  </InputAdornment>
+                ),
+              },
             }}
             sx={{
               ...fieldStyle,
@@ -2596,15 +2598,17 @@ const [showCustomSkillInput, setShowCustomSkillInput] = useState(false);
             }
             disabled={saving}
             placeholder="Tell us about yourself (Max 500 Characters)"
-            inputProps={{
-              maxLength: 500,
-            }}
             helperText={`${bio.length}/500`}
-            FormHelperTextProps={{
-              sx: {
-                textAlign: "right",
-                mr: 0,
-                color: "#888",
+            slotProps={{
+              htmlInput: {
+                maxLength: 500,
+              },
+              formHelperText: {
+                sx: {
+                  textAlign: "right",
+                  mr: 0,
+                  color: "#888",
+                },
               },
             }}
             sx={{
@@ -2751,17 +2755,19 @@ const [showCustomSkillInput, setShowCustomSkillInput] = useState(false);
             }
             disabled={saving}
             placeholder="Search roles or skills..."
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <SearchIcon
-                    sx={{
-                      color: "#999",
-                      fontSize: 20,
-                    }}
-                  />
-                </InputAdornment>
-              ),
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <SearchIcon
+                      sx={{
+                        color: "#999",
+                        fontSize: 20,
+                      }}
+                    />
+                  </InputAdornment>
+                ),
+              },
             }}
             sx={{
               ...fieldStyle,
@@ -3121,14 +3127,16 @@ function SocialInputs({
           setLinkedinLink(event.target.value)
         }
         disabled={disabled}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LinkedInIcon
-                sx={{ fontSize: 20 }}
-              />
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <LinkedInIcon
+                  sx={{ fontSize: 20 }}
+                />
+              </InputAdornment>
+            ),
+          },
         }}
         sx={fieldStyle}
       />
@@ -3142,14 +3150,16 @@ function SocialInputs({
           setGithubLink(event.target.value)
         }
         disabled={disabled}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <GitHubIcon
-                sx={{ fontSize: 20 }}
-              />
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <GitHubIcon
+                  sx={{ fontSize: 20 }}
+                />
+              </InputAdornment>
+            ),
+          },
         }}
         sx={fieldStyle}
       />
@@ -3163,14 +3173,16 @@ function SocialInputs({
           setWebsiteLink(event.target.value)
         }
         disabled={disabled}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LanguageIcon
-                sx={{ fontSize: 20 }}
-              />
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <LanguageIcon
+                  sx={{ fontSize: 20 }}
+                />
+              </InputAdornment>
+            ),
+          },
         }}
         sx={fieldStyle}
       />

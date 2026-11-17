@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
+import Link from "next/link";
 
 import { t, assets, fontFamily } from "../tokens";
 
@@ -35,6 +36,7 @@ const CardIconLink = ({ href, label, src }) => (
 );
 
 const ProjectCard = ({
+  id,
   title,
   author,
   description,
@@ -54,7 +56,7 @@ const ProjectCard = ({
       p: t.spacing.xl,
     }}
   >
-    <Stack direction="row" spacing={t.spacing.md} alignItems="flex-start">
+    <Stack direction="row" spacing={t.spacing.md} sx={{ alignItems: "flex-start" }}>
       <Box
         sx={{
           width: THUMBNAIL_SIZE,
@@ -68,7 +70,7 @@ const ProjectCard = ({
         {thumbnail && (
           <Image
             src={thumbnail}
-            alt={title}
+            alt={title || "Project"}
             width={THUMBNAIL_SIZE}
             height={THUMBNAIL_SIZE}
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
@@ -77,16 +79,36 @@ const ProjectCard = ({
       </Box>
 
       <Box sx={{ minWidth: 0 }}>
-        <Typography
-          sx={{
-            fontFamily,
-            fontSize: t.typography.label2.fontSize,
-            fontWeight: 700,
-            color: t.text.heading,
-          }}
-        >
-          {title}
-        </Typography>
+        {id ? (
+          <Link
+            href={`/explore/browse-projects/${id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <Typography
+              sx={{
+                fontFamily,
+                fontSize: t.typography.label2.fontSize,
+                fontWeight: 700,
+                color: t.text.heading,
+                "&:hover": { color: t.colors.primary[500] },
+                transition: "color 0.15s ease",
+              }}
+            >
+              {title}
+            </Typography>
+          </Link>
+        ) : (
+          <Typography
+            sx={{
+              fontFamily,
+              fontSize: t.typography.label2.fontSize,
+              fontWeight: 700,
+              color: t.text.heading,
+            }}
+          >
+            {title}
+          </Typography>
+        )}
         <Typography
           sx={{
             fontFamily,
@@ -116,16 +138,20 @@ const ProjectCard = ({
     </Typography>
 
     <Stack direction="row" spacing={t.spacing.sm} sx={{ mt: t.spacing.lg }}>
-      <CardIconLink
-        href={githubUrl}
-        src={assets.github}
-        label={`${title} on GitHub`}
-      />
-      <CardIconLink
-        href={linkedinUrl}
-        src={assets.linkedin}
-        label={`${title} on LinkedIn`}
-      />
+      {githubUrl && githubUrl !== "#" && (
+        <CardIconLink
+          href={githubUrl}
+          src={assets.github}
+          label={`${title} on GitHub`}
+        />
+      )}
+      {linkedinUrl && linkedinUrl !== "#" && (
+        <CardIconLink
+          href={linkedinUrl}
+          src={assets.linkedin}
+          label={`${title} on LinkedIn`}
+        />
+      )}
     </Stack>
   </Box>
 );

@@ -17,9 +17,10 @@ const StoryCard = ({ story }) => {
       </span>
 
       <div className={styles.imageBox}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/assets/explore-page-assets/stories.svg"
-          alt="story"
+          src={story.image || "/assets/explore-page-assets/stories.svg"}
+          alt={story.title || "story"}
           className={styles.image}
         />
       </div>
