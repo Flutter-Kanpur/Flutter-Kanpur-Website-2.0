@@ -113,7 +113,10 @@ const ExploreEventsSection = () => {
                   size={{ xs: 12, sm: 6, md: 3 }}
                   key={item.id ?? index}
                 >
-                  <EventsCard event={mapped} />
+                  <EventsCard
+                    event={mapped}
+                    onClick={() => router.push(`/eventsDetail/${mapped.id}`)}
+                  />
                 </Grid>
               )
             })}
