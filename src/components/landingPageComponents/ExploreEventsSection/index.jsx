@@ -74,7 +74,7 @@ const ExploreEventsSection = () => {
           Explore events
         </Typography>
         <Typography
-          onClick={() => router.push('/eventsPage')}
+          onClick={() => router.push('/explore/eventsPage')}
           sx={{ fontSize: 18, lineHeight: '25px', fontWeight: 400, color: '#4167F2', cursor: 'pointer' }}
         >
           See all events

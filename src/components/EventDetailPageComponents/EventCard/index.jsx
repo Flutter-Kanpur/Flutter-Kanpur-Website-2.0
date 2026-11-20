@@ -83,7 +83,7 @@ const EventCard = ({ currentEventId, isStatic = false }) => {
             You may also like
           </Typography>
           <Typography
-            onClick={() => router.push("/eventsPage")}
+            onClick={() => router.push("/explore/eventsPage")}
             sx={{
               fontSize: 18,
               lineHeight: "25px",
@@ -145,7 +145,7 @@ const EventCard = ({ currentEventId, isStatic = false }) => {
           You may also like
         </Typography>
         <Typography
-          onClick={() => router.push("/eventsPage")}
+          onClick={() => router.push("/explore/eventsPage")}
           sx={{
             fontSize: 18,
             lineHeight: "25px",

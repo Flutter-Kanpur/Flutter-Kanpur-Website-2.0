@@ -132,7 +132,7 @@ const EventDetailPage = () => {
             </Typography>
             <Button
               variant="contained"
-              onClick={() => router.push("/eventsPage")}
+              onClick={() => router.push("/explore/eventsPage")}
               sx={{
                 bgcolor: "#101010",
                 color: "#FFFFFF",
@@ -174,7 +174,7 @@ const EventDetailPage = () => {
             </Typography>
             <Button
               variant="contained"
-              onClick={() => router.push("/eventsPage")}
+              onClick={() => router.push("/explore/eventsPage")}
               sx={{
                 bgcolor: "#101010",
                 color: "#FFFFFF",

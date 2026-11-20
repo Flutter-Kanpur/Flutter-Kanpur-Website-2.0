@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
+import Link from 'next/link';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import PaddingContainer from '../../PaddingContainer';
@@ -71,66 +72,70 @@ const HeroSection = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 1,
-                            background: '#1D1D1D',
-                            color: '#FFF',
-                            px: 4,
-                            py: 1.8,
-                            borderRadius: '100px',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s ease',
-                            '&:hover': {
-                                opacity: 0.9,
-                                transform: 'translateY(-2px)',
-                            },
-                        }}
-                    >
-                        <Typography
+                    <Link href="/community" style={{ textDecoration: 'none' }}>
+                        <Box
                             sx={{
-                                fontFamily: PRODUCT_SANS,
-                                fontSize: '18px',
-                                fontWeight: 400,
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 1,
+                                background: '#1D1D1D',
+                                color: '#FFF',
+                                px: 4,
+                                py: 1.8,
+                                borderRadius: '100px',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s ease',
+                                '&:hover': {
+                                    opacity: 0.9,
+                                    transform: 'translateY(-2px)',
+                                },
                             }}
                         >
-                            Join community
-                        </Typography>
-                        <VisibilityOutlinedIcon sx={{ fontSize: 20 }} />
-                    </Box>
+                            <Typography
+                                sx={{
+                                    fontFamily: PRODUCT_SANS,
+                                    fontSize: '18px',
+                                    fontWeight: 400,
+                                }}
+                            >
+                                Join community
+                            </Typography>
+                            <VisibilityOutlinedIcon sx={{ fontSize: 20 }} />
+                        </Box>
+                    </Link>
 
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 1,
-                            background: '#FFF',
-                            color: '#000',
-                            border: '1px solid #E2E2E2',
-                            px: 4,
-                            py: 1.8,
-                            borderRadius: '100px',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s ease',
-                            '&:hover': {
-                                background: '#F8F9FA',
-                                transform: 'translateY(-2px)',
-                            },
-                        }}
-                    >
-                        <Typography
+                    <Link href="/explore/eventsPage" style={{ textDecoration: 'none' }}>
+                        <Box
                             sx={{
-                                fontFamily: PRODUCT_SANS,
-                                fontSize: '18px',
-                                fontWeight: 400,
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 1,
+                                background: '#FFF',
+                                color: '#000',
+                                border: '1px solid #E2E2E2',
+                                px: 4,
+                                py: 1.8,
+                                borderRadius: '100px',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s ease',
+                                '&:hover': {
+                                    background: '#F8F9FA',
+                                    transform: 'translateY(-2px)',
+                                },
                             }}
                         >
-                            View events
-                        </Typography>
-                        <NorthEastIcon sx={{ fontSize: 20 }} />
-                    </Box>
+                            <Typography
+                                sx={{
+                                    fontFamily: PRODUCT_SANS,
+                                    fontSize: '18px',
+                                    fontWeight: 400,
+                                }}
+                            >
+                                View events
+                            </Typography>
+                            <NorthEastIcon sx={{ fontSize: 20 }} />
+                        </Box>
+                    </Link>
                 </Box>
             </Box>
 

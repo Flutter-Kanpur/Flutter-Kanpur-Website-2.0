@@ -7,17 +7,17 @@ const DEFAULT_CATEGORIES = [
   {
     title: "Blogs/Articles",
     linkText: "Open full story",
-    linkHref: "#",
+    linkHref: "/blogs",
   },
   {
     title: "Top Projects",
     linkText: "Open full story",
-    linkHref: "#",
+    linkHref: "/explore/browse-projects",
   },
   {
     title: "Meet Team",
     linkText: "Open full story",
-    linkHref: "#",
+    linkHref: "/explore/core-team",
   },
 ];
 

@@ -1,6 +1,7 @@
 'use client'
 import { Box, Grid, Typography, Skeleton } from '@mui/material'
 import React from 'react'
+import { useRouter } from 'next/navigation'
 import SpeakerCard from './SpeakerCard'
 import DummySpeakerImage from '@/../public/assets/landing-page-assets/dummy-speaker-image.svg'
 import { useSpeakers } from '@/hooks/useSpeakers'
@@ -15,6 +16,7 @@ const FALLBACK_SPEAKER_DATA = [
 ]
 
 const PastSpeakerSection = () => {
+  const router = useRouter()
   const { speakers, loading, error } = useSpeakers()
 
   // On error or empty result, fall back to hardcoded data
@@ -44,11 +46,13 @@ const PastSpeakerSection = () => {
           Past Speakers
         </Typography>
         <Typography
+          onClick={() => router.push('/explore/eventsPage')}
           sx={{
             fontSize: 18,
             lineHeight: '25px',
             fontWeight: 400,
             color: '#4167F2',
+            cursor: 'pointer',
           }}
         >
           See past events
