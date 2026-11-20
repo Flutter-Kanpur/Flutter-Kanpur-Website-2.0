@@ -25,7 +25,7 @@ const ultraWideSx = {
   },
 };
 
-const page = () => {
+const EventsPage = () => {
   const isMobile = useMediaQuery("(max-width:480px)");
 
   if (isMobile) return <EventsListScreen />;
@@ -41,4 +41,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default EventsPage;

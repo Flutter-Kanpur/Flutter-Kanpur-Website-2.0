@@ -80,6 +80,18 @@ export function timeAgo(iso) {
 }
 
 /**
+ * Return a short relative time string such as "2h ago" or "just now"
+ * (strips any leading "posted " prefix from timeAgo).
+ * @param {string} iso
+ * @returns {string}
+ */
+export function formatPostedAgo(iso) {
+  if (!iso) return "";
+  const s = timeAgo(iso);
+  return s.replace(/^posted\s+/i, "");
+}
+
+/**
  * Estimate reading time from plain text.
  * Uses 200 words-per-minute; minimum 1 minute.
  * @param {string} text
