@@ -1,21 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 
 import { useUltraWide } from "@/hooks/useUltraWide";
 import MobileTopBar from "@/components/profile/MobileTopBar";
 import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
 import SearchBar from "@/components/dashboardv2/searchBar/SearchBar";
 
-import Header from "@/components/explorePageComponents/projectSubmission/Header";
-import ProjectList from "@/components/explorePageComponents/projectSubmission/ProjectList";
-import UploadProject from "@/components/explorePageComponents/projectSubmission/UploadProject";
+import Header from "@/components/explorePageComponents/desktopScreen/projectSubmission/Header";
+import ProjectList from "@/components/explorePageComponents/desktopScreen/projectSubmission/ProjectList";
+import UploadProject from "@/components/explorePageComponents/desktopScreen/projectSubmission/UploadProject";
+import YourProjectsScreen from "@/components/explorePageComponents/mobileScreen/projects/YourProjectsScreen";
 
 const ProjectSubmissionPage = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilter, setSelectedFilter] = useState(null);
   const ultraWide = useUltraWide();
+  const isMobile = useMediaQuery("(max-width:480px)");
+
+  if (isMobile) return <YourProjectsScreen />;
 
   return (
     <ScreenUtilScaler

@@ -8,7 +8,7 @@ const PRODUCT_SANS = "'Product Sans', system-ui, -apple-system, sans-serif";
 
 const DEFAULT_SPEAKER_IMAGE = "/assets/landing-page-assets/speaker.png";
 
-// 👉 DEFAULT STATIC DATA (UI unchanged for now)
+// DEFAULT STATIC DATA (UI unchanged for now)
 const defaultSpeakers = [
   {
     id: 1,
