@@ -88,14 +88,28 @@
   justify-content: center;
 }
 
-
-
-.convoImg{
+.convoImg {
   height: 572px;
   width: 503px;
-} 
+}
 
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .heading {
+    font-size: clamp(24px, calc(5.14vw - 6.7px), 48px);
+    line-height: 1.2;
+  }
 
+  .description {
+    font-size: clamp(14px, calc(1.5vw + 2px), 18px);
+    line-height: clamp(20px, calc(1.5vw + 14px), 26px);
+  }
+
+  .featureItem {
+    font-size: clamp(14px, calc(1vw + 6px), 16px);
+    line-height: 1.4;
+  }
+}
 
 @media (max-width: 960px) {
   .inner {
@@ -117,10 +131,6 @@
   .convoImg {
     max-width: 380px;
   }
-
-  .heading {
-    font-size: 38px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -129,12 +139,12 @@
   }
 
   .heading {
-    font-size: 28px;
+    font-size: 26px;
   }
 
   .description {
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.5;
   }
 
   .featureGrid {
@@ -149,7 +159,7 @@
   .featureItem {
     width: 100%;
     white-space: normal;
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .convoImg {
@@ -157,16 +167,3 @@
   }
 }
 
-@media (max-width: 480px) {
-  .section {
-    padding: 48px 16px;
-  }
-
-  .heading {
-    font-size: 24px;
-  }
-
-  .convoImg {
-    max-width: 260px;
-  }
-}

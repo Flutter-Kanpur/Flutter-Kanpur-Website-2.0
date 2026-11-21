@@ -118,6 +118,23 @@
   color: #ffffff;
 }
 
+/* Fluid Tablet typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .title {
+    font-size: clamp(16px, calc(0.75vw + 12px), 20px);
+    line-height: 1.35;
+  }
+
+  .description {
+    font-size: clamp(13px, calc(0.55vw + 10px), 16px);
+    line-height: 1.55;
+  }
+
+  .author {
+    font-size: clamp(13px, calc(0.55vw + 10px), 16px);
+  }
+}
+
 @media (max-width: 520px) {
   .card {
     padding: 12px;

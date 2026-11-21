@@ -1,6 +1,8 @@
+
 .discussionsSection {
   padding: 72px 96px;
   background: #fafafa;
+  box-sizing: border-box;
 }
 
 .heading {
@@ -45,8 +47,6 @@
   transition: all 0.2s ease;
 }
 
-
-
 .ghost {
   background: #111827;
   color: #fff;
@@ -65,16 +65,19 @@
 
 .gridWrap {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
+  width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .col {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
 }
 
 .card {
@@ -88,6 +91,8 @@
   gap: 24px;
   width: 100%;
   height: auto;
+  box-sizing: border-box;
+  min-width: 0;
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -115,6 +120,7 @@
   line-height: 1.6;
   margin: 0;
   white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .meta {
@@ -122,45 +128,94 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 45px;
+  gap: 8px;
+  min-width: 0;
 }
+
 .authorInfo {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
 }
+
 .author {
   font-size: 20px;
   color: #000000;
   font-weight: 400;
 }
+
 .time {
   font-size: 18px;
   color: #A2A2A2;
-  
 }
+
 .avatar {
   width: 46px;
   height: 44px;
   border-radius: 12px;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .active {
   background: #3b5bff;
   color: #fff;
 }
+
 .active .text {
   color: #ffffff;
 }
+
 .active .author {
   color: #fff;
 }
+
 .active .time {
   color: rgba(255, 255, 255, 0.85);
 }
 
-@media (max-width: 1024px) {
-  .gridWrap {
-    grid-template-columns: 1fr;
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .heading {
+    font-size: clamp(24px, calc(2.2vw + 13.4px), 36px);
+    line-height: 1.25;
+  }
+
+  .actions button,
+  .askButton {
+    font-size: clamp(14px, calc(0.75vw + 10px), 18px) !important;
+  }
+
+  .card .text {
+    font-size: clamp(15px, calc(0.9vw + 10.5px), 20px);
+    line-height: 1.5;
+  }
+
+  .author {
+    font-size: clamp(15px, calc(0.9vw + 10.5px), 20px);
+  }
+
+  .time {
+    font-size: clamp(13.5px, calc(0.8vw + 9.5px), 18px);
   }
 }
+
+@media (max-width: 1024px) {
+  .discussionsSection {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .gridWrap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    max-width: 1000px;
+    gap: 20px;
+  }
+
+  .card {
+    padding: clamp(12px, 2.4vw, 24px);
+  }
+}
+

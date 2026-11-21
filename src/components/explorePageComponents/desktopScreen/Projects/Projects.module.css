@@ -1,3 +1,4 @@
+
 .projectsSection {
   padding: 72px 96px;
   background: #ffffff;
@@ -55,59 +56,56 @@
 }
 
 .grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   justify-content: center;
   align-items: stretch;
   gap: 20px;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 862px;
   margin: 0 auto;
 }
 
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .headerText h2 {
+    font-size: clamp(26px, calc(4.07vw + 6.3px), 48px);
+    line-height: 1.2;
+  }
+
+  .headerText p {
+    font-size: clamp(14px, calc(0.75vw + 10px), 18px);
+    line-height: 1.5;
+  }
+
+  .viewAll {
+    font-size: clamp(13px, calc(0.4vw + 11px), 15px);
+  }
+}
+
+/* Responsive Two-Column Grid */
 @media (max-width: 1024px) {
   .projectsSection {
     padding: 48px 28px;
+    box-sizing: border-box;
   }
+
   .headerText h2 {
     width: 100%;
     height: auto;
-    font-size: 34px;
   }
+
   .headerText p {
     width: 100%;
     height: auto;
   }
-  .grid {
-    max-width: 100%;
-    height:719px;
-    width: 1159px;
-  }
-}
 
 
-/* Keep project cards inside the available viewport width. */
-@media (max-width: 1024px) {
-  .projectsSection {
-    box-sizing: border-box;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 421px));
-    justify-content: center;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-  }
 }
 
 @media (max-width: 900px) {
   .projectsSection {
     padding: 48px 24px;
-  }
-
-  .grid {
-    grid-template-columns: minmax(0, 421px);
   }
 }
 
@@ -117,10 +115,11 @@
   }
 
   .headerText h2 {
-    font-size: 30px;
+    font-size: 28px;
   }
 
   .headerText p {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
+
