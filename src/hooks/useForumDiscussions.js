@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSupabaseQuery } from "./useSupabaseQuery";
+import { supabase } from "@/lib/supabase/client";
 import { fetchUserCards } from "@/lib/fetchUserCards";
 import { formatPostedAgo } from "@/lib/exploreFormat";
 
@@ -161,17 +162,15 @@ export const useForumDiscussions = (initialSelectedId = null) => {
   const [userSelectedId, setUserSelectedId] = useState(null);
   const [isDialogOpen, setDialogOpen] = useState(false);
 
-  // In-memory overrides for current session interactive responses/discussions
-  const [localDiscussions, setLocalDiscussions] = useState([]);
+  // Interactive responses cache for fast optimistic UI updates
   const [responsesByQuestion, setResponsesByQuestion] = useState({});
 
   const selectedId = userSelectedId ?? initialSelectedId;
   const setSelectedId = setUserSelectedId;
 
   const allDiscussions = useMemo(() => {
-    const fetched = data?.discussions || [];
-    return [...localDiscussions, ...fetched];
-  }, [data, localDiscussions]);
+    return data?.discussions || [];
+  }, [data]);
 
   const topicFilters = data?.topicFilters || DEFAULT_TOPIC_FILTERS;
 
@@ -237,26 +236,88 @@ export const useForumDiscussions = (initialSelectedId = null) => {
     return visibleDiscussions.filter((d) => d.id !== activeDiscussion.id);
   }, [visibleDiscussions, activeDiscussion]);
 
-  // In-memory response adding (Read-only Supabase constraint)
-  const handleAddResponse = (text) => {
-    if (!text?.trim() || !activeDiscussion) return;
-    const newReply = {
-      id: `reply-${Date.now()}`,
-      author: {
-        name: "You",
-        avatar: DEFAULT_AVATAR,
-      },
-      postedAt: "just now",
-      text: text.trim(),
-      likes: 0,
-      comments: 0,
-      liked: false,
+  // Persist response to Supabase answers table
+  const handleAddResponse = async (text) => {
+    if (!text?.trim() || !activeDiscussion) {
+      return { error: new Error("Reply content cannot be empty.") };
+    }
+    if (!supabase) {
+      return { error: new Error("Database client is not configured.") };
+    }
+
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return {
+        notAuthenticated: true,
+        error: new Error("Please sign in to post a reply"),
+      };
+    }
+
+    const { data: newRow, error: insertError } = await supabase
+      .from("answers")
+      .insert({
+        question_id: activeDiscussion.id,
+        author_uid: user.id,
+        body: text.trim(),
+      })
+      .select()
+      .single();
+
+    if (insertError) {
+      return { error: insertError };
+    }
+
+    let author = {
+      name:
+        user.user_metadata?.display_name ||
+        user.user_metadata?.full_name ||
+        user.user_metadata?.name ||
+        user.email ||
+        "Community member",
+      avatar:
+        user.user_metadata?.photo_url ||
+        user.user_metadata?.avatar_url ||
+        DEFAULT_AVATAR,
     };
-    const currentResponses = activeDiscussion.responses || [];
-    setResponsesByQuestion((prev) => ({
-      ...prev,
-      [activeDiscussion.id]: [...currentResponses, newReply],
-    }));
+
+    try {
+      const userMap = await fetchUserCards(supabase, [user.id]);
+      const card = userMap.get(user.id);
+      if (card && card.name !== "Community member") {
+        author.name = card.name;
+        if (card.avatar) author.avatar = card.avatar;
+      }
+    } catch {
+      // fallback to metadata
+    }
+
+    const newResponseObj = {
+      id: newRow.id,
+      author,
+      postedAt: formatPostedAgo(newRow.created_at) || "just now",
+      text: newRow.body || text.trim(),
+      likes: newRow.like_count || 0,
+      comments: newRow.comment_count || 0,
+      liked: false,
+      isAccepted: newRow.is_accepted || false,
+    };
+
+    setResponsesByQuestion((prev) => {
+      const existing =
+        prev[activeDiscussion.id] || activeDiscussion.responses || [];
+      return {
+        ...prev,
+        [activeDiscussion.id]: [...existing, newResponseObj],
+      };
+    });
+
+    refetch();
+
+    return { success: true, data: newResponseObj };
   };
 
   const handleToggleLike = (responseId) => {
@@ -277,33 +338,61 @@ export const useForumDiscussions = (initialSelectedId = null) => {
     }));
   };
 
-  const handleCreateDiscussion = ({ title, body, tags }) => {
-    const id = `discussion-${Date.now()}`;
-    const newEntry = {
-      id,
-      title,
-      body,
-      tags,
-      category: "Flutter",
-      attachments: [],
-      author: {
-        name: "You",
-        avatar: DEFAULT_AVATAR,
-      },
-      postedAt: "just now",
-      rawCreatedAt: new Date().toISOString(),
-      rawUpdatedAt: new Date().toISOString(),
-      views: 0,
-      likes: 0,
-      answerCount: 0,
-      trending: false,
-      responses: [],
+  // Persist new question to Supabase questions table
+  const handleCreateDiscussion = async ({ title, body, tags }) => {
+    if (!title?.trim() || !body?.trim()) {
+      return { error: new Error("Title and description are required.") };
+    }
+    if (!supabase) {
+      return { error: new Error("Database client is not configured.") };
+    }
+
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return {
+        notAuthenticated: true,
+        error: new Error("Please sign in to start a discussion"),
+      };
+    }
+
+    const cleanedTags = Array.isArray(tags)
+      ? tags.map((t) => t.trim()).filter(Boolean)
+      : [];
+
+    const newQuestionPayload = {
+      title: title.trim(),
+      body: body.trim(),
+      author_uid: user.id,
+      status: "open",
+      category: cleanedTags[0] || "General",
+      tags: cleanedTags,
+      is_deleted: false,
     };
 
-    setLocalDiscussions((prev) => [newEntry, ...prev]);
-    setSelectedId(id);
-    setQuickFilter("unanswered");
+    const { data: newQuestion, error: insertError } = await supabase
+      .from("questions")
+      .insert(newQuestionPayload)
+      .select()
+      .single();
+
+    if (insertError) {
+      return { error: insertError };
+    }
+
+    // Refetch the discussions list so the new question is loaded from Supabase
+    refetch();
+
+    if (newQuestion?.id) {
+      setUserSelectedId(newQuestion.id);
+    }
     setTopic("all");
+    setDialogOpen(false);
+
+    return { success: true, data: newQuestion };
   };
 
   return {
