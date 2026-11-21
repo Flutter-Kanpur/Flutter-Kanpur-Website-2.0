@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { Box, useMediaQuery } from "@mui/material";
-
-import { useUltraWide } from "@/hooks/useUltraWide";
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import { useMediaQuery } from "@mui/material";
 import MobileTopBar from "@/components/profile/MobileTopBar";
+import MobileLayout from "@/components/layouts/MobileLayout";
 import ScreenUtilScaler from "@/components/layouts/ScreenUtilScaler";
 import SearchBar from "@/components/dashboardv2/searchBar/SearchBar";
 
@@ -14,54 +14,47 @@ import UploadProject from "@/components/explorePageComponents/desktopScreen/proj
 import YourProjectsScreen from "@/components/explorePageComponents/mobileScreen/projects/YourProjectsScreen";
 
 const ProjectSubmissionPage = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState(null);
-  const ultraWide = useUltraWide();
   const isMobile = useMediaQuery("(max-width:480px)");
+  const [filter, setFilter] = useState("all");
+  const [search, setSearch] = useState("");
 
-  if (isMobile) return <YourProjectsScreen />;
+  if (isMobile) {
+    return <YourProjectsScreen />;
+  }
 
   return (
-    <ScreenUtilScaler
-      designWidth={1200}
-      desktopMin={1200}
-      allowUpscale={ultraWide}
-    >
-      <Box
-        sx={{
-          width: "100%",
-          minHeight: "100vh",
-          backgroundColor: "#FFFFFF",
-          overflowX: "hidden",
-          px: { xs: 2, md: 3, lg: 5 },
-          py: { xs: 3, md: 4 },
-        }}
-      >
-        <MobileTopBar />
-
-        <Header />
-
+    <>
+      <ScreenUtilScaler>
         <Box
           sx={{
-            mt: 4,
-            display: "flex",
-            flexDirection: { xs: "column", lg: "row" },
-            alignItems: "flex-start",
-            gap: { xs: 3, lg: 3 },
-            width: "100%",
+            display: { xs: "none", sm: "block" },
+            background: "#FAFAFA",
+            minHeight: "100vh",
           }}
         >
-          <ProjectList
-            searchBar={<SearchBar onSearchClick={() => {}} />}
-            searchValue={searchValue}
-            selectedFilter={selectedFilter}
-            setSelectedFilter={setSelectedFilter}
+          <Header
+            activeFilter={filter}
+            onFilterChange={setFilter}
+            search={search}
+            onSearchChange={setSearch}
           />
+
+          <ProjectList filter={filter} search={search} />
 
           <UploadProject />
         </Box>
-      </Box>
-    </ScreenUtilScaler>
+      </ScreenUtilScaler>
+
+      <MobileLayout>
+        <MobileTopBar title="Projects" />
+
+        <Box sx={{ mt: 3, mb: 2 }}>
+          <SearchBar />
+        </Box>
+
+        <ProjectList isMobile />
+      </MobileLayout>
+    </>
   );
 };
 

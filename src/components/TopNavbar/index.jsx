@@ -1,11 +1,12 @@
-'use client'
-import React, { useMemo } from 'react';
+'use client';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
     Box,
     Avatar,
     Typography,
     useTheme,
     useMediaQuery,
+    Skeleton,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Image from 'next/image';
@@ -13,18 +14,104 @@ import Link from 'next/link';
 import FlutterNavbarIcon from '@/../public/assets/landing-page-assets/flutter-navbar-icon.svg';
 import PaddingContainer from '../PaddingContainer';
 import { usePathname } from 'next/navigation';
+import { supabase } from '@/lib/supabase/client';
+
+const EXCLUDE_ROUTES = [
+    '/eventsDetail/', // treat this as a prefix
+];
 
 const TopNavbar = () => {
     const path = usePathname();
-    console.log(path, "path");
     const theme = useTheme();
 
-    const excludeRoutes = [
-        '/eventsDetail/', // treat this as a prefix
-    ];
+    const [currentUser, setCurrentUser] = useState(null);
+    const [loadingUser, setLoadingUser] = useState(true);
+
+    useEffect(() => {
+        let isCancelled = false;
+
+        if (!supabase) {
+            Promise.resolve().then(() => {
+                if (!isCancelled) setLoadingUser(false);
+            });
+            return;
+        }
+
+        const fetchProfile = async (authUser) => {
+            if (!authUser) {
+                if (!isCancelled) {
+                    setCurrentUser(null);
+                    setLoadingUser(false);
+                }
+                return;
+            }
+
+            const meta = authUser.user_metadata || {};
+            const emailName = authUser.email ? authUser.email.split('@')[0] : '';
+            const fallbackName =
+                meta.username ||
+                meta.full_name ||
+                emailName ||
+                'User';
+
+            let name = fallbackName;
+            let avatar = meta.avatar_url || meta.picture || null;
+
+            try {
+                const { data: profile, error } = await supabase
+                    .from('users')
+                    .select('display_name, full_name, username, photo_url')
+                    .eq('uid', authUser.id)
+                    .maybeSingle();
+
+                if (!error && profile) {
+                    name =
+                        profile.display_name?.trim() ||
+                        profile.full_name?.trim() ||
+                        profile.username?.trim() ||
+                        fallbackName;
+
+                    avatar = profile.photo_url || avatar;
+                }
+            } catch (err) {
+                console.error('Error fetching user profile:', err);
+            }
+
+            if (!isCancelled) {
+                setCurrentUser({ name, avatar });
+                setLoadingUser(false);
+            }
+        };
+
+        supabase.auth
+            .getUser()
+            .then(({ data: { user } }) => {
+                if (!isCancelled) {
+                    fetchProfile(user);
+                }
+            })
+            .catch(() => {
+                if (!isCancelled) {
+                    setLoadingUser(false);
+                }
+            });
+
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+            if (!isCancelled) {
+                fetchProfile(session?.user || null);
+            }
+        });
+
+        return () => {
+            isCancelled = true;
+            subscription?.unsubscribe();
+        };
+    }, []);
 
     const shouldHide = useMemo(() => {
-        return excludeRoutes.some((route) => {
+        return EXCLUDE_ROUTES.some((route) => {
             // Exact match
             if (route === path) return true;
             // Prefix match for dynamic routes
@@ -32,7 +119,6 @@ const TopNavbar = () => {
             return false;
         });
     }, [path]);
-
 
     const isTabletOrDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -49,37 +135,89 @@ const TopNavbar = () => {
         { id: 6, name: 'Blogs', route: '/blogs' },
     ];
 
-    const userSection = (
-        <Link href="/profile" style={{ textDecoration: 'none' }}>
+    let userSection;
+    if (loadingUser) {
+        userSection = (
             <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: 1.5,
-                    cursor: 'pointer',
-                    '&:hover': { opacity: 0.8 },
                 }}
             >
-                <Avatar
-                    alt="User Avatar"
-                    src="/static/images/avatar/1.jpg"
-                    sx={{ width: 32, height: 32 }}
-                />
-                <Typography
+                <Skeleton variant="circular" width={32} height={32} />
+            </Box>
+        );
+    } else if (currentUser) {
+        userSection = (
+            <Link href="/profile" style={{ textDecoration: 'none' }}>
+                <Box
                     sx={{
-                        fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
-                        fontSize: '16px',
-                        fontWeight: 400,
-                        color: '#000',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 1.5,
+                        cursor: 'pointer',
+                        '&:hover': { opacity: 0.8 },
                     }}
                 >
-                    Angelica_21
-                </Typography>
-                <KeyboardArrowDownIcon sx={{ color: '#1A73E8', fontSize: 24 }} />
-            </Box>
-        </Link>
-    );
+                    <Avatar
+                        alt={currentUser.name}
+                        src={currentUser.avatar || undefined}
+                        sx={{
+                            width: 32,
+                            height: 32,
+                            bgcolor: '#1A73E8',
+                            fontSize: '14px',
+                            fontWeight: 500,
+                        }}
+                    >
+                        {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U'}
+                    </Avatar>
+                    <Typography
+                        sx={{
+                            fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
+                            fontSize: '16px',
+                            fontWeight: 400,
+                            color: '#000',
+                        }}
+                    >
+                        {currentUser.name}
+                    </Typography>
+                    <KeyboardArrowDownIcon sx={{ color: '#1A73E8', fontSize: 24 }} />
+                </Box>
+            </Link>
+        );
+    } else {
+        userSection = (
+            <Link href="/auth/login" style={{ textDecoration: 'none' }}>
+                <Box
+                    sx={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        px: 2.5,
+                        py: 0.75,
+                        borderRadius: '100px',
+                        backgroundColor: '#0a0a0a',
+                        color: '#ffffff',
+                        fontFamily: 'var(--font-product-sans), "Product Sans", sans-serif',
+                        fontSize: '15px',
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                            backgroundColor: '#000000',
+                            opacity: 0.9,
+                        },
+                    }}
+                >
+                    Login
+                </Box>
+            </Link>
+        );
+    }
 
     return (
         <PaddingContainer style={{ pt: { sm: 2.5, md: 5 } }}>

@@ -3,17 +3,44 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Link from "next/link";
 import PrimaryButton from "@/components/buttons/PrimaryButton/PrimaryButton";
 import { t, fontFamily } from "../tokens";
 
 const ReplyComposer = ({ placeholder, submitLabel, onSubmit }) => {
   const [value, setValue] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [notAuthenticated, setNotAuthenticated] = useState(false);
+
   const canSubmit = value.trim().length > 0;
 
-  const handleSubmit = () => {
-    if (!canSubmit) return;
-    onSubmit(value.trim());
-    setValue("");
+  const handleSubmit = async () => {
+    if (!canSubmit || isSubmitting) return;
+    setIsSubmitting(true);
+    setErrorMessage("");
+    setNotAuthenticated(false);
+
+    try {
+      const result = await onSubmit(value.trim());
+      if (result?.notAuthenticated) {
+        setNotAuthenticated(true);
+        setErrorMessage("Please sign in to post a reply");
+      } else if (result?.error) {
+        setErrorMessage(
+          result.error.message || "Failed to post reply. Please try again."
+        );
+      } else {
+        setValue("");
+        setErrorMessage("");
+        setNotAuthenticated(false);
+      }
+    } catch (err) {
+      setErrorMessage(err?.message || "An unexpected error occurred");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -23,7 +50,11 @@ const ReplyComposer = ({ placeholder, submitLabel, onSubmit }) => {
         multiline
         minRows={3}
         value={value}
-        onChange={(event) => setValue(event.target.value)}
+        onChange={(event) => {
+          setValue(event.target.value);
+          if (errorMessage) setErrorMessage("");
+          if (notAuthenticated) setNotAuthenticated(false);
+        }}
         placeholder={placeholder}
         aria-label={placeholder}
         slotProps={{
@@ -48,12 +79,48 @@ const ReplyComposer = ({ placeholder, submitLabel, onSubmit }) => {
         }}
       />
 
+      {notAuthenticated && (
+        <Typography
+          sx={{
+            fontFamily,
+            fontSize: t.typography.paragraph3.fontSize,
+            color: "error.main",
+            mt: 1,
+          }}
+        >
+          Please sign in to post a reply.{" "}
+          <Link
+            href="/auth/login"
+            style={{
+              color: t.text.link,
+              textDecoration: "underline",
+              fontWeight: 600,
+            }}
+          >
+            Sign in
+          </Link>
+        </Typography>
+      )}
+
+      {errorMessage && !notAuthenticated && (
+        <Typography
+          sx={{
+            fontFamily,
+            fontSize: t.typography.paragraph3.fontSize,
+            color: "error.main",
+            mt: 1,
+          }}
+        >
+          {errorMessage}
+        </Typography>
+      )}
+
       <Box
         sx={{ display: "flex", justifyContent: "flex-end", mt: t.spacing.md }}
       >
         <PrimaryButton
           fullWidth={false}
-          disabled={!canSubmit}
+          disabled={!canSubmit || isSubmitting}
           onClick={handleSubmit}
           sx={{
             width: "auto",
@@ -65,7 +132,7 @@ const ReplyComposer = ({ placeholder, submitLabel, onSubmit }) => {
             fontSize: t.typography.label2.fontSize,
           }}
         >
-          {submitLabel}
+          {isSubmitting ? "Posting..." : submitLabel}
         </PrimaryButton>
       </Box>
     </Box>

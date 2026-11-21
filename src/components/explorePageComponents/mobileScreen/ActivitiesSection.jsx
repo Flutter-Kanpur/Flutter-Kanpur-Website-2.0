@@ -10,58 +10,64 @@ import { colors } from "@/theme/colors";
 const fontFamily =
   'var(--font-product-sans), "Product Sans", sans-serif';
 
-const ActivityTile = ({ activity }) => (
-  <Box
-    component="a"
-    href={activity.href}
-    sx={{
-      boxSizing: "border-box",
-      p: "16px",
-      borderRadius: "16px",
-      backgroundColor: colors.primary[50],
-      textDecoration: "none",
-      color: "inherit",
-    }}
-  >
+const ActivityTile = ({ activity }) => {
+  const href = activity.href?.startsWith("/")
+    ? activity.href
+    : `/${activity.href || ""}`;
+
+  return (
     <Box
+      component="a"
+      href={href}
       sx={{
-        width: "48px",
-        height: "48px",
-        borderRadius: "50%",
-        border: `1px solid ${colors.primary[500]}`,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: colors.primary[500],
+        boxSizing: "border-box",
+        p: "16px",
+        borderRadius: "16px",
+        backgroundColor: colors.primary[50],
+        textDecoration: "none",
+        color: "inherit",
       }}
     >
-      <CodeIcon sx={{ fontSize: 22 }} />
+      <Box
+        sx={{
+          width: "48px",
+          height: "48px",
+          borderRadius: "50%",
+          border: `1px solid ${colors.primary[500]}`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: colors.primary[500],
+        }}
+      >
+        <CodeIcon sx={{ fontSize: 22 }} />
+      </Box>
+      <Typography
+        sx={{
+          mt: "20px",
+          fontFamily,
+          fontSize: "16px",
+          fontWeight: 500,
+          lineHeight: "24px",
+          color: colors.neutral[950],
+        }}
+      >
+        {activity.title}
+      </Typography>
+      <Typography
+        sx={{
+          mt: "6px",
+          fontFamily,
+          fontSize: "14px",
+          lineHeight: "20px",
+          color: colors.neutral[500],
+        }}
+      >
+        {activity.description}
+      </Typography>
     </Box>
-    <Typography
-      sx={{
-        mt: "20px",
-        fontFamily,
-        fontSize: "16px",
-        fontWeight: 500,
-        lineHeight: "24px",
-        color: colors.neutral[950],
-      }}
-    >
-      {activity.title}
-    </Typography>
-    <Typography
-      sx={{
-        mt: "6px",
-        fontFamily,
-        fontSize: "14px",
-        lineHeight: "20px",
-        color: colors.neutral[500],
-      }}
-    >
-      {activity.description}
-    </Typography>
-  </Box>
-);
+  );
+};
 
 const ActivitiesSection = ({ onViewAll }) => (
   <Box sx={{ display: "flex", flexDirection: "column", gap: "14px" }}>

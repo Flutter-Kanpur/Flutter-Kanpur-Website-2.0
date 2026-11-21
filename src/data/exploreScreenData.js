@@ -63,13 +63,13 @@ export const activities = [
     id: 1,
     title: "Events",
     description: "Meetups, workshops, and sessions.",
-    href: "explore/eventsPage",
+    href: "/explore/eventsPage",
   },
   {
     id: 2,
     title: "Contests",
     description: "Coding challenges and sprints.",
-    href: "explore/contests",
+    href: "/explore/contests",
   },
   {
     id: 3,

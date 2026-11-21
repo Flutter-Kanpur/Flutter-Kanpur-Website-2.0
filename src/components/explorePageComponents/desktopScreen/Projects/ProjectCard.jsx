@@ -1,25 +1,36 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./ProjectCard.module.css";
 
 export default function ProjectCard({ project }) {
   if (!project) return null;
 
-  const { title, description, tags = [], date, author, href = "#" } = project;
+  const {
+    id,
+    title,
+    description,
+    tags = [],
+    date,
+    author,
+    href = id ? `/explore/browse-projects/${id}` : "#",
+  } = project;
 
   return (
     <div className={styles.cardContainer}>
       <article className={styles.card}>
-        <span className={styles.topIcon}>
-          <Image
-            src="/assets/explore-page-assets/project-arrow.svg"
-            alt=""
-            width={10}
-            height={10}
-          />
-        </span>
+        <Link href={href} style={{ textDecoration: "none", color: "inherit" }}>
+          <span className={styles.topIcon}>
+            <Image
+              src="/assets/explore-page-assets/project-arrow.svg"
+              alt=""
+              width={10}
+              height={10}
+            />
+          </span>
 
-        <h4 className={styles.title}>{title}</h4>
+          <h4 className={styles.title}>{title}</h4>
+        </Link>
         <p className={styles.desc}>{description}</p>
 
         <div className={styles.tags}>
@@ -32,9 +43,9 @@ export default function ProjectCard({ project }) {
 
         <div className={styles.meta}>
           <span className={styles.date}>{date}</span>
-          <a className={styles.author} href={href}>
+          <Link className={styles.author} href={href}>
             {author}
-          </a>
+          </Link>
         </div>
       </article>
     </div>

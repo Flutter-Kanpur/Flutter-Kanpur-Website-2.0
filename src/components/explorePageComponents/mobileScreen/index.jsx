@@ -10,7 +10,8 @@ import ActivitiesSection from "./ActivitiesSection";
 import ProjectsSection from "./ProjectsSection";
 import CoreTeamSection from "./coreTeam/CoreTeamSection";
 import JobsSection from "./JobsSection";
-import { promoSlides } from "@/data/exploreScreenData";
+import { promoSlides as staticPromoSlides } from "@/data/exploreScreenData";
+import { useExplorePromoSlides } from "@/hooks/useExplorePromoSlides";
 
 /**
  * ExploreScreen — Mobile "Explore"
@@ -18,8 +19,15 @@ import { promoSlides } from "@/data/exploreScreenData";
  */
 const ExploreScreen = () => {
   const router = useRouter();
+  const { data: promoSlidesData } = useExplorePromoSlides();
 
-  const slides = promoSlides.map((slide) => ({
+  // Intentionally fallback to static editorial promo slides when no database rows are present for screen='explore'
+  const activeSlides =
+    promoSlidesData && promoSlidesData.length > 0
+      ? promoSlidesData
+      : staticPromoSlides;
+
+  const slides = activeSlides.map((slide) => ({
     ...slide,
     onCta: () => router.push(slide.ctaHref),
   }));
@@ -65,7 +73,7 @@ const ExploreScreen = () => {
         <Box sx={{ display: "flex", flexDirection: "column", gap: "36px" }}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <HeroBanner slides={slides} />
-            <BlogsSection onViewAll={() => router.push("/#")} />
+            <BlogsSection onViewAll={() => router.push("/blogs")} />
           </Box>
           <ActivitiesSection />
           <ProjectsSection onViewAll={() => router.push("/explore/browse-projects")} />

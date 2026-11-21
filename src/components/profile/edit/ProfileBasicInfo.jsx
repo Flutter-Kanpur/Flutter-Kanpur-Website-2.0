@@ -35,7 +35,9 @@ export default function ProfileBasicInfo({
         value={about}
         onChange={(e) => setAbout(e.target.value)}
         helperText={`${about.length}/150`}
-        inputProps={{ maxLength: 150 }}
+        slotProps={{
+          htmlInput: { maxLength: 150 },
+        }}
         sx={{ mb: 3, "& .MuiOutlinedInput-root": { borderRadius: 3 } }}
       />
 
