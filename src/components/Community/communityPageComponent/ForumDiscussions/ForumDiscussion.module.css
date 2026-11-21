@@ -1,6 +1,6 @@
 .section {
   width: 100%;
-  padding: 8px 24px 80px;
+  padding: 8px 24px 80px 35px;
   background: #ffffff;
 }
 
@@ -78,20 +78,19 @@
 }
 
 .meta {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-
 .avatarIconOnLine {
   position: relative;
   left: -43px;
+  margin-right: -43px;
   z-index: 2;
 }
-
-
 
 .author {
   font-size: 18px;
@@ -160,4 +159,49 @@
   margin-top: 8px;
 }
 
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .heading {
+    font-size: clamp(18px, calc(5.14vw - 6.7px), 55px);
+  }
+
+  .description {
+    font-size: clamp(13px, calc(1.5vw + 2px), 17px);
+  }
+
+  .itemTitle {
+    font-size: clamp(18px, calc(2vw + 2px), 22px);
+  }
+
+  .author {
+    font-size: clamp(14px, calc(1vw + 6px), 16px);
+  }
+
+  .date {
+    font-size: clamp(12px, calc(0.75vw + 5px), 13px);
+  }
+
+  .body,
+  .bodyFeatured,
+  .highlightsLabel,
+  .highlightsList li {
+    font-size: clamp(13px, calc(1vw + 5px), 15px);
+  }
+}
+
+/* small tabs */
+@media (min-width: 481px) and (max-width: 768px) {
+  
+  .header {
+    margin-bottom: 32px;
+  }
+
+  .itemsList {
+    gap: 28px;
+  }
+
+  .ctaRow {
+    margin-top: 4px;
+  }
+}
 

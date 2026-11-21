@@ -1,25 +1,16 @@
 .title {
-    font-weight: bold;
-    font-size: 48px;
-    line-height: normal;
-    text-align: center;
-    color: #000000;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: normal;
+  text-align: center;
+  color: #000000;
 }
 
-@media (max-width: 900px) {
-    .title {
-        font-size: 36px;
-    }
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .title {
+    font-size: clamp(24px, calc(5.14vw - 6.7px), 48px);
+    line-height: 1.25;
+  }
 }
 
-@media (max-width: 600px) {
-    .title {
-        font-size: 26px;
-    }
-}
-
-@media (max-width: 480px) {
-    .title {
-        font-size: 22px;
-    }
-}
