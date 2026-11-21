@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
 import { useRouter } from "next/navigation";
@@ -14,16 +15,15 @@ import LoadMoreButton from "@/components/FormComponents/LoadMoreButton";
 import ProjectCard from "./ProjectCard";
 import { colors } from "@/theme/colors";
 import {
-  browseProjects,
   projectFilterChips,
   projectEmptyContent,
   uploadCtaContent,
   uploadProjectRoute,
 } from "@/data/exploreScreenData";
+import { useProjects } from "@/hooks/useProjects";
 
 const fontFamily = 'var(--font-product-sans), "Product Sans", sans-serif';
-const PAGE_SIZE = 2;
-const LOADING_MS = 500;
+const PAGE_SIZE = 4;
 
 const Bar = ({ h, w = "100%", r = "8px", mt = 0 }) => (
   <Skeleton
@@ -59,39 +59,42 @@ const ProjectSkeleton = () => (
  */
 const ProjectsListScreen = () => {
   const router = useRouter();
+  const { projects, loading, error, refetch } = useProjects();
   const [query, setQuery] = useState("");
   const [activeChip, setActiveChip] = useState(null);
   const [visible, setVisible] = useState(PAGE_SIZE);
-  const [loading, setLoading] = useState(false);
-  const firstRun = useRef(true);
-
-  // Simulated fetch whenever the search / filter changes.
-  useEffect(() => {
-    if (firstRun.current) {
-      firstRun.current = false;
-      return undefined;
-    }
-    setLoading(true);
-    setVisible(PAGE_SIZE);
-    const timer = setTimeout(() => setLoading(false), LOADING_MS);
-    return () => clearTimeout(timer);
-  }, [query, activeChip]);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return browseProjects.filter((project) => {
-      const matchesChip = !activeChip || project.categories.includes(activeChip);
+    const chip = activeChip ? activeChip.toLowerCase() : null;
+    return projects.filter((project) => {
+      const matchesChip =
+        !chip ||
+        (project.category && project.category.toLowerCase().includes(chip)) ||
+        (Array.isArray(project.categories) &&
+          project.categories.some((c) => c && c.toLowerCase().includes(chip))) ||
+        (Array.isArray(project.tags) &&
+          project.tags.some((tag) => tag && tag.toLowerCase().includes(chip)));
       const matchesQuery =
         !q ||
-        project.title.toLowerCase().includes(q) ||
-        project.author.toLowerCase().includes(q) ||
-        project.tags.some((tag) => tag.toLowerCase().includes(q));
+        (project.title && project.title.toLowerCase().includes(q)) ||
+        (project.author && project.author.toLowerCase().includes(q)) ||
+        (Array.isArray(project.tags) &&
+          project.tags.some((tag) => tag && tag.toLowerCase().includes(q))) ||
+        (project.description && project.description.toLowerCase().includes(q));
       return matchesChip && matchesQuery;
     });
-  }, [query, activeChip]);
+  }, [projects, query, activeChip]);
 
   const goUpload = () => router.push(uploadProjectRoute);
-  const toggleChip = (chip) => setActiveChip((prev) => (prev === chip ? null : chip));
+  const handleQueryChange = (val) => {
+    setQuery(val);
+    setVisible(PAGE_SIZE);
+  };
+  const toggleChip = (chip) => {
+    setActiveChip((prev) => (prev === chip ? null : chip));
+    setVisible(PAGE_SIZE);
+  };
   const trimmed = query.trim();
 
   const renderBody = () => {
@@ -104,8 +107,28 @@ const ProjectsListScreen = () => {
       );
     }
 
-    if (browseProjects.length === 0) {
-      return <EmptyState {...projectEmptyContent.noProjects} onAction={goUpload} />;
+    if (error) {
+      return (
+        <Box sx={{ textAlign: "center", py: 4 }}>
+          <Typography sx={{ fontFamily, color: "error.main", mb: 2 }}>
+            Unable to load projects right now.
+          </Typography>
+          <Button variant="outlined" onClick={refetch}>
+            Retry
+          </Button>
+        </Box>
+      );
+    }
+
+    if (projects.length === 0) {
+      return (
+        <EmptyState
+          title="No projects yet"
+          description="No projects yet. Be the first to share yours."
+          buttonLabel="Share project"
+          onAction={goUpload}
+        />
+      );
     }
 
     if (results.length === 0) {
@@ -164,7 +187,7 @@ const ProjectsListScreen = () => {
     <MobileScreenShell title="Projects">
       <SearchInput
         value={query}
-        onChange={setQuery}
+        onChange={handleQueryChange}
         placeholder="Search for titles..."
       />
 

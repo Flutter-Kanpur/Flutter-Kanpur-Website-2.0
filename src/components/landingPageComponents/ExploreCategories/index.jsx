@@ -5,7 +5,7 @@ import ExploreCategoriesCard from "./Card";
 const DEFAULT_TITLE = "Explore top categories";
 const DEFAULT_CATEGORIES = [
   {
-    title: "Blogs/Articles",
+    title: "Articles",
     linkText: "Open full story",
     linkHref: "/blogs",
   },

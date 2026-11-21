@@ -6,7 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const PRODUCT_SANS = "'Product Sans', system-ui, -apple-system, sans-serif";
 
-const SearchSection = () => {
+const SearchSection = ({ searchQuery = "", onSearchChange = () => {} }) => {
   return (
     <Box
       sx={{
@@ -69,7 +69,9 @@ const SearchSection = () => {
           }}
         >
           <InputBase
-            placeholder="Search...  "
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Search for events..."
             sx={{
               width: "453px",
               height: "19px",

@@ -40,8 +40,8 @@ const EventListCard = ({ event, onViewDetails }) => {
         }}
       >
         <StatusBadge
-          tone={event.status === "live" ? "live" : "upcoming"}
-          label={event.status === "live" ? "Live" : "Upcoming"}
+          tone={event.status === "live" ? "live" : event.status === "past" ? "closing" : "upcoming"}
+          label={event.status === "live" ? "Live" : event.status === "past" ? "Past" : "Upcoming"}
           dot={event.status === "live"}
         />
         <IconButton

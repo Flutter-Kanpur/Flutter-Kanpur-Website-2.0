@@ -46,7 +46,7 @@ const PastSpeakerSection = () => {
           Past Speakers
         </Typography>
         <Typography
-          onClick={() => router.push('/explore/eventsPage')}
+          onClick={() => router.push('/explore/eventsPage?tab=past')}
           sx={{
             fontSize: 18,
             lineHeight: '25px',

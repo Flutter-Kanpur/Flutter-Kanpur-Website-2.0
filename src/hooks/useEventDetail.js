@@ -44,7 +44,7 @@ export const useEventDetail = (id) => {
         .select(EVENT_COLUMNS)
         .eq("id", id)
         .eq("is_deleted", false)
-        .eq("status", "published")
+        .in("status", ["published", "closed", "completed", "past"])
         .maybeSingle();
 
       if (cancelled) return;
