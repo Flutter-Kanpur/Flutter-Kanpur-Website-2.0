@@ -2,9 +2,20 @@
 
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
+import Skeleton from "@mui/material/Skeleton";
 import UpdateCard from "./UpdateCard";
 
-const UpdateCardCarousel = ({ cards = [] }) => {
+/**
+ * UpdateCardCarousel
+ *
+ * Renders a horizontally scrollable carousel of UpdateCards.
+ * Shows a skeleton placeholder while slides are loading.
+ * If a card has a btn_url, the button opens that URL in a new tab.
+ *
+ * @param {Array}   cards   – Array of slide objects ({ id, title, description, buttonText, backgroundImage, btn_url })
+ * @param {boolean} loading – Show skeleton while fetching
+ */
+const UpdateCardCarousel = ({ cards = [], loading = false }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleScroll = (e) => {
@@ -14,6 +25,20 @@ const UpdateCardCarousel = ({ cards = [] }) => {
     const index = Math.round(scrollLeft / cardWidth);
     setCurrentIndex(index);
   };
+
+  if (loading) {
+    return (
+      <Box sx={{ width: "100%" }}>
+        <Skeleton
+          variant="rectangular"
+          width="100%"
+          height={187}
+          sx={{ borderRadius: "32px" }}
+          animation="wave"
+        />
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -46,7 +71,11 @@ const UpdateCardCarousel = ({ cards = [] }) => {
               description={card.description}
               buttonText={card.buttonText}
               backgroundImage={card.backgroundImage}
-              onButtonClick={() => console.log("Clicked:", card.title)}
+              onButtonClick={
+                card.btn_url
+                  ? () => window.open(card.btn_url, "_blank", "noopener,noreferrer")
+                  : undefined
+              }
             />
           </Box>
         ))}
@@ -65,7 +94,7 @@ const UpdateCardCarousel = ({ cards = [] }) => {
           <Box
             key={index}
             sx={{
-              width: currentIndex === index ? "8px" : "8px",
+              width: "8px",
               height: "8px",
               borderRadius: "999px",
               bgcolor: currentIndex === index ? "#000000" : "#D9D9D9",

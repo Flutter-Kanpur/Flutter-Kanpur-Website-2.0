@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -160,6 +161,7 @@ const CardContainer = ({
   onSeeAll = () => {},
 }) => {
   /* ── Filter state ── */
+  const router = useRouter();
   const [quickFilter, setQuickFilter] = useState("upcoming");
   const [modalFilters, setModalFilters] = useState({ ...EMPTY_FILTERS });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -339,11 +341,16 @@ const CardContainer = ({
             )
           ) : filteredEvents.length > 0 ? (
             filteredEvents.map((event, index) => {
-              console.log("SINGLE EVENT:", event);
-
               return (
                 <Box key={event.id ?? index}>
-                  <EventCard {...event} />
+                  <EventCard
+                    {...event}
+                    onViewDetails={
+                      event.id
+                        ? () => router.push(`/eventsDetail/${event.id}`)
+                        : undefined
+                    }
+                  />
                 </Box>
               );
             })
