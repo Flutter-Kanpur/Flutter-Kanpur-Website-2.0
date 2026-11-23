@@ -1,13 +1,43 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import SectionHeader from "./SectionHeader";
-import { communityStats } from "@/data/communityScreenData";
+import { communityStats as fallbackStats } from "@/data/communityScreenData";
+import { fetchCommunityStats } from "@/lib/supabase/community";
 
-const CommunityStatsSection = ({ onJoinDiscord = () => {} }) => {
+const DISCORD_URL =
+  process.env.NEXT_PUBLIC_DISCORD_URL || "https://discord.gg/flutterkanpur";
+
+const CommunityStatsSection = ({
+  onJoinDiscord = () => window.open(DISCORD_URL, "_blank"),
+}) => {
+  const [stats, setStats] = useState(fallbackStats);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function loadStats() {
+      try {
+        const liveStats = await fetchCommunityStats();
+        if (!isCancelled && liveStats?.length > 0) {
+          setStats(liveStats);
+        }
+      } catch (err) {
+        console.warn("Could not load dynamic community stats:", err);
+      }
+    }
+
+    loadStats();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "14px" }}>
       <SectionHeader title="Community Stats" />
@@ -21,7 +51,7 @@ const CommunityStatsSection = ({ onJoinDiscord = () => {} }) => {
           alignItems: "center",
         }}
       >
-        {communityStats.map((stat, index) => (
+        {stats.map((stat, index) => (
           <Box
             key={stat.id}
             sx={{

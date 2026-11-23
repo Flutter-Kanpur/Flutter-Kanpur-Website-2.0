@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
@@ -12,6 +13,7 @@ const sizeMap = {
 
 const UserAvatar = ({ name = "", size = "md", imageUrl, fromCard = false }) => {
   const { size: avatarSize, fontSize } = sizeMap[size] || sizeMap.md;
+  const [hasError, setHasError] = useState(false);
 
   const initials = name
     ?.split(" ")
@@ -20,7 +22,7 @@ const UserAvatar = ({ name = "", size = "md", imageUrl, fromCard = false }) => {
     ?.slice(0, 2)
     ?.toUpperCase();
 
-  const colorIndex = name.length % colors.length;
+  const colorIndex = (name?.length || 0) % colors.length;
   const backgroundColor = colors[colorIndex];
 
   return (
@@ -38,18 +40,20 @@ const UserAvatar = ({ name = "", size = "md", imageUrl, fromCard = false }) => {
         fontSize,
         color: "#fff",
         backgroundColor,
-        marginLeft: !fromCard ? '-8px' : '0px'
+        marginLeft: !fromCard ? "-8px" : "0px",
       }}
     >
-      {imageUrl ? (
+      {imageUrl && !hasError ? (
         <Image
           src={imageUrl}
-          alt={name}
+          alt={name || "User avatar"}
           fill
+          unoptimized
+          onError={() => setHasError(true)}
           style={{ objectFit: "cover" }}
         />
       ) : (
-        initials
+        initials || "U"
       )}
     </Box>
   );

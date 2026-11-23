@@ -1,18 +1,17 @@
-import PrimaryButton from "@/components/buttons/PrimaryButton/PrimaryButton";
 import styles from "./BuiltOnRespectSection.module.css";
 import Image from "next/image";
-import { height } from "@mui/system";
 import { Button } from "@mui/material";
 
-
+const DISCORD_URL =
+  process.env.NEXT_PUBLIC_DISCORD_URL || "https://discord.gg/flutterkanpur";
 
 function DiscordIcon() {
   return (
     <Image
-    src="/assets/community-page-assets/discordIcon.svg"
-    height={24}
-    width={24}
-    alt="Discard Icon"
+      src="/assets/community-page-assets/discordIcon.svg"
+      height={24}
+      width={24}
+      alt="Discord Icon"
     />
   );
 }
@@ -45,24 +44,27 @@ export default function BuiltOnRespectSection() {
             <p className={styles.cardDescription}>
               Share your feedback, suggestions or simply chat with our community of passionate developers.
             </p>
-            <Button sx={{
-                backgroundColor: '#1A1A1A',
-                color: '#FFF',
-                padding: '12px 19px',
-                borderRadius: '100px',
-                textTransform: 'none',
-                fontSize: '18px',
+            <Button
+              component="a"
+              href={DISCORD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                backgroundColor: "#1A1A1A",
+                color: "#FFF",
+                padding: "12px 19px",
+                borderRadius: "100px",
+                textTransform: "none",
+                fontSize: "18px",
                 fontWeight: 500,
-                
-                '&:hover': {
-                    backgroundColor: '#333'
-                }
-            }}>
-            <span >Join our discord</span>
-            
-              
-            
-        </Button>
+                textDecoration: "none",
+                "&:hover": {
+                  backgroundColor: "#333",
+                },
+              }}
+            >
+              <span>Join our discord</span>
+            </Button>
           </div>
         </div>
       </div>
