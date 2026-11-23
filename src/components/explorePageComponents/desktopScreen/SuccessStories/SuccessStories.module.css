@@ -68,6 +68,22 @@
   font-size: 22px;
 }
 
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .heading {
+    font-size: clamp(22px, calc(2.2vw + 11.4px), 34px);
+    line-height: 1.25;
+  }
+
+  .cardLabel {
+    font-size: clamp(12px, calc(0.2vw + 11px), 13px);
+  }
+
+  .cardAction {
+    font-size: clamp(11px, calc(0.2vw + 10px), 12px);
+  }
+}
+
 @media (max-width: 1024px) {
   .successSection {
     flex-direction: column;
@@ -79,3 +95,4 @@
     width: 100%;
   }
 }
+

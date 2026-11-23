@@ -79,6 +79,23 @@
   gap: 20px;
 }
 
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .left h1 {
+    font-size: clamp(26px, calc(4.07vw + 6.3px), 48px);
+    line-height: 1.15;
+  }
+
+  .left p {
+    font-size: clamp(14px, calc(0.75vw + 10px), 18px);
+    line-height: clamp(22px, calc(1vw + 16px), 28px);
+  }
+
+  .ctaButton {
+    font-size: clamp(14px, calc(0.75vw + 10px), 18px);
+  }
+}
+
 @media (max-width: 1024px) {
   .container {
     flex-direction: column;
@@ -86,19 +103,17 @@
     gap: 36px;
     padding: 0 24px;
   }
-  
 
   .left,
   .right {
     width: 100%;
     max-width: 680px;
-    
+    height: auto;
   }
 
   .left {
     align-items: center;
     text-align: center;
-    
   }
 
   .left h1,
@@ -133,12 +148,16 @@
   }
 
   .left h1 {
-    font-size: 32px;
+    font-size: 28px;
   }
 
   .left p {
-    font-size: 16px;
-    line-height: 1.7;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .ctaButton {
+    font-size: 15px;
   }
 
   .grid {

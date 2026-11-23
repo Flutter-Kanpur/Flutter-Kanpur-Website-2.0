@@ -177,9 +177,30 @@
   right: 7%;
 }
 
-@media (max-width: 900px) {
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
   .heading {
-    font-size: 36px;
+    font-size: clamp(24px, calc(5.14vw - 6.7px), 48px);
+    line-height: 1.2;
+  }
+
+  .eyebrow {
+    font-size: clamp(12px, calc(0.35vw + 10.5px), 14px);
+  }
+
+  .tagName {
+    font-size: clamp(11px, calc(0.35vw + 9.5px), 13px);
+  }
+
+  .tagRole {
+    font-size: clamp(10px, calc(0.2vw + 9px), 11px);
+  }
+}
+
+/* Adjust member tags */
+@media (min-width: 601px) and (max-width: 900px) {
+  .tag {
+    transform: translate(-40%, 35%);
   }
 }
 
@@ -210,34 +231,3 @@
   }
 }
 
-@media (max-width: 480px) {
-  .section {
-    padding: 48px 16px 56px;
-  }
-
-  .eyebrow {
-    font-size: 13px;
-  }
-
-  .heading {
-    font-size: 22px;
-  }
-
-  .collage {
-    gap: 14px;
-    row-gap: 32px;
-  }
-
-  .cluster {
-    min-width: 92px;
-  }
-
-  .cornerBadge {
-    width: 22px;
-    height: 22px;
-  }
-
-  .sparkle {
-    font-size: 15px !important;
-  }
-}
