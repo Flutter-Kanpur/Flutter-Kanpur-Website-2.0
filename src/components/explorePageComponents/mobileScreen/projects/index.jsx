@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
+import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 import MobileScreenShell from "@/components/FormComponents/MobileScreenShell";
 import SearchInput from "@/components/FormComponents/SearchInput";
@@ -15,12 +15,10 @@ import LoadMoreButton from "@/components/FormComponents/LoadMoreButton";
 import ProjectCard from "./ProjectCard";
 import { colors } from "@/theme/colors";
 import {
-  projectFilterChips,
-  projectEmptyContent,
   uploadCtaContent,
   uploadProjectRoute,
 } from "@/data/exploreScreenData";
-import { useProjects } from "@/hooks/useProjects";
+import { useBrowseProjects } from "@/hooks/useBrowseProjects";
 
 const fontFamily = 'var(--font-product-sans), "Product Sans", sans-serif';
 const PAGE_SIZE = 4;
@@ -59,32 +57,28 @@ const ProjectSkeleton = () => (
  */
 const ProjectsListScreen = () => {
   const router = useRouter();
-  const { projects, loading, error, refetch } = useProjects();
+  const { data, loading, error, refetch } = useBrowseProjects();
+
+  const allProjects = useMemo(() => data?.projects || [], [data]);
+  const techNames = useMemo(() => data?.techNames || [], [data]);
+
   const [query, setQuery] = useState("");
   const [activeChip, setActiveChip] = useState(null);
   const [visible, setVisible] = useState(PAGE_SIZE);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const chip = activeChip ? activeChip.toLowerCase() : null;
-    return projects.filter((project) => {
-      const matchesChip =
-        !chip ||
-        (project.category && project.category.toLowerCase().includes(chip)) ||
-        (Array.isArray(project.categories) &&
-          project.categories.some((c) => c && c.toLowerCase().includes(chip))) ||
-        (Array.isArray(project.tags) &&
-          project.tags.some((tag) => tag && tag.toLowerCase().includes(chip)));
+    return allProjects.filter((project) => {
+      const matchesChip = !activeChip || project.tags.includes(activeChip);
       const matchesQuery =
         !q ||
-        (project.title && project.title.toLowerCase().includes(q)) ||
-        (project.author && project.author.toLowerCase().includes(q)) ||
-        (Array.isArray(project.tags) &&
-          project.tags.some((tag) => tag && tag.toLowerCase().includes(q))) ||
+        project.title.toLowerCase().includes(q) ||
+        project.author.toLowerCase().includes(q) ||
+        project.tags.some((tag) => tag.toLowerCase().includes(q)) ||
         (project.description && project.description.toLowerCase().includes(q));
       return matchesChip && matchesQuery;
     });
-  }, [projects, query, activeChip]);
+  }, [allProjects, query, activeChip]);
 
   const goUpload = () => router.push(uploadProjectRoute);
   const handleQueryChange = (val) => {
@@ -109,23 +103,32 @@ const ProjectsListScreen = () => {
 
     if (error) {
       return (
-        <Box sx={{ textAlign: "center", py: 4 }}>
-          <Typography sx={{ fontFamily, color: "error.main", mb: 2 }}>
-            Unable to load projects right now.
+        <Box sx={{ py: 4, textAlign: "center" }}>
+          <Typography sx={{ color: "#d32f2f", mb: 2, fontFamily }}>
+            Failed to load projects: {error.message || "Unknown error"}
           </Typography>
-          <Button variant="outlined" onClick={refetch}>
+          <Button
+            variant="outlined"
+            onClick={refetch}
+            sx={{
+              borderRadius: "999px",
+              textTransform: "none",
+              color: colors.primary[500],
+              borderColor: colors.primary[500],
+            }}
+          >
             Retry
           </Button>
         </Box>
       );
     }
 
-    if (projects.length === 0) {
+    if (allProjects.length === 0) {
       return (
         <EmptyState
           title="No projects yet"
-          description="No projects yet. Be the first to share yours."
-          buttonLabel="Share project"
+          description="Be the first to share yours."
+          buttonLabel="Upload your project"
           onAction={goUpload}
         />
       );
@@ -147,8 +150,10 @@ const ProjectsListScreen = () => {
             </Typography>
           )}
           <EmptyState
-            {...projectEmptyContent.noResults}
-            mt={trimmed ? "114px" : undefined}
+            title="No projects found"
+            description="No projects match your search."
+            buttonLabel="Upload your project"
+            mt={trimmed ? "60px" : undefined}
             onAction={goUpload}
           />
         </>
@@ -164,8 +169,12 @@ const ProjectsListScreen = () => {
             tags={project.tags}
             author={project.author}
             date={project.date}
-            liked={project.liked}
-            links={project.links}
+            liked={false}
+            links={{
+              github: project.githubUrl,
+              link: project.liveUrl,
+              website: project.figmaUrl,
+            }}
             onAction={() => router.push(`/explore/browse-projects/${project.id}`)}
           />
         ))}
@@ -192,7 +201,7 @@ const ProjectsListScreen = () => {
       />
 
       <FilterChipRow
-        chips={projectFilterChips}
+        chips={techNames}
         active={activeChip}
         onToggle={toggleChip}
         sx={{ mt: "15px", mr: "-24px" }}

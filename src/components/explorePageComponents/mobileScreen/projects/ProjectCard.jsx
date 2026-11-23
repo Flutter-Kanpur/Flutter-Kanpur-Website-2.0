@@ -42,7 +42,6 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-// Round outlined icon button that opens a link (inert when href is empty).
 export const CircleLink = ({ href, label, size = 40, children }) => (
   <IconButton
     component="a"
@@ -128,7 +127,7 @@ const ProjectCard = ({
             fontFamily,
             fontSize: "18px",
             fontWeight: 500,
-            lineHeight: "26px",
+            lineHeight: "24px",
             color: colors.neutral[950],
           }}
         >
@@ -172,15 +171,21 @@ const ProjectCard = ({
           width="auto"
           sx={{ flex: 1, height: "36px", py: 0, fontSize: "14px" }}
         />
-        <CircleLink href={links.github} label="GitHub">
-          <GitHubIcon sx={{ fontSize: 20 }} />
-        </CircleLink>
-        <CircleLink href={links.link} label="Project link">
-          <InsertLinkIcon sx={{ fontSize: 20 }} />
-        </CircleLink>
-        <CircleLink href={links.website} label="Website">
-          <LanguageIcon sx={{ fontSize: 20 }} />
-        </CircleLink>
+        {links.github && links.github !== "#" && (
+          <CircleLink href={links.github} label="GitHub">
+            <GitHubIcon sx={{ fontSize: 20 }} />
+          </CircleLink>
+        )}
+        {links.link && links.link !== "#" && (
+          <CircleLink href={links.link} label="Project link">
+            <InsertLinkIcon sx={{ fontSize: 20 }} />
+          </CircleLink>
+        )}
+        {links.website && links.website !== "#" && (
+          <CircleLink href={links.website} label="Website">
+            <LanguageIcon sx={{ fontSize: 20 }} />
+          </CircleLink>
+        )}
       </Box>
     </Box>
   );

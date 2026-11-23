@@ -1,7 +1,7 @@
 // src/hooks/useCoreTeam.js
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 
 const DEFAULT_AVATAR = "/assets/explore-page-assets/avatar.svg";
@@ -89,6 +89,7 @@ export const useCoreTeam = () => {
           id: row.id,
           name,
           role,
+          is_lead: row.is_lead ?? false,
           title: row.title || `${teamName} • ${role}`,
           since: row.since || "",
           avatar,
@@ -139,5 +140,11 @@ export const useCoreTeam = () => {
     };
   }, []);
 
-  return { teamGroups, loading, error, refetch };
+  const data = useMemo(
+    () => teamGroups.flatMap((g) => g.members),
+    [teamGroups]
+  );
+
+  return { teamGroups, data, loading, error, refetch };
+
 };

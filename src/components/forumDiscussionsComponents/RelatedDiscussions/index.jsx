@@ -112,7 +112,7 @@ const RelatedDiscussions = ({
                       flexShrink: 0,
                     }}
                   >
-                    {discussion.responses.length} {answersLabel}
+                    {(discussion.responses?.length ?? discussion.answerCount ?? 0)} {answersLabel}
                   </Typography>
                 }
               />

@@ -1,7 +1,7 @@
 export const projectsContent = {
   heading: "Learn from Outstanding Community Projects",
   subheading:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum nulla sed consectetur.",
+    "See what community members are building with Flutter. Explore their code, try the live apps and get ideas for your next project.",
   ctaLabel: "View all projects",
   ctaHref: "/explore/browse-projects",
 };
