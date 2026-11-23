@@ -1,0 +1,98 @@
+.successSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+
+  padding: 72px 96px;
+  background: #ffffff;
+}
+
+.left {
+  flex-shrink: 0;
+}
+
+.heading {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #111827;
+}
+
+.accent {
+  color: #2f5bff;
+}
+
+.cardRow {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  min-width: 190px;
+  padding: 16px 20px;
+
+  background: #ffffff;
+  border: 1px solid #eef1f6;
+  border-radius: 14px;
+
+  box-shadow: 0 10px 30px rgba(31, 33, 48, 0.06);
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.cardAction {
+  font-size: 12px;
+  color: #2f5bff;
+}
+
+.cardIcon {
+  font-size: 22px;
+}
+
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .heading {
+    font-size: clamp(22px, calc(2.2vw + 11.4px), 34px);
+    line-height: 1.25;
+  }
+
+  .cardLabel {
+    font-size: clamp(12px, calc(0.2vw + 11px), 13px);
+  }
+
+  .cardAction {
+    font-size: clamp(11px, calc(0.2vw + 10px), 12px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .successSection {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 56px 32px;
+  }
+
+  .cardRow {
+    width: 100%;
+  }
+}
+

@@ -6,29 +6,35 @@ import Image from "next/image";
 
 const PRODUCT_SANS = "'Product Sans', system-ui, -apple-system, sans-serif";
 
-// 👉 DEFAULT STATIC DATA (UI unchanged for now)
+const DEFAULT_SPEAKER_IMAGE = "/assets/landing-page-assets/speaker.png";
+
+// DEFAULT STATIC DATA (UI unchanged for now)
 const defaultSpeakers = [
   {
     id: 1,
     name: "John Samuel",
     company: "Microsoft",
-    image: "/assets/landing-page-assets/speaker.png",
+    image: DEFAULT_SPEAKER_IMAGE,
   },
   {
     id: 2,
     name: "John Samuel",
     company: "Microsoft",
-    image: "/assets/landing-page-assets/speaker.png",
+    image: DEFAULT_SPEAKER_IMAGE,
   },
   {
     id: 3,
     name: "John Samuel",
     company: "Microsoft",
-    image: "/assets/landing-page-assets/speaker.png",
+    image: DEFAULT_SPEAKER_IMAGE,
   },
 ];
 
 const SpeakerSection = ({ speakers = defaultSpeakers }) => {
+  if (!speakers || speakers.length === 0) {
+    return null;
+  }
+
   return (
     <Box
       sx={{
@@ -51,8 +57,8 @@ const SpeakerSection = ({ speakers = defaultSpeakers }) => {
 
       {/* GRID */}
       <Grid container spacing={4}>
-        {speakers.map((speaker) => (
-          <Grid item xs={6} sm={4} md={3} key={speaker.id}>
+        {speakers.map((speaker, index) => (
+          <Grid size={{ xs: 6, sm: 4, md: 3 }} key={speaker.id ?? index}>
             <Box
               sx={{
                 display: "flex",
@@ -72,8 +78,8 @@ const SpeakerSection = ({ speakers = defaultSpeakers }) => {
                 }}
               >
                 <Image
-                  src={speaker.image}
-                  alt={speaker.name}
+                  src={speaker.image || DEFAULT_SPEAKER_IMAGE}
+                  alt={speaker.name || "Speaker"}
                   width={146}
                   height={146}
                   style={{
@@ -105,17 +111,19 @@ const SpeakerSection = ({ speakers = defaultSpeakers }) => {
                   {speaker.name}
                 </Typography>
 
-                <Typography
-                  sx={{
-                    fontSize: "16px",
-                    lineHeight: "28px",
-                    fontWeight: 400,
-                    color: "#6D6D6D",
-                    fontFamily: PRODUCT_SANS,
-                  }}
-                >
-                  {speaker.company}
-                </Typography>
+                {speaker.company ? (
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      lineHeight: "28px",
+                      fontWeight: 400,
+                      color: "#6D6D6D",
+                      fontFamily: PRODUCT_SANS,
+                    }}
+                  >
+                    {speaker.company}
+                  </Typography>
+                ) : null}
               </Box>
             </Box>
           </Grid>

@@ -1,0 +1,125 @@
+
+.projectsSection {
+  padding: 72px 96px;
+  background: #ffffff;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  margin: 0 auto 48px auto;
+}
+
+.headerText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.headerText h2 {
+  max-width: 520px;
+  margin: 0;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #000000;
+  text-align: center;
+}
+
+.headerText p {
+  max-width: 375px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #6D6D6D;
+  text-align: center;
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  color: #000000;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-content: center;
+  align-items: stretch;
+  gap: 20px;
+  width: 100%;
+  max-width: 862px;
+  margin: 0 auto;
+}
+
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .headerText h2 {
+    font-size: clamp(26px, calc(4.07vw + 6.3px), 48px);
+    line-height: 1.2;
+  }
+
+  .headerText p {
+    font-size: clamp(14px, calc(0.75vw + 10px), 18px);
+    line-height: 1.5;
+  }
+
+  .viewAll {
+    font-size: clamp(13px, calc(0.4vw + 11px), 15px);
+  }
+}
+
+/* Responsive Two-Column Grid */
+@media (max-width: 1024px) {
+  .projectsSection {
+    padding: 48px 28px;
+    box-sizing: border-box;
+  }
+
+  .headerText h2 {
+    width: 100%;
+    height: auto;
+  }
+
+  .headerText p {
+    width: 100%;
+    height: auto;
+  }
+
+
+}
+
+@media (max-width: 900px) {
+  .projectsSection {
+    padding: 48px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .projectsSection {
+    padding: 44px 20px;
+  }
+
+  .headerText h2 {
+    font-size: 28px;
+  }
+
+  .headerText p {
+    font-size: 15px;
+  }
+}
+

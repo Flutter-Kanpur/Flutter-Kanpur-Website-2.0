@@ -47,7 +47,7 @@ const Hero = () => {
           <span>Join our discord</span>
 
           <Image
-            src="/assets/community-page-assets/arrow-left.svg"
+            src="/assets/forum-page-assets/right-arrow.svg"
             alt="Left Arrow"
             width={18}
             height={18}

@@ -118,7 +118,7 @@ export const teamClusters = [
         rotate: 2,
         z: 2,
         tag: { role: "Flutter developer", name: "Lorem Ipsum", accent: "violet", value: "R" },
-        tagPos: { left: 0, top: 82.99 },
+        tagPos: { left: 20, top: 87.99 },
       },
       {
         id: 4,
@@ -143,7 +143,7 @@ export const teamClusters = [
         badge: "check",
         badgeColor: "success",
         tag: { role: "Web developer", name: "Lorem Ipsum", accent: "pending", value: "P" },
-        tagPos: { left: -60, top: 0 },
+        tagPos: { left: -50, top: -15 },
       },
       {
         id: 6,

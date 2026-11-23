@@ -462,12 +462,12 @@
 //             authError
 //           );
 
-//           router.push("/Auth/login");
+//           router.push("/auth/login");
 //           return;
 //         }
 
 //         if (!authUser) {
-//           router.push("/Auth/login");
+//           router.push("/auth/login");
 //           return;
 //         }
 
@@ -1971,12 +1971,12 @@ const [showCustomSkillInput, setShowCustomSkillInput] = useState(false);
 
         if (authError) {
           console.error("AUTH USER ERROR:", authError);
-          router.push("/Auth/login");
+          router.push("/auth/login");
           return;
         }
 
         if (!authUser) {
-          router.push("/Auth/login");
+          router.push("/auth/login");
           return;
         }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { Box, Typography, Button } from '@mui/material'
 
 const PRODUCT_SANS = "'Product Sans', system-ui, -apple-system, sans-serif"
@@ -99,7 +100,7 @@ const ReadyToGrowSection = ({
             {/* CTA */}
             {renderButton ? (
                 <Box sx={{ mt: 2 }}>{renderButton()}</Box>
-            ) : (
+            ) : onButtonClick ? (
                 <Button
                     onClick={onButtonClick}
                     sx={{
@@ -119,6 +120,27 @@ const ReadyToGrowSection = ({
                 >
                     {buttonLabel}
                 </Button>
+            ) : (
+                <Link href="/community" style={{ textDecoration: 'none' }}>
+                    <Button
+                        sx={{
+                            backgroundColor: '#1A1A1A',
+                            color: '#FFF',
+                            padding: '16px 48px',
+                            borderRadius: '100px',
+                            textTransform: 'none',
+                            fontSize: '18px',
+                            fontFamily: PRODUCT_SANS,
+                            fontWeight: 500,
+                            mt: 2,
+                            '&:hover': {
+                                backgroundColor: '#333'
+                            }
+                        }}
+                    >
+                        {buttonLabel}
+                    </Button>
+                </Link>
             )}
         </Box>
     )
