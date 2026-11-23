@@ -53,15 +53,17 @@ const FilterModal = ({ isOpen, filters, onApply, onClose }) => {
     ...EMPTY_FILTERS,
     ...filters,
   });
+  const [prevOpen, setPrevOpen] = useState(isOpen);
 
-  useEffect(() => {
+  if (isOpen !== prevOpen) {
+    setPrevOpen(isOpen);
     if (isOpen) {
       setDraft({
         ...EMPTY_FILTERS,
         ...filters,
       });
     }
-  }, [isOpen, filters]);
+  }
 
   const toggleSingle = (sectionKey, value) => {
     setDraft((prev) => ({

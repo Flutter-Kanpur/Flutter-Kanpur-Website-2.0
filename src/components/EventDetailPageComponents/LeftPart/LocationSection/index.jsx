@@ -14,7 +14,17 @@ const defaultLocationData = {
   ],
 };
 
-const LocationSection = ({ location = defaultLocationData }) => {
+const LocationSection = ({ location, lines }) => {
+  const displayLines =
+    lines && lines.length > 0
+      ? lines
+      : location?.lines || defaultLocationData.lines;
+  const displayTitle = location?.title || defaultLocationData.title;
+
+  if (!displayLines || displayLines.length === 0) {
+    return null;
+  }
+
   return (
     <Box
       sx={{
@@ -32,11 +42,11 @@ const LocationSection = ({ location = defaultLocationData }) => {
           fontFamily: PRODUCT_SANS,
         }}
       >
-        {location.title}
+        {displayTitle}
       </Typography>
 
       {/* CONTENT */}
-      {location.lines.map((text, index) => (
+      {displayLines.map((text, index) => (
         <Typography
           key={index}
           sx={{
