@@ -81,7 +81,14 @@ const ProjectsListScreen = () => {
   }, [allProjects, query, activeChip]);
 
   const goUpload = () => router.push(uploadProjectRoute);
-  const toggleChip = (chip) => setActiveChip((prev) => (prev === chip ? null : chip));
+  const handleQueryChange = (val) => {
+    setQuery(val);
+    setVisible(PAGE_SIZE);
+  };
+  const toggleChip = (chip) => {
+    setActiveChip((prev) => (prev === chip ? null : chip));
+    setVisible(PAGE_SIZE);
+  };
   const trimmed = query.trim();
 
   const renderBody = () => {
@@ -189,7 +196,7 @@ const ProjectsListScreen = () => {
     <MobileScreenShell title="Projects">
       <SearchInput
         value={query}
-        onChange={setQuery}
+        onChange={handleQueryChange}
         placeholder="Search for titles..."
       />
 

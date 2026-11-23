@@ -1,15 +1,22 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import PrimaryButton from "@/components/buttons/PrimaryButton/PrimaryButton";
 import Image from "next/image";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import TimerRoundedIcon from "@mui/icons-material/TimerRounded";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
+import MembersModal from "@/components/Community/MembersModal";
 import styles from "./CommunityMembers.module.css";
-import { teamClusters } from "@/data/communityData";
+import { teamClusters as fallbackClusters } from "@/data/communityData";
+import { teamMembers as fallbackTeamMembers } from "@/data/communityScreenData";
+import {
+  fetchCommunityMembers,
+  buildDynamicTeamClusters,
+} from "@/lib/supabase/community";
 
 // Maps each member's `accent`/`badgeColor` key to an existing theme color
-// and plus the two extra tag colors
-
 const ACCENT_COLORS = {
   primary: "#4167F2",
   pending: "#EF9F20",
@@ -18,6 +25,12 @@ const ACCENT_COLORS = {
   violet: "#6E1A98",
 };
 
+const initialFallbackList = fallbackTeamMembers.map((m) => ({
+  uid: `fallback-${m.id}`,
+  full_name: m.name,
+  roles: [m.role],
+  photo_url: m.avatar,
+}));
 
 function PhotoTile({ member }) {
   return (
@@ -33,11 +46,14 @@ function PhotoTile({ member }) {
       }}
     >
       <span className={styles.tileImageWrap}>
-        <img
-          src={member.image}
+        <Image
+          src={member.image || "/assets/community-page-assets/avatar-icon.svg"}
           alt={member.tag?.role || "Flutter Kanpur community member"}
           className={styles.tileImage}
-          loading="lazy"
+          width={200}
+          height={200}
+          unoptimized
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </span>
 
@@ -57,7 +73,7 @@ function PhotoTile({ member }) {
   );
 }
 
-// Renders the small role/name 
+// Renders the small role/name tag
 function MemberTag({ member }) {
   const accent = ACCENT_COLORS[member.tag.accent] || ACCENT_COLORS.primary;
   const TagIcon = member.tag.icon === "timer" ? TimerRoundedIcon : null;
@@ -79,13 +95,48 @@ function MemberTag({ member }) {
 }
 
 export default function MeetTheTeamSection() {
+  const [clusters, setClusters] = useState(fallbackClusters);
+  const [allMembers, setAllMembers] = useState(initialFallbackList);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Fetch real users from Supabase and dynamically overlay on team collage
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function loadMembers() {
+      try {
+        const users = await fetchCommunityMembers();
+        if (!isCancelled && users.length > 0) {
+          setAllMembers(users);
+          const dynamicClusters = buildDynamicTeamClusters(users);
+          setClusters(dynamicClusters);
+        }
+      } catch (err) {
+        console.warn("Could not load dynamic team members from backend:", err);
+      }
+    }
+
+    loadMembers();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
         <span className={styles.eyebrow}>Meet the Team</span>
-        <h2 className={styles.heading}>Explore profiles of Flutter Kanpur members and connect with like-minded developers.</h2>
+        <h2 className={styles.heading}>
+          Explore profiles of Flutter Kanpur members and connect with like-minded developers.
+        </h2>
 
         <PrimaryButton
+          onClick={handleOpenModal}
           fullWidth={false}
           sx={{
             width: "fit-content",
@@ -94,8 +145,8 @@ export default function MeetTheTeamSection() {
             px: "28px",
             fontSize: "16px",
             fontWeight: 500,
-            m:'38px'
-            ,
+            m: "38px",
+            cursor: "pointer",
           }}
           endIcon={
             <Image
@@ -110,7 +161,7 @@ export default function MeetTheTeamSection() {
         </PrimaryButton>
       </div>
 
-      <div className={styles.collage}>
+      <div id="community-collage" className={styles.collage}>
         <AutoAwesomeRoundedIcon
           className={`${styles.sparkle} ${styles.sparkleOne}`}
           sx={{ color: "#EF9F20" }}
@@ -136,7 +187,7 @@ export default function MeetTheTeamSection() {
           sx={{ color: "#EF9F20" }}
         />
 
-        {teamClusters.map((cluster) => (
+        {clusters.map((cluster) => (
           <div
             key={cluster.id}
             className={styles.cluster}
@@ -153,6 +204,13 @@ export default function MeetTheTeamSection() {
           </div>
         ))}
       </div>
+
+      {/* Interactive Modal listing all members fetched from Supabase */}
+      <MembersModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        members={allMembers}
+      />
     </section>
   );
 }

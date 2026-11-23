@@ -52,7 +52,7 @@
 .lead {
   margin-left: -75px;
   font-weight: 600;
-  line-height: auto;
+  line-height: normal;
   color: #000000;
   font-size: 24px;
   height: 124px;
@@ -83,6 +83,7 @@
 
   align-content: start;
 }
+
 .featureItem {
   display: flex;
   align-items: center;
@@ -92,7 +93,7 @@
 
   height: 49px;
 
-  padding: 12 18px;
+  padding: 12px 18px;
 
   border: 1px solid #E5E5E5;
   border-radius: 10px;
@@ -118,11 +119,7 @@
 
 .author {
   grid-area: author;
-}
-
-.author {
-  grid-area: author;
-  margin-left: -78px; /* adjust value */
+  margin-left: -78px;
 }
 
 .publish {
@@ -153,6 +150,7 @@
 .featureItem img {
   flex-shrink: 0;
 }
+
 .large {
   width: 296px;
 }
@@ -171,28 +169,29 @@
   justify-content: center;
 }
 
-@media (max-width: 768px) {
-  .rightGrid {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      "editor"
-      "drafts"
-      "author"
-      "publish"
-      "preview"
-      "tags"
-      "visibility";
+/* Fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .sectionTitle {
+    font-size: clamp(22px, calc(2.2vw + 11.4px), 34px);
+    line-height: 1.25;
+  }
+
+  .label {
+    font-size: clamp(12px, calc(0.35vw + 10.5px), 14px);
+  }
+
+  .lead,
+  .leadMuted {
+    font-size: clamp(18px, calc(1vw + 14px), 24px);
+    line-height: 1.35;
   }
 
   .featureItem {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+    font-size: clamp(14px, calc(0.75vw + 10px), 18px);
   }
 }
 
-/* Stack the two cards before the desktop layout starts to become cramped. */
-@media (max-width: 1100px) {
+@media (max-width: 1150px) {
   .featuresSection {
     padding: 48px 16px;
   }
@@ -205,7 +204,6 @@
     box-sizing: border-box;
   }
 
-  /* Keep the left card's contents in a horizontal arrangement. */
   .leftCard {
     display: grid;
     grid-template-columns: 48px minmax(0, 1fr);
@@ -268,11 +266,24 @@
 @media (max-width: 768px) {
   .rightGrid {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "editor"
+      "drafts"
+      "author"
+      "publish"
+      "preview"
+      "tags"
+      "visibility";
   }
 
   .featureItem {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     white-space: normal;
     height: auto;
     min-height: 49px;
   }
 }
+
+

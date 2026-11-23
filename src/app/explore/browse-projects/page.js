@@ -2,11 +2,12 @@
 
 import { useMemo, useState } from "react";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Skeleton from "@mui/material/Skeleton";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
 import { useMediaQuery } from "@mui/material";
+import Link from "next/link";
 
 import FooterComponent from "@/components/FooterComponent";
 import {
@@ -58,6 +59,8 @@ export default function BrowseProjectsPage() {
       ...techNames.map((tech) => ({ id: tech, label: tech })),
     ];
   }, [techNames]);
+
+  const { projects, loading, error, refetch } = useProjects();
 
   const handleSelectCategory = (id) => {
     setActiveCategory((prev) => (prev === id && id !== "all" ? "all" : id));

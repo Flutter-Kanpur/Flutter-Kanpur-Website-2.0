@@ -34,11 +34,11 @@ const QuestionCard = ({ question }) => {
         {question.title}
       </Typography>
 
-      {question.images.length > 0 && (
-        <Box sx={{ display: "flex", gap: "8px" }}>
-          {question.images.map((src) => (
+      {Array.isArray(question.images) && question.images.length > 0 && (
+        <Box sx={{ display: "flex", gap: "8px", overflowX: "auto" }}>
+          {question.images.map((src, idx) => (
             <Box
-              key={src}
+              key={`${src}-${idx}`}
               component="img"
               src={src}
               alt=""
@@ -57,8 +57,11 @@ const QuestionCard = ({ question }) => {
       <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Box
           component="img"
-          src={question.avatar}
-          alt={question.author}
+          src={
+            question.avatar ||
+            "/assets/community-page-assets/avatar-icon.svg"
+          }
+          alt={question.author || "Author"}
           sx={{
             width: "32px",
             height: "32px",

@@ -1,28 +1,21 @@
 "use client";
 
-
 import PrimaryButton from "@/components/buttons/PrimaryButton/PrimaryButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import EastIcon from "@mui/icons-material/East";
 import styles from "./BadgesLeaderBoard.module.css";
-import {
-  badgesLeaderboardContent,
-  badgeCategories,
-} from "@/data/communityData";
-import { useState } from "react";
+import { badgeCategories as fallbackCategories } from "@/data/communityData";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
+import { supabase } from "@/lib/supabase/client";
 
-const EARNED_ICON =
-  "/assets/community-page-assets/badge-earned.svg";
-
-const LOCKED_ICON =
-  "/assets/community-page-assets/badge-locked.svg";
+const EARNED_ICON = "/assets/community-page-assets/badge-earned.svg";
+const LOCKED_ICON = "/assets/community-page-assets/badge-locked.svg";
 
 function BadgeCategoryRow({ category, isOpen, onToggle }) {
-
-
-
   return (
     <div className={styles.categoryRow}>
       <button
@@ -42,24 +35,20 @@ function BadgeCategoryRow({ category, isOpen, onToggle }) {
       {isOpen && (
         <div className={styles.badgeIcons}>
           {category.badges.map((badge) => (
-            
             <span
-                key={badge.id}
-                className={`${styles.badgeIcon} ${
-                    badge.earned ? styles.badgeEarned : styles.badgeLocked
-                }`}
-                >
-                <Image
-                    src={
-                    badge.earned
-                        ? EARNED_ICON
-                        : LOCKED_ICON
-                    }
-                    alt={badge.earned ? "Earned badge" : "Locked badge"}
-                    width={60}
-                    height={61}
-                />
-                </span>
+              key={badge.id}
+              className={`${styles.badgeIcon} ${
+                badge.earned ? styles.badgeEarned : styles.badgeLocked
+              }`}
+            >
+              <Image
+                src={badge.icon || (badge.earned ? EARNED_ICON : LOCKED_ICON)}
+                alt={badge.title || (badge.earned ? "Earned badge" : "Locked badge")}
+                width={60}
+                height={61}
+                unoptimized
+              />
+            </span>
           ))}
         </div>
       )}
@@ -68,7 +57,55 @@ function BadgeCategoryRow({ category, isOpen, onToggle }) {
 }
 
 export default function BadgesLeaderBoard() {
-  const [openId, setOpenId] = useState(badgeCategories[0]?.id ?? null);
+  const router = useRouter();
+  const [categories, setCategories] = useState(fallbackCategories);
+  const [openId, setOpenId] = useState(fallbackCategories[0]?.id ?? null);
+
+  // Fetch real badges from Supabase badges table if populated
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function loadBadges() {
+      if (!supabase) return;
+      try {
+        const { data, error } = await supabase.from("badges").select("*");
+        if (!error && data && data.length > 0 && !isCancelled) {
+          const groups = {};
+          data.forEach((b) => {
+            const cat = b.category || "daily";
+            if (!groups[cat]) {
+              groups[cat] = {
+                id: cat,
+                label:
+                  b.category_label ||
+                  `${cat.charAt(0).toUpperCase() + cat.slice(1)} badges`,
+                badges: [],
+              };
+            }
+            groups[cat].badges.push({
+              id: b.id,
+              earned: Boolean(b.is_earned ?? b.earned),
+              title: b.title || b.name,
+              icon: b.icon_url,
+            });
+          });
+          const groupedList = Object.values(groups);
+          if (groupedList.length > 0) {
+            setCategories(groupedList);
+            setOpenId(groupedList[0]?.id ?? null);
+          }
+        }
+      } catch (e) {
+        console.warn("Could not load dynamic badges from Supabase:", e);
+      }
+    }
+
+    loadBadges();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
 
   return (
     <section className={styles.section}>
@@ -94,6 +131,7 @@ export default function BadgesLeaderBoard() {
               fontSize: "16px",
               fontWeight: 500,
             }}
+            onClick={() => router.push("/dashboard")}
           >
             View dashboard
           </PrimaryButton>
@@ -101,7 +139,7 @@ export default function BadgesLeaderBoard() {
 
         <div className={styles.right}>
           <div className={styles.card}>
-            {badgeCategories.map((category, index) => (
+            {categories.map((category, index) => (
               <div key={category.id}>
                 <BadgeCategoryRow
                   category={category}
@@ -110,17 +148,17 @@ export default function BadgesLeaderBoard() {
                     setOpenId(openId === category.id ? null : category.id)
                   }
                 />
-                {index < badgeCategories.length - 1 && (
+                {index < categories.length - 1 && (
                   <div className={styles.divider} />
                 )}
               </div>
             ))}
           </div>
 
-          <a href="#" className={styles.viewBadgesLink}>
+          <Link href="/dashboard" className={styles.viewBadgesLink}>
             View your badges
             <EastIcon sx={{ fontSize: 16 }} />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

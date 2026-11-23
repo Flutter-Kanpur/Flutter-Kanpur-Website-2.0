@@ -68,7 +68,7 @@
   font-size: 16px;
   box-shadow: 0 12px 30px rgba(31, 33, 48, 0.08);
   transition: border-color 0.2s ease;
-  color:#000000
+  color: #000000;
 }
 
 .searchInput::placeholder {
@@ -158,6 +158,28 @@
   gap: 10px;
 }
 
+/* fluid Tablet Typography */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .badge {
+    font-size: clamp(12px, 2vw, 14px);
+  }
+
+  .heading {
+    font-size: clamp(26px, calc(5.14vw - 1.7px), 60px);
+    line-height: 1.15;
+    min-height: 0;
+  }
+
+  .description {
+    font-size: clamp(12px, calc(0.5vw + 10px), 15px);
+    line-height: 1.7;
+  }
+
+  .searchInput {
+    font-size: clamp(14px, calc(0.5vw + 11px), 16px);
+  }
+}
+
 @media (max-width: 600px) {
   .hero {
     padding: 144px 16px 80px;
@@ -165,6 +187,7 @@
 
   .heading {
     min-height: 0;
-    font-size: 36px;
+    font-size: 30px;
   }
 }
+

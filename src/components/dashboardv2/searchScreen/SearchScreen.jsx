@@ -372,7 +372,7 @@ const SearchScreen = ({ events = [], onBack = () => {} }) => {
           ) : (
             <Box sx={{ textAlign: "center", py: "48px" }}>
               <Typography sx={{ color: "#9CA3AF", fontSize: "15px" }}>
-                No results found for "{query}"
+                No results found for &quot;{query}&quot;
               </Typography>
             </Box>
           )

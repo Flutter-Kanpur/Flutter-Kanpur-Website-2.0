@@ -2,7 +2,7 @@
 
 import EventPageComponent from "@/components/EventsPageComponents";
 import PaddingContainer from "@/components/PaddingContainer";
-import React from "react";
+import React, { Suspense, useState } from "react";
 import NavbarSection from "@/components/EventsNavbar/NavbarSection";
 import SearchSection from "@/components/EventsNavbar/SearchSection";
 import { Box, useMediaQuery } from "@mui/material";
@@ -25,8 +25,9 @@ const ultraWideSx = {
   },
 };
 
-const EventsPage = () => {
+const EventsPageInner = () => {
   const isMobile = useMediaQuery("(max-width:480px)");
+  const [searchQuery, setSearchQuery] = useState("");
 
   if (isMobile) return <EventsListScreen />;
 
@@ -34,10 +35,21 @@ const EventsPage = () => {
     <Box sx={ultraWideSx}>
       <PaddingContainer>
         <NavbarSection />
-        <SearchSection />
-        <EventPageComponent />
+        <SearchSection
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+        />
+        <EventPageComponent searchQuery={searchQuery} />
       </PaddingContainer>
     </Box>
+  );
+};
+
+const EventsPage = () => {
+  return (
+    <Suspense fallback={null}>
+      <EventsPageInner />
+    </Suspense>
   );
 };
 

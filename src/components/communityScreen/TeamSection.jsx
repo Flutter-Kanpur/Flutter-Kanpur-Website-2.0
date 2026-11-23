@@ -1,17 +1,20 @@
 "use client";
- 
+
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { keyframes } from "@mui/system";
 import SectionHeader from "./SectionHeader";
-import { teamMembers } from "@/data/communityScreenData";
- 
+import MembersModal from "@/components/Community/MembersModal";
+import { teamMembers as fallbackMembers } from "@/data/communityScreenData";
+import { fetchCommunityMembers } from "@/lib/supabase/community";
+
 /* ---- tweak these ---- */
 const DURATION = 32; // seconds for one full loop 
 const REPEAT = 3; // how many times a row's members repeat inside one group
 const GAP = 8; // space between pills (px) and between the two rows (px)
 const ROW2_OFFSET = -65; // row 2 starts shifted left, like the frame
- 
+
 // row 1 → moves right, row 2 → moves left
 const scrollLeft = keyframes`
   from { transform: translateX(0); }
@@ -21,9 +24,9 @@ const scrollRight = keyframes`
   from { transform: translateX(-50%); }
   to   { transform: translateX(0); }
 `;
- 
+
 const fontFamily = 'var(--font-product-sans), "Product Sans", sans-serif';
- 
+
 const MemberPill = ({ member }) => (
   <Box
     sx={{
@@ -39,8 +42,8 @@ const MemberPill = ({ member }) => (
   >
     <Box
       component="img"
-      src={member.avatar}
-      alt={member.name}
+      src={member.avatar || "/assets/community-page-assets/avatar-icon.svg"}
+      alt={member.name || "Team member"}
       sx={{
         width: "52px",
         height: "52px",
@@ -54,10 +57,9 @@ const MemberPill = ({ member }) => (
         sx={{
           fontFamily,
           fontSize: "16px",
-          lineHeight:"24px",
+          lineHeight: "24px",
           fontWeight: 500,
           color: "#000000",
-          lineHeight: 1.3,
         }}
       >
         {member.name}
@@ -66,10 +68,9 @@ const MemberPill = ({ member }) => (
         sx={{
           fontFamily,
           fontSize: "14px",
-          lineHeight:"20px",
+          lineHeight: "20px",
           fontWeight: 400,
           color: "#6D6D6D",
-          lineHeight: 1.4,
         }}
       >
         {member.role}
@@ -77,12 +78,12 @@ const MemberPill = ({ member }) => (
     </Box>
   </Box>
 );
- 
+
 const MarqueeRow = ({ members, direction, offset = 0 }) => {
   const items = Array.from({ length: REPEAT }).flatMap((_, r) =>
     members.map((m) => ({ ...m, key: `${m.id}-${r}` }))
   );
- 
+
   return (
     <Box sx={{ overflow: "hidden", width: "100%" }}>
       <Box
@@ -118,16 +119,57 @@ const MarqueeRow = ({ members, direction, offset = 0 }) => {
     </Box>
   );
 };
- 
+
 const TeamSection = () => {
-  const half = Math.ceil(teamMembers.length / 2);
-  const rowOne = teamMembers.slice(0, half);
-  const rowTwo = teamMembers.slice(half);
- 
+  const [members, setMembers] = useState(fallbackMembers);
+  const [rawUsers, setRawUsers] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function loadMembers() {
+      try {
+        const users = await fetchCommunityMembers();
+        if (!isCancelled && users.length > 0) {
+          setRawUsers(users);
+          const mapped = users.map((u, i) => {
+            const name = u.full_name || u.display_name || u.username || "Community Member";
+            return {
+              id: u.uid || `member-${i}`,
+              name,
+              role: u.roles?.[0] || "Community Member",
+              avatar:
+                u.photo_url ||
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4167F2&color=fff`,
+            };
+          });
+          setMembers(mapped);
+        }
+      } catch (err) {
+        console.warn("Could not load dynamic members for mobile team:", err);
+      }
+    }
+
+    loadMembers();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
+  const half = Math.ceil(members.length / 2);
+  const rowOne = members.slice(0, half);
+  const rowTwo = members.slice(half);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-      <SectionHeader title="Our team" />
- 
+      <SectionHeader
+        title="Our team"
+        actionLabel="View all"
+        onAction={() => setIsModalOpen(true)}
+      />
+
       <Box sx={{ display: "flex", flexDirection: "column", gap: `${GAP}px` }}>
         <MarqueeRow members={rowOne} direction="right" />
         {rowTwo.length > 0 && (
@@ -138,8 +180,20 @@ const TeamSection = () => {
           />
         )}
       </Box>
+
+      {/* Full members modal for mobile view */}
+      <MembersModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        members={rawUsers.length > 0 ? rawUsers : members.map((m) => ({
+          uid: m.id,
+          full_name: m.name,
+          roles: [m.role],
+          photo_url: m.avatar,
+        }))}
+      />
     </Box>
   );
 };
- 
+
 export default TeamSection;

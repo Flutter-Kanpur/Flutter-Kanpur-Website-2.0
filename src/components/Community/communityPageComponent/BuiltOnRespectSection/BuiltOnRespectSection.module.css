@@ -9,7 +9,6 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  
 }
 
 .left {
@@ -32,7 +31,6 @@
 
 .description {
   margin: 0;
-  
   font-size: 20px;
   line-height: 28px;
   color: #6d6d6d;
@@ -65,7 +63,6 @@
   height: 44px;
   border-radius: 14px;
   background: #4167f2;
-  
 }
 
 .cardTitle {
@@ -77,10 +74,37 @@
 }
 
 .cardDescription {
-  
   font-size: 18px;
-  line-height:25px;
+  line-height: 25px;
   color: #6d6d6d;
+}
+
+/* Fluid Tablet Typography & Overflow Protection */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .heading {
+    font-size: clamp(24px, calc(5.14vw - 6.7px), 48px);
+    line-height: 1.2;
+  }
+
+  .description {
+    font-size: clamp(13px, calc(1.5vw + 2px), 17px);
+    line-height: clamp(20px, calc(1.5vw + 14px), 26px);
+  }
+
+  .cardTitle {
+    font-size: clamp(17px, calc(0.75vw + 12px), 20px);
+    height: auto;
+  }
+
+  .cardDescription {
+    font-size: clamp(14px, calc(0.75vw + 10px), 16px);
+    line-height: clamp(20px, calc(0.75vw + 16px), 24px);
+  }
+
+  .card {
+    height: auto;
+    min-height: 240px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -95,6 +119,7 @@
   .right {
     max-width: 100%;
     width: 100%;
+    padding-top: 20px;
   }
 }
 
@@ -109,24 +134,11 @@
 
   .card {
     padding: 16px 18px;
+    height: auto;
+  }
+
+  .cardTitle {
+    height: auto;
   }
 }
 
-@media (max-width: 480px) {
-  .section {
-    padding: 48px 16px;
-  }
-
-  .heading {
-    font-size: 22px;
-  }
-
-  .categoryLabel {
-    font-size: 15px;
-  }
-
-  .badgeIcon {
-    width: 38px;
-    height: 38px;
-  }
-}
